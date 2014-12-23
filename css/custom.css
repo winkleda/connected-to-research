@@ -1,9 +1,30 @@
+
+/*
+ * this eliminates the spacing between the bottom of the nav bar and the top of the sections
+ */
+
 .custom-main-header-bar{
 	margin-bottom:0px;
 }
+
+/*
+ * this is used to help center the menues and the search in the nav bar
+ */
+
 .custom-main-nav-bar{
 	padding:5% 0;
 }
 .custom-nav-search-bar{
 	padding:5% 0;
+}
+
+/* 
+ * this is to be used for the image used in the nav bar on top of the page 
+ *
+ * */
+
+.user-image-thumbnail{
+	height:70px;
+	width:70px;
+	margin-top:5px;
 }
