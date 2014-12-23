@@ -23,8 +23,24 @@
  *
  * */
 
-.user-image-thumbnail{
+.user-image-thumbnail-wrapper{
 	height:70px;
 	width:70px;
 	margin-top:5px;
+	overflow:hidden;
+	float:right;
+	clear:both;
+}
+
+.user-image-thumbnail{
+	width:inherit;
+}
+
+.user-name-nav{
+	float:right;
+	clear:both;
+}
+.user-title-nav{
+	float:right;
+	clear:both;
 }
