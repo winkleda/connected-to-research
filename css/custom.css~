@@ -2,8 +2,5 @@
 	margin-bottom:0px;
 }
 .custom-main-nav-bar{
-	padding:5% 0;
-}
-.custom-nav-search-bar{
-	padding:5% 0;
+	padding:5%;
 }
