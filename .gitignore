@@ -1,0 +1,3 @@
+#ignoring swap files and temp files created by vim
+**/*.swp
+**/*~
