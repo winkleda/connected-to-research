@@ -44,3 +44,19 @@
 	float:right;
 	clear:both;
 }
+
+/*
+ * this is for changing the size of the filter column lists
+ */
+.filter-column-groups{
+	padding:0px;
+}
+.filter-column-groups a{
+	background-color:transparent;
+	border:none;
+	padding: 5px 2px;
+}
+
+.list-group-item > .badge {
+	margin-left:5px;
+}

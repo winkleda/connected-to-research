@@ -38,7 +38,25 @@
 
 .user-name-nav{
 	float:right;
+	clear:both;
 }
 .user-title-nav{
 	float:right;
+	clear:both;
+}
+
+/*
+ * this is for changing the size of the filter column lists
+ */
+.filter-column-groups{
+	padding:0px;
+}
+.filter-column-groups a{
+	background-color:transparent;
+	border:none;
+	padding: 5px;
+}
+
+.list-group-item > .badge {
+	margin-left:5px;
 }
