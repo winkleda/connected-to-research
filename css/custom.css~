@@ -54,9 +54,39 @@
 .filter-column-groups a{
 	background-color:transparent;
 	border:none;
-	padding: 5px;
+	padding: 5px 2px;
 }
 
 .list-group-item > .badge {
 	margin-left:5px;
+}
+
+/*
+ * publication item styling
+ */
+
+.publication-item > .tag-link-list{
+	list-style-type:none;
+	padding:0px 5px;
+	float:left;	
+}
+.publication-item > .tag-link-list li{
+	display:inline;
+}
+#publication-column > .panel-body{
+	padding:5px 0px;
+}
+.publication-item > .publication-info {
+	float:right;
+}
+.publication-item > .publication-title {
+	clear:both;
+}
+.publication-item > .publication-image {
+	overflow:hidden;
+}
+
+/* this is only temporary and will need to be changed later */
+.publication-item > .publication-image img{
+	width:100%;
 }
