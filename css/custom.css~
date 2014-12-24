@@ -90,3 +90,26 @@
 .publication-item > .publication-image img{
 	width:100%;
 }
+
+
+/*
+ * stylings for the Reseach Events and Deadlines (RED)
+ */
+.RED-month{
+
+}
+.RED-month-title{
+	margin-bottom:0px;
+}
+.RED-month-row{
+
+}
+.RED-event-date{
+	padding-right:0px;
+}
+.RED-event-name{
+	margin:10px 0;
+}
+.RED-month-away{
+	margin:10px 0;
+}
