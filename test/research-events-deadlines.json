@@ -1,0 +1,46 @@
+{
+	"data":[
+		{
+			"month":"November",
+			"month-away":"1",
+			"events":[
+				{"date":"5", "event":"Company Meeting"},
+				{"date":"11", "event":"Company Meeting"},
+				{"date":"16", "event":"Company Meeting"},
+				{"date":"24", "event":"Company Meeting"}
+			]
+		},
+		{
+			"month":"December",
+			"month-away":"2",
+			"events":[
+				{"date":"5", "event":"Company Meeting"},
+				{"date":"11", "event":"Company Meeting"},
+				{"date":"16", "event":"Company Meeting"},
+				{"date":"24", "event":"Company Meeting"}
+			]
+		},
+		{
+			"month":"January",
+			"month-away":"3",
+			"events":[
+				{"date":"5", "event":"Company Meeting"},
+				{"date":"11", "event":"Company Meeting"},
+				{"date":"16", "event":"Company Meeting"},
+				{"date":"24", "event":"Company Meeting"}
+			]
+		},
+		{
+			"month":"February",
+			"month-away":"4",
+			"events":[
+				{"date":"5", "event":"Company Meeting"},
+				{"date":"11", "event":"Company Meeting"},
+				{"date":"16", "event":"Company Meeting"},
+				{"date":"24", "event":"Company Meeting"}
+			]
+		}
+
+	]
+
+}
