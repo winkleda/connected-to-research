@@ -1,20 +1,20 @@
-{
-	"data":[
+
+	[
 		{	
-			"tag-list":[
+			"tagList":[
 					"Visual Analitics",
 					"Vision",
 					"Text Analitics"
 				],
 			"publication":"IEEE VAST",
 			"title":"UTOPIAN: user-driven topic modeliing based on interactive nonnegative matrix factorization",
-			"user-interest":"22",
+			"userInterest":"22",
 			"authors":[
 				"Professor Farnsworth", "Philip J. Fry"
 			],
 			"abstract":"something about some other things and it looks kinda cool because you have thiese things that show up and you dont know what is going on and then some other things happen like bill cosby showing up and giving you a sweater",
-			"image-src":"./img/test-image-1.jpg"
+			"imageSrc":"./img/test-image-1.jpg"
 		}
 	]
 
-}
+

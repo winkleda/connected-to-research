@@ -1,8 +1,8 @@
-{
-	"data":[
+
+	[
 		{
 			"month":"November",
-			"month-away":"1",
+			"monthAway":"1",
 			"events":[
 				{"date":"5", "event":"Company Meeting"},
 				{"date":"11", "event":"Company Meeting"},
@@ -12,7 +12,7 @@
 		},
 		{
 			"month":"December",
-			"month-away":"2",
+			"monthAway":"2",
 			"events":[
 				{"date":"5", "event":"Company Meeting"},
 				{"date":"11", "event":"Company Meeting"},
@@ -22,7 +22,7 @@
 		},
 		{
 			"month":"January",
-			"month-away":"3",
+			"monthAway":"3",
 			"events":[
 				{"date":"5", "event":"Company Meeting"},
 				{"date":"11", "event":"Company Meeting"},
@@ -32,7 +32,7 @@
 		},
 		{
 			"month":"February",
-			"month-away":"4",
+			"monthAway":"4",
 			"events":[
 				{"date":"5", "event":"Company Meeting"},
 				{"date":"11", "event":"Company Meeting"},
@@ -43,4 +43,4 @@
 
 	]
 
-}
+

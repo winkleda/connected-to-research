@@ -1,43 +1,42 @@
-{
-	"data":
+
 	[
 		{
 			"header":"Type",
 			"items":[
-				{"group-item":"All", "amount":"129"},
-				{"group-item":"Journal Articles", "amount":"114"},
-				{"group-item":"Cited Work", "amount":"98"},
-				{"group-item":"Read", "amount":"23"}
+				{"groupItem":"All", "amount":129},
+				{"groupItem":"Journal Articles", "amount":114},
+				{"groupItem":"Cited Work", "amount":98},
+				{"groupItem":"Read", "amount":23}
 			]
 		},
 		{
 			"header":"Date",
 			"items":[
-				{"group-item":"All", "amount":"129"},
-				{"group-item":"Journal Articles", "amount":"114"},
-				{"group-item":"Cited Work", "amount":"98"},
-				{"group-item":"Read", "amount":"23"}
+				{"groupItem":"All", "amount":129},
+				{"groupItem":"Journal Articles", "amount":114},
+				{"groupItem":"Cited Work", "amount":98},
+				{"groupItem":"Read", "amount":23}
 			]
 		},
 		{
 			"header":"Filter",
 			"items":[
-				{"group-item":"All", "amount":"129"},
-				{"group-item":"Journal Articles", "amount":"114"},
-				{"group-item":"Cited Work", "amount":"98"},
-				{"group-item":"Read", "amount":"23"}
+				{"groupItem":"All", "amount":129},
+				{"groupItem":"Journal Articles", "amount":114},
+				{"groupItem":"Cited Work", "amount":98},
+				{"groupItem":"Read", "amount":23}
 			]
 		},
 		{
 			"header":"Other",
 			"items":[
-				{"group-item":"All", "amount":"129"},
-				{"group-item":"Journal Articles", "amount":"114"},
-				{"group-item":"Cited Work", "amount":"98"},
-				{"group-item":"Read", "amount":"23"}
+				{"groupItem":"All", "amount":129},
+				{"groupItem":"Journal Articles", "amount":114},
+				{"groupItem":"Cited Work", "amount":98},
+				{"groupItem":"Read", "amount":23}
 			]
 		}
 
 	]
 
-}
+

@@ -1,10 +1,10 @@
-{
-	"data":[
+
+	[
 		{
 			"title":"Computer-supported Cooperate Work and Social Computing",
 			"date":"March 14-18",
 			"location":"Vancoover Washington, USA",
-			"impact-factor":"",
+			"impactFactor":"",
 			"description":"",
 			"events":[
 				{"event":"Papers","date":"June 10"},
@@ -16,7 +16,7 @@
 			"title":"Delivery Confrence",
 			"date":"May 10-14",
 			"location":"New New York, USA",
-			"impact-factor":"221",
+			"impactFactor":"221",
 			"description":"Confrence for devlivery people",
 			"events":[
 				{"event":"Papers","date":"May 10"},
@@ -29,7 +29,7 @@
 			"title":"Computer-supported Cooperate Work and Social Computing",
 			"date":"March 14-18",
 			"location":"Vancoover Washington, USA",
-			"impact-factor":"22",
+			"impactFactor":"22",
 			"description":"",
 			"events":[
 				{"event":"Papers","date":"June 10"},
@@ -41,7 +41,7 @@
 			"title":"Computer-supported Cooperate Work and Social Computing",
 			"date":"March 14-18",
 			"location":"Vancoover Washington, USA",
-			"impact-factor":"22",
+			"impactFactor":"22",
 			"description":"",
 			"events":[
 				{"event":"Papers","date":"June 10"},
@@ -52,4 +52,4 @@
 
 	]
 
-}
+
