@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="publication">
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/custom.css" />
+		<script type="text/javascript" src = "js/angular.min.js"></script>
+		<script type="text/javascript" src = "js/app.js"></script>
 	</head>
 	<body>
 		<header class="container navbar custom-main-header-bar">
@@ -29,72 +31,10 @@
 				</div>
 			</div>
 		</header>
-		<div id="main-content" class="container">
+		<div id="main-content" class="container" ng-controller="PublicationController as publicationCtrl">
 			<div class="row">
-				<div id="filter-column" class="col-xs-2 panel panel-default text-right ">
-					<h4 class="panel-header">Type</h4>
-					<div class="panel-body filter-column-groups">
-						<ul class="list-group">
-							<a href="#" class="list-group-item">
-								<span class="badge">114</span>
-								All
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">74</span>
-								Journal Articles
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">36</span>
-								Cited Work
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">19</span>
-								Read
-							</a>
-						</ul>	
-					</div>
-					<h4 class="panel-header">Date</h4>
-					<div class="panel-body filter-column-groups">
-						<ul class="list-group">
-							<a href="#" class="list-group-item">
-								<span class="badge">94</span>
-								All
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">67</span>
-								Journal Articles
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">58</span>
-								Cited Work
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">13</span>
-								Read
-							</a>
-						</ul>	
-					</div>
-					<h4 class="panel-header ">Sort</h4>
-					<div class="panel-body filter-column-groups">	
-						<ul class="list-group">
-							<a href="#" class="list-group-item">
-								<span class="badge">214</span>
-								All
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">124</span>
-								Journal Articles
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">90</span>
-								Cited Work
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="badge">11</span>
-								Read
-							</a>
-						</ul>	
-					</div>
+				<div id="filter-column" class="col-xs-2 panel panel-default text-right " >
+					<filter ng-repeat="filter in publicationCtrl.filter" ></filter>
 				</div>
 				<div id="publication-column" class="col-xs-5 panel panel-default ">
 					<h4 class="panel-header">Publications</h4>
@@ -262,7 +202,5 @@
 			
 		</div>	
 		
-		<script type="text/javascript" src = "js/angular.min.js"></script>
-		<script type="text/javascript" src = "js/my.js"></script>
 	</body>
 </html>

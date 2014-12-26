@@ -1,21 +1,9 @@
-<h4 class="panel-header">Date</h4>
+<h4 class="panel-header">{{filter.header}}</h4>
 <div class="panel-body filter-column-groups">
-	<ul class="list-group">
+	<ul class="list-group" ng-repeat="item in filter.items">
 		<a href="#" class="list-group-item">
-			<span class="badge">94</span>
-			All
-		</a>
-		<a href="#" class="list-group-item">
-			<span class="badge">67</span>
-			Journal Articles
-		</a>
-		<a href="#" class="list-group-item">
-			<span class="badge">58</span>
-			Cited Work
-		</a>
-		<a href="#" class="list-group-item">
-			<span class="badge">13</span>
-			Read
+			{{item.groupItem}}
+			<span class="badge">{{item.amount}}</span>
 		</a>
 	</ul>	
 </div>
