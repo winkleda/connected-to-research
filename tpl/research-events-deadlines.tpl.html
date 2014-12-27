@@ -1,16 +1,8 @@
 <div class="RED-month">
-	<h4 class="RED-month-title ">November</h4>
-	<small class="RED-month-away ">3 month away</small>
-	<div class="row RED-month-row">
-		<h4 class="RED-event-date col-xs-2 text-right">5</h4>
-		<div class="RED-event-name col-xs-10">Company Meeting</div>
-	</div>
-	<div class="row RED-month-row">
-		<h4 class="RED-event-date col-xs-2 text-right">19</h4>
-		<div class="RED-event-name col-xs-10">Company Meeting</div>
-	</div>
-	<div class="row RED-month-row">
-		<h4 class="RED-event-date col-xs-2 text-right">25</h4>
-		<div class="RED-event-name col-xs-10">Company Picnic</div>
+	<h4 class="RED-month-title ">{{REDMonth.month}}</h4>
+	<small class="RED-month-away ">Months away: {{REDMonth.monthAway}}</small>
+	<div class="row RED-month-row" ng-repeat="event in REDMonth.events" >
+		<h4 class="RED-event-date col-xs-2 text-right">{{event.date}}</h4>
+		<div class="RED-event-name col-xs-10">{{event.event}}</div>
 	</div>
 </div>

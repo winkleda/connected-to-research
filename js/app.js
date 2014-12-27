@@ -26,6 +26,14 @@
 		};
 	});
 
+	//directive for research events and deadlines
+	app.directive('researchEventsAndDeadlines', function(){
+		return{
+			restrict:'E',
+			templateUrl:'tpl/research-events-deadlines.tpl.html'
+		};
+	});
+
 	app.controller('PublicationController',['$http', function($http){
 		var publicationCtrl = this;
 	
@@ -44,7 +52,11 @@
 		$http.get("test/participation.json").success(function(data){
 			publicationCtrl.participationItems = data;
 		});
-
+		
+		publicationCtrl.researchEventsDeadlines = [];
+		$http.get("test/research-events-deadlines.json").success(function(data){
+			publicationCtrl.researchEventsDeadlines = data;
+		});
 	}]);
 	
 })();
