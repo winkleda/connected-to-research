@@ -90,6 +90,11 @@
 	overflow:hidden;
 }
 
+.publication-author {
+	display:inline;
+}
+
+
 /* this is only temporary and will need to be changed later */
 .publication-item > .publication-image img{
 	width:100%;

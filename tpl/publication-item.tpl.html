@@ -1,20 +1,24 @@
 
 <div class="publication-item">
-	<ul class="tag-link-list"><li><a>visual analitics</a></li>, <li><a>visual</a></li>, <li><a>text analitics</a></li></ul>
-	<div class="publication-info">IEEE VAST, OCT 2012</div>
-	<h3 class="publication-title">UTOPIAN: user-driven topic modeliing based on interactive nonnegative matrix factorization</h3>
+	<ul class="tag-link-list"><li ng-repeat="tag in pubItem.tagList"><a>{{tag}},</a></li></ul>
+	<div class="publication-info">{{pubItem.publication}}</div>
+	<h3 class="publication-title">{{pubItem.title}}</h3>
 	<div class="publication-user-intrest">
-		22 people like this	
+		{{pubItem.userInterest}} people like this	
 	</div>
 	<div class="publication-authors">
-		<strong>Professor Farnsworth, Philip J. Fry. </strong>
+		<strong> 
+			<div class="publication-author" ng-repeat="author in pubItem.authors">
+				{{author}}
+			</div>
+		</strong>
 	</div>
 	<div class="publication-abstract">
 		<p>
-			something about some other things and it looks kinda cool because you have thiese things that show up and you dont know what is going on and then some other things happen like bill cosby showing up and giving you a sweater
+			{{pubItem.abstract}}
 		</p>
 	</div>
 	<div class="publication-image">
-		<img src="./img/test-image-1.jpg" />
+		<img ng-src="{{pubItem.imageSrc}}" />
 	</div>
 </div>
