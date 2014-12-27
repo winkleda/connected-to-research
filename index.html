@@ -47,72 +47,8 @@
 						<div id="participation-column" class="col-xs-6 panel panel-default ">
 							<h4 class="panel-header">Calls for Participation</h4>
 							<div class="panel-body">
-								<div class="participation-item">
-									<h4 class="participation-title">Computer-supported Cooperate Work and Social Computing</h4>
-									<div class="participation-date-loc small">
-										March 14-18, 2015 Vancoover Washington, USA
-									</div>
-									<div class-"participation-impact-factor">
-
-									</div>
-									<div class="participation-description">
-										
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Papers </div> <div class="col-xs-6 text-right"> June 10 </div>
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Workshops </div> <div class="col-xs-6 text-right"> June 14 </div>
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Interactive Posters </div> <div class="col-xs-6 text-right"> June 19 </div>
-									</div>
-
-								</div>
-								<div class="participation-item">
-									<h4 class="participation-title">Delivery Confrence</h4>
-									<div class="participation-date-loc small">
-										March 14-18, 2015 Vancoover Washington, USA
-									</div>
-									<div class-"participation-impact-factor">
-										Impact Factor: 1,234
-									</div>
-									<div class="participation-description">
-										this is a thing that does some stuff and it would be cool if you could come.	
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Papers </div> <div class="col-xs-6 text-right"> June 10 </div>
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Workshops </div> <div class="col-xs-6 text-right"> June 14 </div>
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Interactive Posters </div> <div class="col-xs-6 text-right"> June 19 </div>
-									</div>
-
-								</div>
-								<div class="participation-item">
-									<h4 class="participation-title">Computer-supported Cooperate Work and Social Computing</h4>
-									<div class="participation-date-loc small">
-										March 14-18, 2015 Vancoover Washington, USA
-									</div>
-									<div class-"participation-impact-factor">
-
-									</div>
-									<div class="participation-description">
-										
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Papers </div> <div class="col-xs-6 text-right"> June 10 </div>
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Workshops </div> <div class="col-xs-6 text-right"> June 14 </div>
-									</div>
-									<div class="row">
-										<div class="col-xs-6 text-left"> Interactive Posters </div> <div class="col-xs-6 text-right"> June 19 </div>
-									</div>
-
-								</div>
+								<participation-item ng-repeat="parItem in publicationCtrl.participationItems"></participation-item>
+							
 							</div>
 						</div>	
 						<div id="events-deadlines-column" class="col-xs-6 panel panel-default ">

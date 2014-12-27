@@ -1,21 +1,15 @@
 <div class="participation-item">
-	<h4 class="participation-title">Computer-supported Cooperate Work and Social Computing</h4>
+	<h4 class="participation-title">{{parItem.title}}</h4>
 	<div class="participation-date-loc small">
-		March 14-18, 2015 Vancoover Washington, USA
+		{{parItem.date}}, {{parItem.location}}
 	</div>
 	<div class-"participation-impact-factor">
-
+		Impact Factor: {{parItem.impactFactor}}
 	</div>
 	<div class="participation-description">
-								
+		{{parItem.description}}						
 	</div>
-	<div class="row publication-event">
-		<div class="col-xs-6 text-left"> Papers </div> <div class="col-xs-6 text-right"> June 10 </div>
+	<div class="row publication-event" ng-repeat="event in parItem.events">
+		<div class="col-xs-6 text-left"> {{event.event}} </div> <div class="col-xs-6 text-right"> {{event.date}} </div>
 	</div>
-	<div class="row publication-event">
-		<div class="col-xs-6 text-left"> Workshops </div> <div class="col-xs-6 text-right"> June 14 </div>
-	</div>
-	<div class="row publication-event">
-		<div class="col-xs-6 text-left"> Interactive Posters </div> <div class="col-xs-6 text-right"> June 19 </div>
-	</div>
-/div>
+</div>

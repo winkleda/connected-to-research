@@ -2,6 +2,7 @@
 
 	var app = angular.module('publication', []);
 
+	// directive for the filter items
 	app.directive('filter', function(){
 		return{
 			restrict:'E',
@@ -9,7 +10,7 @@
 		};
 	});
 
-	
+	//directive for the publication items
 	app.directive('publicationItem', function(){
 		return{
 			restrict:'E',
@@ -17,6 +18,13 @@
 		};
 	});
 
+	//directives for the participation items
+	app.directive('participationItem', function(){
+		return{
+			restrict:'E',
+			templateUrl:'tpl/participation-item.tpl.html'
+		};
+	});
 
 	app.controller('PublicationController',['$http', function($http){
 		var publicationCtrl = this;
@@ -31,6 +39,12 @@
 		$http.get("test/publication-items.json").success(function(data){
 			publicationCtrl.publicationItems = data;
 		});	
+
+		publicationCtrl.participationItems = [];
+		$http.get("test/participation.json").success(function(data){
+			publicationCtrl.participationItems = data;
+		});
+
 	}]);
 	
 })();
