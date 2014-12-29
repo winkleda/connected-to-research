@@ -1,0 +1,77 @@
+this is just a document to help think out and write out the data base
+structure
+
+User					// the user information
+	password  			// will be the hashed password for the user
+	name_f 				// the first name of the user
+	name_l 				// the last name of the user
+	email					// the email of the user, this will be used for the login
+								// credentials to verify user since the email will be
+								// uniqe for the user 
+	user_id				// a unique identifier to be used in the other list for
+								//when aggrigating all the data
+
+user_article_link	// list of the what articles people have read or
+						// have unread or what ever else the filters need
+	
+	article_id			// the data_id of the article_id to help link informatin
+	user_id				// the user_id of the user_id of the user that the
+								//article is for
+	id						// the id of this particular item
+	status				// the status of this item for the user, like unread
+	
+	
+
+article				// the article itself
+	type					// the type of article, like journal article or book
+	data_id				// the id that will be used to refrence this artivle in
+								//	the data base
+	title					// the title of the article
+	date					//	the date that the article has been pubished,
+								// looks like it is just a year and no month or day
+	keywords				// list of key words for the article
+	reprint				// not sure what this is for but it is in the xml 
+	startpage			// the page that the article starts on
+	endpage				// the page that the article ends on
+	j_name				// the name of the journal the article is in
+	article_id			// the id of the article that is given in the xml
+	j_issue				// the journal issue that the article is in
+	j_volume				// the journal volume that the article is in
+	abstract				// the abstract of the article
+	url					// the url that is given in the xml
+	isbn_issn			// the isbn or the issn of the article
+	lang					// the language of the article, not sure if this is
+								//needed at the moment
+	discipline			// the discipline that the article is in
+	
+user_red_link		// link between research and events deadlines and the user
+	research_id			// the id of the reserach item
+	user_id 				// the id of the user
+
+re_deadlines		// the research events and deadlins to be displayed
+	date					// the date that the event or deadline is
+	re_id					// the id of the re_deadlines
+	title					// the title of the event or deadline
+	location				// the location, if there is one, of the event
+	status				// the status of the dedline
+
+user_part_link		// the link between the user and calls for participation
+	user_id				// the id of the user
+	part_id				// the id of the call_for_part
+
+call_for_part		// the call for participation main piece
+	date					// the date for the call for participation
+	title					// the title for the participation
+	location				// the location of the participation event
+	part_id				// the id of the participation event, used to link to
+								// user
+	impact_fact			// the impact factoer of the event
+	description			// the description of the event
+
+call_part_item		// the call for participation items
+	title					// the title of the item
+	date					// the date of the item
+	link_id				// the ide of the call_for_part 
+	id						// the id of the item itself
+
+
