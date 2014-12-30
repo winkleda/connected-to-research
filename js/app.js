@@ -48,7 +48,7 @@
 
 		navbarCtrl.userInfo = [];
 		$http.get("test/nav-bar.json").success(function(data){
-			navbarCtrl = data;
+			navbarCtrl.userInfo = data;
 		});
 
 	}]);
