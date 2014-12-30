@@ -33,7 +33,27 @@
 			templateUrl:'tpl/research-events-deadlines.tpl.html'
 		};
 	});
+	
+	//directive for generating the user nav bar
+	app.directive('userNavBar', function(){
+		return{
+			restrict: 'E',
+			templateUrl:'tpl/nav-bar.tpl.html'
+		};
+	});
 
+	//controller for the header bar
+	app.controller('NavbarController', ['$http', function($http){
+		var navbarCtrl = this;
+
+		navbarCtrl.userInfo = [];
+		$http.get("test/nav-bar.json").success(function(data){
+			navbarCtrl = data;
+		});
+
+	}]);
+
+	//main controller for the content
 	app.controller('PublicationController',['$http', function($http){
 		var publicationCtrl = this;
 	
