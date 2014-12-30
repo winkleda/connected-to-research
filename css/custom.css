@@ -125,3 +125,10 @@
 .RED-month-away{
 	margin:10px 0;
 }
+
+/*
+ * the css for the login page
+ */
+.login-head-space{
+	margin-top:75px;
+}
