@@ -10,6 +10,9 @@ User				// the user information
 						// uniqe for the user 
 	user_id(int)			// a unique identifier to be used in the other list for
 						//when aggrigating all the data
+	user_img_src(string)		// location of the user image for that
+						//user
+	user_occ(string)		// user occupation
 
 user_article_link		// list of the what articles people have read or
 				// have unread or what ever else the filters need
