@@ -27,10 +27,10 @@ user_article_link		// list of the what articles people have read or
 
 article				// the article itself
 	type(string)			// the type of article, like journal article or book
-	data_id(string)			// the id that will be used to refrence this artivle in
+	id(string)			// the id that will be used to refrence this artivle in
 						// the data base
 	title(string)			// the title of the article
-	date(date)			// the date that the article has been pubished,
+	a_date(date)			// the date that the article has been pubished,
 						// looks like it is just a year and no month or day
 	keywords(string)?		// list of key words for the article
 	reprint(string)			// not sure what this is for but it is in the xml 
@@ -50,31 +50,28 @@ article				// the article itself
 user_red_link			// link between research and events deadlines and the user
 	research_id(int)		// the id of the reserach item
 	user_id(int) 			// the id of the user
+	id(int)				// the id of the link itself
 
 re_deadlines			// the research events and deadlins to be displayed
-	date(date)			// the date that the event or deadline is
+	re_date(date)			// the date that the event or deadline is
 	re_id(int)			// the id of the re_deadlines
 	title(string)			// the title of the event or deadline
 	location(string)		// the location, if there is one, of the event
 	status(string)			// the status of the dedline
 
-user_part_link			// the link between the user and calls for participation
-	user_id(int)			// the id of the user
-	part_id(int)			// the id of the call_for_part
-
 call_for_part			// the call for participation main piece
-	date(date)			// the date for the call for participation
+	p_date(date)			// the date for the call for participation
 	title(string)			// the title for the participation
 	location(string)		// the location of the participation event
-	part_id(int)			// the id of the participation event, used to link to
+	p_id(int)			// the id of the participation event, used to link to
 						// user
 	impact_fact(mediumint)		// the impact factoer of the event
 	description(string)		// the description of the event
 
 call_part_item			// the call for participation items
 	title(string)			// the title of the item
-	date(date)			// the date of the item
+	i_date(date)			// the date of the item
 	link_id(int)			// the ide of the call_for_part 
-	id(int)				// the id of the item itself
+	i_id(int)				// the id of the item itself
 
 
