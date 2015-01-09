@@ -74,7 +74,7 @@
 		});
 		
 		publicationCtrl.researchEventsDeadlines = [];
-		$http.get("test/research-events-deadlines.json").success(function(data){
+		$http.get("ajax/research-events-deadlines.php").success(function(data){
 			publicationCtrl.researchEventsDeadlines = data;
 		});
 	}]);
