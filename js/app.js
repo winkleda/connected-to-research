@@ -64,12 +64,12 @@
 		});
 
 		publicationCtrl.publicationItems = [];
-		$http.get("test/publication-items.json").success(function(data){
+		$http.get("ajax/publication-items.php").success(function(data){
 			publicationCtrl.publicationItems = data;
 		});	
 
 		publicationCtrl.participationItems = [];
-		$http.get("test/participation.json").success(function(data){
+		$http.get("ajax/participation.php").success(function(data){
 			publicationCtrl.participationItems = data;
 		});
 		
