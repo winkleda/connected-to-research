@@ -212,3 +212,14 @@
 .login-head-space{
 	margin-top:75px;
 }
+.login-user { /* Text that reads "You are not logged in" */
+	font-size: 14px;
+	height: 50px;
+	line-height: 50px;
+}
+.login-welcome { /* Text for description of web application */
+	margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 200px;
+    margin-left: 10px;
+}
