@@ -59,7 +59,7 @@
 	
 
 		publicationCtrl.filter = [];
-		$http.get("test/filter.json").success(function(data){
+		$http.get("ajax/filter.php").success(function(data){
 			publicationCtrl.filter = data;
 		});
 
