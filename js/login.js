@@ -13,7 +13,7 @@ function register_user() {
 
     $.ajax({
         type: 'POST',
-        url: 'ajax/register.php',
+        url: 'scripts/register.php',
         data: parm,
         success: function (response) {
             if (response === 'success') {
@@ -42,7 +42,7 @@ function login_user() {
 
     $.ajax({
         type: 'POST',
-        url: 'ajax/login.php',
+        url: 'scripts/login.php',
         data: parm,
         success: function (response) {
             if (response === 'success') {
