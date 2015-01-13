@@ -109,8 +109,15 @@
 	padding: 5px 2px;
 }
 
-.list-group-item > .badge {
-	margin-left:5px;
+/* depricated
+ *
+ *.list-group-item > .badge {
+ *	margin-left:5px;
+ *}
+ */
+
+.list-group-item > span {
+	color:rgb(158,158,158);
 }
 
 .list-group {
