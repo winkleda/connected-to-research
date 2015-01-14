@@ -1,12 +1,10 @@
 <p>
 <?php
+ini_set('display_errors', 'On');
+include 'connection.php';
 //user names and passwords when you are using
 //xampp can change these when doing stuff on the 
 //server
-
-$serverName = "localhost";
-$userName = "root";
-$password = "";
 
 // this is a break tag for the end of the 
 // echos to make the page easier to read 
@@ -17,7 +15,7 @@ $br = "<br/>";
 // creation for the different tables for the database
 
 // the user table creation sql 
-$sql_create_user = "CREATE TABLE user (
+$sql_create_user = "CREATE TABLE ctr_user (
 	user_id int unsigned auto_increment primary key,
 	name_f varchar(255) not null,
 	name_l varchar(255) not null,
@@ -28,7 +26,7 @@ $sql_create_user = "CREATE TABLE user (
 )";
 
 //the user article link table creation sql
-$sql_create_user_article_link = "CREATE TABLE user_article_link (
+$sql_create_user_article_link = "CREATE TABLE ctr_user_article_link (
 	id int unsigned auto_increment primary key,
 	article_id int unsigned not null,
 	user_id int unsigned not null,
@@ -36,7 +34,7 @@ $sql_create_user_article_link = "CREATE TABLE user_article_link (
 )";
 
 // the create article sql
-$sql_create_article = "CREATE TABLE article (
+$sql_create_article = "CREATE TABLE ctr_article (
 	type varchar(255),
 	id int unsigned auto_increment primary key,
 	title text not null,
@@ -58,14 +56,14 @@ $sql_create_article = "CREATE TABLE article (
 
 
 // the user research and events link create table sql
-$sql_create_user_red_link = "CREATE TABLE user_red_link (
+$sql_create_user_red_link = "CREATE TABLE ctr_user_red_link (
 	research_id int unsigned,
 	user_id int unsigned,
 	id int unsigned auto_increment primary key
 )";
 
 // the research events and deadlines create table sql
-$sql_create_re_deadlines = "CREATE TABLE re_deadlines (
+$sql_create_re_deadlines = "CREATE TABLE ctr_re_deadlines (
 	re_date date,
 	re_id int unsigned auto_increment primary key,
 	title varchar(255) not null,
@@ -74,7 +72,7 @@ $sql_create_re_deadlines = "CREATE TABLE re_deadlines (
 )";
 
 // the call for participation create table sql
-$sql_create_call_for_part = "CREATE TABLE call_for_part (
+$sql_create_call_for_part = "CREATE TABLE ctr_call_for_part (
 	p_date date,
 	title varchar(255),
 	location varchar(255),
@@ -84,7 +82,7 @@ $sql_create_call_for_part = "CREATE TABLE call_for_part (
 )";
 
 // call for participation item table creation sql
-$sql_create_call_part_item = "CREATE TABLE call_part_item (
+$sql_create_call_part_item = "CREATE TABLE ctr_call_part_item (
 	title varchar(255),
 	i_date date,
 	link_id int unsigned,
@@ -104,37 +102,37 @@ $sql_table_creation_array = array(
 
 
 
-$conn = new mysqli($serverName, $userName, $password);
+// $conn = new mysqli($serverName, $userName, $password);
 
-if ($conn->connect_error){
-	die("connection failed: " . $conn->connect_error.$br  ) ;	
-}
-echo "Connected Successfully ".$br;
+// if ($conn->connect_error){
+// 	die("connection failed: " . $conn->connect_error.$br  ) ;	
+// }
+// echo "Connected Successfully ".$br;
 
-$db_name = "connected_to_research";
+// $db_name = "connected_to_research";
 
-$create_db_sql = "CREATE DATABASE " . $db_name;
+// $create_db_sql = "CREATE DATABASE " . $db_name;
 
-if ($conn->query($create_db_sql)){
-	echo "database was created".$br;
-}else{
-	echo "error creating database: ". $conn->error.$br;
-}
+// if ($conn->query($create_db_sql)){
+// 	echo "database was created".$br;
+// }else{
+// 	echo "error creating database: ". $conn->error.$br;
+// }
 
-$conn->close();
+// $conn->close();
 
 
-$conn = new mysqli($serverName, $userName, $password, $db_name);
+// $conn = new mysqli($serverName, $userName, $password, $db_name);
 
-if ($conn->connect_error){
-	die("connection failed: " . $conn->connect_error.$br );	
-}
-echo "Connected Successfully to ". $db_name . $br;
+// if ($conn->connect_error){
+// 	die("connection failed: " . $conn->connect_error.$br );	
+// }
+// echo "Connected Successfully to ". $db_name . $br;
 
 //
 $i = 1;
 foreach ($sql_table_creation_array as $sql){
-	if ($conn->query($sql) === TRUE) {
+	if ($mysqli->query($sql) === TRUE) {
 		echo "table " .$i. "  create successfully".$br;
 	}else{
 		echo "error creating table " .$i. ": ". $conn->error . $br;
@@ -142,7 +140,7 @@ foreach ($sql_table_creation_array as $sql){
 	$i++;
 }
 
-$conn->close();
+$mysqli->close();
 
 ?>
 </p>

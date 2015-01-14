@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 'On');
+include 'connection.php';
 
 /* Create file that creates connnection to database */
 //include 'connection.php';
