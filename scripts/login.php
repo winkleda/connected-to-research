@@ -12,7 +12,7 @@ $password = $_POST['password'];
 
 $_SESSION['email'] = $email;
 
-if (!($stmt = $mysqli->prepare("SELECT * FROM User WHERE email = ? AND password = ?"))) {
+if (!($stmt = $mysqli->prepare("SELECT * FROM ctr_user WHERE email = ? AND password = ?"))) {
 		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
 if (!$stmt->bind_param("ss", $email, $password)) {

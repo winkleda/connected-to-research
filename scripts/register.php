@@ -2,16 +2,11 @@
 ini_set('display_errors', 'On');
 include 'connection.php';
 
-/* Create file that creates connnection to database */
-//include 'connection.php';
-
 session_start();
-
 $name_f = $_POST['name_f'];
 $name_l = $_POST['name_l'];
 $email = $_POST['email'];
 $password = $_POST['password'];
-
 $_SESSION['email'] = $email;
 
 if ($_POST['name_f'] == "" || $_POST['name_f'] == null) {
@@ -31,7 +26,7 @@ if ($_POST['password'] == "" || $_POST['password'] == null) {
     exit(0);
 }
 
-if (!($stmt = $mysqli->prepare("INSERT INTO User(name_f, name_l, email, password) VALUES (?, ?, ?, ?)"))) {
+if (!($stmt = $mysqli->prepare("INSERT INTO ctr_user(name_f, name_l, email, password) VALUES (?, ?, ?, ?)"))) {
 	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
 if (!$stmt->bind_param("ssss", $name_f, $name_l, $email, $password)) {
