@@ -1,28 +1,30 @@
 <div class="publication-item-v">
 <div class="publication-item">
-	<ul class="tag-link-list"><li ng-repeat="tag in pubItem.tagList"><a>{{tag}},</a></li></ul>
-	<div class="publication-info">{{pubItem.publication}}</div>
-	<h3 class="publication-title">{{pubItem.title}}</h3>
-	<div class="publication-user-intrest">
-		{{pubItem.userInterest}} people like this	
-	</div>
-	<div class="publication-authors">
-		<strong> 
-			<div class="publication-author" ng-repeat="author in pubItem.authors">
-				{{author}}
-			</div>
-		</strong>
-	</div>
-	<div class="publication-abstract">
-		<p>
-			{{pubItem.abstract}}
-		</p>
-	</div>
-	<div class="publication-image">
-		<img ng-src="{{pubItem.imageSrc}}" />
+	<div class="publication-info-wrapper">
+		<ul class="tag-link-list"><li ng-repeat="tag in pubItem.tagList"><a>{{tag}},</a></li></ul>
+		<div class="publication-info">{{pubItem.publication}}</div>
+		<h3 class="publication-title">{{pubItem.title}}</h3>
+		<div class="publication-user-intrest">
+			{{pubItem.userInterest}} people like this	
+		</div>
+		<div class="publication-authors">
+			<strong> 
+				<div class="publication-author" ng-repeat="author in pubItem.authors">
+					{{author}}
+				</div>
+			</strong>
+		</div>
+		<div class="publication-abstract">
+			<p>
+				{{pubItem.abstract}}
+			</p>
+		</div>
+		<div class="publication-image">
+			<img ng-src="{{pubItem.imageSrc}}" />
+		</div>
 	</div>
 	<div class="publication-share-bar">
-		<div class="publication-dog-ear"></div>
+		<div class="publication-dog-ear" ng-click=""></div>
 		<div class="publication-share-link"><a href=""><span class="glyphicon glyphicon-share"></span>  Share</a></div>
 		<div class="publication-end-note-add"><a href=""><span class="glyphicon glyphicon-plus-sign"></span> Add to EndNote</a></div>
 	</div>
