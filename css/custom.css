@@ -160,6 +160,43 @@
 }
 
 
+/* 
+ * stylings for the publication share bar
+ */
+
+.publication-share-bar{
+	height:48px;
+}
+
+.publication-share-bar > div{
+	display:inline;
+}
+
+.publication-dog-ear{
+	border-bottom:30px solid;
+	border-right:30px solid transparent;
+	
+}
+
+.publication-end-note-add, .publication-share-link{
+	margin:3% 10px;	
+}
+
+
+.publication-end-note-add a:hover, .publication-share-link a:hover{
+	text-decoration:none;
+}
+
+.publication-end-note-add{
+	float:right;
+}
+
+.publication-share-link{
+	float:right;
+}
+
+
+
 
 /*
  *********************************************************
