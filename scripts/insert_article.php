@@ -3,7 +3,7 @@ include 'connection.php';
 include 'parse.php'; /* Returns array of parsed articles */
 
 /* Specifies which XML file should be read and inserted into database */
-$articles = parseArticle("xml_docs/example2.xml");
+$articles = parseXML("xml_docs/example2.xml");
 
 /* Iterates through each article and adds it to database */
 /* NOTE: lang and discipline attributes are not added! */
