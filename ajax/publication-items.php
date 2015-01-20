@@ -1,6 +1,12 @@
 <?php
+ini_set('display_errors', 'On');
+include '../scripts/connection.php';
 
-// structrue of the data to be sent to the client
+/* Queries first 3 articles from database */
+$sql = "SELECT * FROM ctr_article LIMIT 3";
+$articles = $mysqli->query($sql);
+
+// structure of the data to be sent to the client
 //
 // <this will be an array of publication items>
 // [ <you can put as many items as you want into this array, but thy need too folow the same structure that will be given for this one item >
@@ -16,27 +22,21 @@
 // ]
 //
 
+$data = array();
+while ($article = $articles->fetch_assoc()) {
+	$keywords = explode(";", $article['keywords']);
+	$authors = explode(";", $article['authors']);
 
-
-$data = array(
-	array(
-		"tagList" => array(
-			"Visual Analitics",
-			"Vision",
-			"Text Analitics"
-		),
-		"publication" => "IEEE VAST",
-		"title" => "UTOPIAN: user-driven topic modeliing based on interactive nonnegative matrix factorization",
+	$data[] = array(
+		"tagList" => $keywords,
+		"publication" => $article['j_name'],
+		"title" => $article['title'],
 		"userInterest" => 22,
-		"authors" => array(
-			"Professor Farnsworth", "Philip J. Fry"
-		),
-		"abstract" => "something about some other things and it looks kinda cool because you have thiese things that show up and you dont know what is going on and then some other things happen like bill cosby showing up and giving you a sweater",
-	 	"imageSrc" => "./img/test-image-1.jpg"
-
-	
-	)	
-);
+		"authors" => $authors,
+		"abstract" => $article['abstract'],
+		"imageSrc" => "./img/test-image-1.jpg"
+	);
+}
 
 echo json_encode($data);
 

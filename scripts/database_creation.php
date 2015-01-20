@@ -44,14 +44,17 @@ $sql_create_article = "CREATE TABLE ctr_article (
 	startpage mediumint unsigned,
 	endpage mediumint unsigned,
 	j_name varchar(255),
-	article_id mediumint unsigned,
+	article_id mediumint unsigned primary key,
 	j_issue smallint unsigned,
 	j_volume smallint unsigned,
 	abstract text,
 	url varchar(255),
 	isbn_issn varchar(255),
 	lang varchar(255),
-	discipline varchar(255)
+	discipline varchar(255),
+	notes text,
+	authors text,
+	availability text
 )";
 
 
@@ -100,36 +103,6 @@ $sql_table_creation_array = array(
 	$sql_create_call_part_item
 );
 
-
-
-// $conn = new mysqli($serverName, $userName, $password);
-
-// if ($conn->connect_error){
-// 	die("connection failed: " . $conn->connect_error.$br  ) ;	
-// }
-// echo "Connected Successfully ".$br;
-
-// $db_name = "connected_to_research";
-
-// $create_db_sql = "CREATE DATABASE " . $db_name;
-
-// if ($conn->query($create_db_sql)){
-// 	echo "database was created".$br;
-// }else{
-// 	echo "error creating database: ". $conn->error.$br;
-// }
-
-// $conn->close();
-
-
-// $conn = new mysqli($serverName, $userName, $password, $db_name);
-
-// if ($conn->connect_error){
-// 	die("connection failed: " . $conn->connect_error.$br );	
-// }
-// echo "Connected Successfully to ". $db_name . $br;
-
-//
 $i = 1;
 foreach ($sql_table_creation_array as $sql){
 	if ($mysqli->query($sql) === TRUE) {

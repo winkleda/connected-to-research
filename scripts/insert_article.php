@@ -1,8 +1,10 @@
 <?php
+ini_set('display_errors', 'On');
 include 'connection.php';
-include 'parse.php'; /* Returns array of parsed articles */
+include 'parse.php'; 
 
 /* Specifies which XML file should be read and inserted into database */
+/* Returns array of parsed articles */
 $articles = parseXML("xml_docs/example2.xml");
 
 /* Iterates through each article and adds it to database */
@@ -23,13 +25,16 @@ foreach ($articles as $article) {
 			j_name,
 			abstract,
 			url,
-			isbn_issn) 
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
+			isbn_issn,
+			notes,
+			authors,
+			availability) 
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
 		
 		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 	}
 
-	if (!$stmt->bind_param("iiiiisssssssss", 
+	if (!$stmt->bind_param("iiiiissssssssssss", 
 		$article->id,
 		$article->startpage,
 		$article->endpage,
@@ -43,7 +48,10 @@ foreach ($articles as $article) {
 		$article->journalfull, 
 		$article->abstract, 
 		$article->url, 
-		$article->isbnorissn)) {
+		$article->isbnorissn,
+		$article->notes,
+		$article->authors,
+		$article->availability)) {
 		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 	}
 
