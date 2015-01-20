@@ -17,7 +17,7 @@ function register_user() {
         data: {name_l: lastname, name_f: firstname, email: email, password: password},
         success: function (response) {
             if (response === 'success') {
-                window.location.href = 'index.html';
+                window.location.href = 'index.php';
                 return false;
             } else {
                 alert(response);
@@ -46,7 +46,7 @@ function login_user() {
         data: {email: email, password: password},
         success: function (response) {
             if (response === 'success') {
-                window.location.href = 'index.html';
+                window.location.href = 'index.php';
                 return false;
             } else {
                 alert(response);

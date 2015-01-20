@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!(isset($_SESSION['email']))) {
+      header("location: login.html");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" ng-app="publication">
 	<head>

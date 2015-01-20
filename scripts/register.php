@@ -9,6 +9,8 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $_SESSION['email'] = $email;
 
+$image_url = "./img/professor_farnsworth_image.png";
+
 if ($_POST['name_f'] == "" || $_POST['name_f'] == null) {
     echo "Missing first name.";
     exit(0);
@@ -26,10 +28,10 @@ if ($_POST['password'] == "" || $_POST['password'] == null) {
     exit(0);
 }
 
-if (!($stmt = $mysqli->prepare("INSERT INTO ctr_user(name_f, name_l, email, password) VALUES (?, ?, ?, ?)"))) {
+if (!($stmt = $mysqli->prepare("INSERT INTO ctr_user(name_f, name_l, email, password, user_img_src) VALUES (?, ?, ?, ?, ?)"))) {
 	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
-if (!$stmt->bind_param("ssss", $name_f, $name_l, $email, $password)) {
+if (!$stmt->bind_param("sssss", $name_f, $name_l, $email, $password, $image_url)) {
 	echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 }
 
