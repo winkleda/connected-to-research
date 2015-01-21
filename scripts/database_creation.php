@@ -44,7 +44,7 @@ $sql_create_article = "CREATE TABLE ctr_article (
 	startpage mediumint unsigned,
 	endpage mediumint unsigned,
 	j_name varchar(255),
-	article_id mediumint unsigned primary key,
+	article_id mediumint unsigned,
 	j_issue smallint unsigned,
 	j_volume smallint unsigned,
 	abstract text,
