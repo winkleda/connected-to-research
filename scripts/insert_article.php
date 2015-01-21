@@ -5,7 +5,7 @@ include 'parse.php';
 
 /* Specifies which XML file should be read and inserted into database */
 /* Returns array of parsed articles */
-$articles = parseXML("xml_docs/example2.xml");
+$articles = parseXML("xml_docs/example3.xml");
 
 /* Iterates through each article and adds it to database */
 /* NOTE: lang and discipline attributes are not added! */
