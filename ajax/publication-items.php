@@ -35,6 +35,23 @@ $data = array(
 	 	"imageSrc" => "./img/test-image-1.jpg"
 
 	
+	),	
+	array(
+		"tagList" => array(
+			"Visual Analitics",
+			"Vision",
+			"Text Analitics"
+		),
+		"publication" => "IEEE VAST",
+		"title" => "UTOPIAN: user-driven topic modeliing based on interactive nonnegative matrix factorization",
+		"userInterest" => 22,
+		"authors" => array(
+			"Professor Farnsworth", "Philip J. Fry"
+		),
+		"abstract" => "something about some other things and it looks kinda cool because you have thiese things that show up and you dont know what is going on and then some other things happen like bill cosby showing up and giving you a sweater",
+	 	"imageSrc" => "./img/test-image-1.jpg"
+
+	
 	)	
 );
 
