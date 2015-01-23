@@ -289,6 +289,30 @@
     margin-right: 200px;
     margin-left: 10px;
 }
+/*
+ *********************************************************
+ *
+ *  PUBLICATION ITEM
+ *
+ *********************************************************
+*/
+
+
+#participation-column{
+	border-color: #ddd;
+	border-style: solid;
+	border-width: 1px;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-radius:0px;
+}
+
+.participation-item > .item-seperator-bar{
+	margin: 20px 0px;
+}
+
+
 
 /*
  *********************************************************
@@ -314,9 +338,9 @@
 	box-shadow:none;
 }
 /*
- * adding back the border for the RED and calls for participation
+ * adding back the border for the RED 
  */
-#participation-column, #events-deadlines-column {
+#events-deadlines-column {
 	border-color: #ddd;
 	border-style: solid;
 	border-width: 1px;
