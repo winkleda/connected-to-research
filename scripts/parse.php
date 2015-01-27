@@ -11,7 +11,7 @@ class Article {
 }
 
 /* */
-function parseXML($filename) {
+function parseXML($filename, $tag_separator) {
 	$data = implode("", file($filename));
 	$parser = xml_parser_create();
 	xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
@@ -21,7 +21,7 @@ function parseXML($filename) {
 
 	/* Grabs all elements within <record> tag */
 	foreach ($tags as $key=>$value) {
-		if ($key == "record") {
+		if ($key == $tag_separator) {
 			$record = $value;
 			for ($i = 0; $i < count($record); $i += 2) {
 				$offset = $record[$i] + 1;
