@@ -1,5 +1,8 @@
-
 <?php
+ini_set('display_errors', 'On');
+include '../scripts/connection.php';
+
+session_start();
 
 // the structure of the json data and what to send back
 //
@@ -21,32 +24,25 @@
 // ]
 //  
 
-
-
-
-
-
-
-
 $data = array(
 	array(
 		"header" => "Type",
 		"items" => array(
 			array(
 				"groupItem" => "All",
-				"amount" => 130
+				"amount" => 3
 			),
 			array(
 				"groupItem" => "Journal Articles",
-				"amount" => 114
+				"amount" => 3
 			),
 			array(
 				"groupItem" => "Cited Work",
-				"amount" => 98
+				"amount" => 0
 			),
 			array(
 				"groupItem" => "Read",
-				"amount" => 23
+				"amount" => 0
 			)
 			
 		)
@@ -56,69 +52,45 @@ $data = array(
 		"items" => array(
 			array(
 				"groupItem" => "All",
-				"amount" => 129
+				"amount" => 3
 			),
 			array(
-				"groupItem" => "Journal Articles",
-				"amount" => 114
+				"groupItem" => "Since 2015",
+				"amount" => 3
 			),
 			array(
-				"groupItem" => "Cited Work",
-				"amount" => 98
+				"groupItem" => "Since 2014",
+				"amount" => 0
 			),
 			array(
 				"groupItem" => "Read",
-				"amount" => 23
+				"amount" => 0
 			)
 			
 		)
 	),
 	array(
-		"header" => "Filter",
+		"header" => "Sort",
 		"items" => array(
 			array(
-				"groupItem" => "All",
-				"amount" => 129
+				"groupItem" => "Relevancy",
+				"amount" => 3
 			),
 			array(
-				"groupItem" => "Journal Articles",
-				"amount" => 114
+				"groupItem" => "Citations",
+				"amount" => 3
 			),
 			array(
-				"groupItem" => "Cited Work",
-				"amount" => 98
+				"groupItem" => "Date",
+				"amount" => 3
 			),
 			array(
-				"groupItem" => "Read",
-				"amount" => 23
+				"groupItem" => "Unread",
+				"amount" => 3
 			)
 			
 		)
 	),
-	array(
-		"header" => "Other",
-		"items" => array(
-			array(
-				"groupItem" => "All",
-				"amount" => 129
-			),
-			array(
-				"groupItem" => "Journal Articles",
-				"amount" => 114
-			),
-			array(
-				"groupItem" => "Cited Work",
-				"amount" => 98
-			),
-			array(
-				"groupItem" => "Read",
-				"amount" => 23
-			)
-			
-		)
-	)
-
-
 );
 
 // encodes the $data varible to json and then echos it back to the client

@@ -97,6 +97,11 @@ $sql_create_call_part_item = "CREATE TABLE ctr_call_part_item (
 	i_id int unsigned auto_increment primary key
 )";
 
+// call for participation item table creation sql
+$sql_create_user_call_link = "CREATE TABLE ctr_user_call_link (
+	user_id int unsigned,
+	call_id int unsigned
+)";
 
 $sql_table_creation_array = array(
 	$sql_create_user,
@@ -105,7 +110,8 @@ $sql_table_creation_array = array(
 	$sql_create_user_red_link,
 	$sql_create_re_deadlines,
 	$sql_create_call_for_part,
-	$sql_create_call_part_item
+	$sql_create_call_part_item,
+	$sql_create_user_call_link
 );
 
 $i = 1;
