@@ -24,7 +24,7 @@ $data = array(
 	"firstName" => $user['name_f'],
 	"lastName" => $user['name_l'],
 	"userImgSrc" => $user['user_img_src'],
-	"occupation" => "Research Scientist"
+	"occupation" => $user['user_occ']
 );
 
 echo json_encode($data);

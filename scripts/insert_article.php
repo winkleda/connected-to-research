@@ -5,7 +5,9 @@ include 'parse.php';
 
 /* Specifies which XML file should be read and inserted into database */
 /* Returns array of parsed articles */
-$articles = parseXML("xml_docs/article1.xml", "record");
+$origin = "article1.xml";
+
+$articles = parseXML("../xml_docs/" . $origin, "record");
 
 /* Iterates through each article and adds it to database */
 /* NOTE: lang and discipline attributes are not added! */
@@ -13,13 +15,13 @@ foreach ($articles as $article) {
 	if (!($stmt = $mysqli->prepare(
 		"INSERT INTO ctr_article(
 			article_id,
+			a_date,
 			startpage,
 			endpage,
 			j_issue,
 			j_volume, 
 			type,
 			title,
-			a_date,
 			keywords,
 			reprint, 
 			j_name,
@@ -28,21 +30,22 @@ foreach ($articles as $article) {
 			isbn_issn,
 			notes,
 			authors,
-			availability) 
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
+			availability,
+			origin) 
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
 		
 		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 	}
 
-	if (!$stmt->bind_param("iiiiissssssssssss", 
+	if (!$stmt->bind_param("iiiiiissssssssssss", 
 		$article->id,
+		$article->date,
 		$article->startpage,
 		$article->endpage,
 		$article->issue,
 		$article->volume,
 		$article->type,
-		$article->title, 
-		$article->date, 
+		$article->title,  
 		$article->keywords,
 		$article->reprint, 
 		$article->journalfull, 
@@ -51,7 +54,8 @@ foreach ($articles as $article) {
 		$article->isbnorissn,
 		$article->notes,
 		$article->authors,
-		$article->availability)) {
+		$article->availability,
+		$origin)) {
 		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 	}
 

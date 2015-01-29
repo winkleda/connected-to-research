@@ -17,96 +17,74 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><div class="login-user">You are not logged in.</div></li>
 					<li><a href="#" data-toggle="modal" data-target="#modal-register">Register</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#modal-login">Login</a></li>
 				</ul>
 			</nav>
 
-			<!-- Modal for registering -->
-			<div class="modal fade" id="modal-register" tabindex="-1" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-<!-- 							<button type="button" class="close" data-dismiss="modal">
-								<span>&times;</span>
-							</button> -->
-							<form id = "form-register" class="form-horizontal">
-								<fieldset>
-									<div class="form-group">
-										<label for="firstname" class="col-xs-3 control-label">First Name</label>
-										<div class="col-xs-9">
-										<input class="form-control" id="register-firstname" placeholder="First Name" type="text">
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="lastname" class="col-xs-3 control-label">Last Name</label>
-										<div class="col-xs-9">
-										<input class="form-control" id="register-lastname" placeholder="Last Name" type="text">
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="email" class="col-xs-3 control-label">Email</label>
-										<div class="col-xs-9">
-										<input class="form-control" id="register-email" placeholder="Email" type="text">
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="password" class="col-xs-3 control-label">Password</label>
-										<div class="col-xs-9">
-											<input class="form-control" id="register-password" placeholder="Password" type="password">
-										</div>
-									</div>
-								</fieldset>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-							<button class="btn btn-primary" onclick="register_user()">Register</button>
-						</div>
+			<form id = "form-login" class="form-horizontal">
+				<div class="form-group">
+					<label for="email" class="col-xs-3 control-label">Email</label>
+					<div class="col-xs-3">
+						<input class="form-control" id="login-email" placeholder="Email" type="text">
 					</div>
 				</div>
-			</div>
-			<!-- End of modal -->
-
-			<!-- Modal for logging in -->
-			<div class="modal fade" id="modal-login" tabindex="-1" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-<!-- 							<button type="button" class="close" data-dismiss="modal">
-								<span>&times;</span>
-							</button> -->
-							<form id = "form-login" class="form-horizontal">
-								<fieldset>
-									<div class="form-group">
-										<label for="email" class="col-xs-3 control-label">Email</label>
-										<div class="col-xs-9">
-										<input class="form-control" id="login-email" placeholder="Email" type="text">
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="password" class="col-xs-3 control-label">Password</label>
-										<div class="col-xs-9">
-											<input class="form-control" id="login-password" placeholder="Password" type="password">
-										</div>
-									</div>
-								</fieldset>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-							<button class="btn btn-primary" onclick="login_user()">Login</button>
-						</div>
+				<div class="form-group">
+					<label for="password" class="col-xs-3 control-label">Password</label>
+					<div class="col-xs-3">
+						<input class="form-control" id="login-password" placeholder="Password" type="password">
 					</div>
 				</div>
-			</div>
-			<!-- End of modal -->
-
-			<div class="jumbotron">
-				<div class="login-welcome">
-					<h2>Welcome to Connected to Research.</h2>
-					<h4>A user account is required to access the blog. Registration is quick and pain-free.</h4>
+			</form>
+			<div class="form-group">
+				<label for="password" class="col-xs-3 control-label"></label>
+				<div class="col-xs-3">
+					<button class="btn btn-primary" onclick="login_user()">
+						Login
+					</button>
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal for registering -->
+		<div class="modal fade" id="modal-register" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<form id = "form-register" class="form-horizontal">
+							<fieldset>
+								<div class="form-group">
+									<label for="firstname" class="col-xs-3 control-label">First Name</label>
+									<div class="col-xs-9">
+									<input class="form-control" id="register-firstname" placeholder="First Name" type="text">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="lastname" class="col-xs-3 control-label">Last Name</label>
+									<div class="col-xs-9">
+									<input class="form-control" id="register-lastname" placeholder="Last Name" type="text">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="email" class="col-xs-3 control-label">Email</label>
+									<div class="col-xs-9">
+									<input class="form-control" id="register-email" placeholder="Email" type="text">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="password" class="col-xs-3 control-label">Password</label>
+									<div class="col-xs-9">
+										<input class="form-control" id="register-password" placeholder="Password" type="password">
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+						<button class="btn btn-primary" onclick="register_user()">Register</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of modal -->
 	</body>
 </html>

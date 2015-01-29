@@ -35,10 +35,11 @@ $sql_create_user_article_link = "CREATE TABLE ctr_user_article_link (
 
 // the create article sql
 $sql_create_article = "CREATE TABLE ctr_article (
-	type varchar(255),
 	id int unsigned auto_increment primary key,
-	title text not null,
-	a_date date,
+	title varchar(255),
+	type varchar(255),
+	authors text,
+	a_date smallint unsigned,
 	keywords text,
 	reprint varchar(255),
 	startpage mediumint unsigned,
@@ -53,8 +54,10 @@ $sql_create_article = "CREATE TABLE ctr_article (
 	lang varchar(255),
 	discipline varchar(255),
 	notes text,
-	authors text,
-	availability text
+	availability text,
+	image_url varchar(255),
+	origin varchar(255),
+	UNIQUE(title) /* Ensures title of article is unique */
 )";
 
 
@@ -76,12 +79,14 @@ $sql_create_re_deadlines = "CREATE TABLE ctr_re_deadlines (
 
 // the call for participation create table sql
 $sql_create_call_for_part = "CREATE TABLE ctr_call_for_part (
-	p_date date,
+	p_date varchar(255),
 	title varchar(255),
 	location varchar(255),
 	p_id int unsigned auto_increment primary key,
 	impact_fact mediumint unsigned,
-	description varchar(255)
+	description varchar(255),
+	origin varchar(255),
+	UNIQUE(title) /* Ensures there's no duplicate events */
 )";
 
 // call for participation item table creation sql
@@ -108,7 +113,7 @@ foreach ($sql_table_creation_array as $sql){
 	if ($mysqli->query($sql) === TRUE) {
 		echo "table " .$i. "  create successfully".$br;
 	}else{
-		echo "error creating table " .$i. ": ". $conn->error . $br;
+		echo "error creating table " .$i. ": ". $mysqli->error . $br;
 	}
 	$i++;
 }

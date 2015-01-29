@@ -5,7 +5,9 @@ include 'parse.php';
 
 /* Specifies which XML file should be read and inserted into database */
 /* Returns array of parsed calls */
-$calls = parseXML("xml_docs/calls1.xml", "cfp");
+$origin = "calls1.xml";
+
+$calls = parseXML("../xml_docs/" . $origin, "cfp");
 
 /* Iterates through each call and adds it to database */
 /* NOTE: lang and discipline attributes are not added! */
@@ -15,17 +17,19 @@ foreach ($calls as $call) {
 			p_date,
 			title,
 			location,
-			description) 
-		VALUES (?, ?, ?, ?)"))) {
+			description,
+			origin) 
+		VALUES (?, ?, ?, ?, ?)"))) {
 		
 		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 	}
 
-	if (!$stmt->bind_param("ssss", 
+	if (!$stmt->bind_param("sssss", 
 		$call->when,
 		$call->event,
 		$call->where,
-		$call->desc)) {
+		$call->desc,
+		$origin)) {
 		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 	}
 

@@ -45,7 +45,7 @@ while ($article = $articles->fetch_assoc()) {
 		"userInterest" => 22,
 		"authors" => $authors,
 		"abstract" => $article['abstract'],
-		"imageSrc" => "./img/test-image-1.jpg"
+		"imageSrc" => "./img/article_img/test-image-1.jpg"
 	);
 }
 

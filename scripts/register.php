@@ -9,7 +9,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $_SESSION['email'] = $email;
 
-$image_url = "./img/professor_farnsworth_image.png";
+$image_url = "./img/profile/professor_farnsworth.png";
 
 if ($_POST['name_f'] == "" || $_POST['name_f'] == null) {
     echo "Missing first name.";
