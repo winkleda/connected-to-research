@@ -55,7 +55,7 @@ user_red_link			// link between research and events deadlines and the user
 re_deadlines			// the research events and deadlins to be displayed
 	re_date(date)			// the date that the event or deadline is
 	re_id(int)			// the id of the re_deadlines
-	title(string)			// the title of the event or deadline
+	re_title(string)			// the title of the event or deadline
 	location(string)		// the location, if there is one, of the event
 	status(string)			// the status of the dedline
 
