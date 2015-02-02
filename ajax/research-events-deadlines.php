@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 'On');
+include '../scripts/connection.php'
 
 // the data structure that needs to be sent to the client.
 //
