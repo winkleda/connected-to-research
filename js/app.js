@@ -1,6 +1,6 @@
 (function(){
 
-	var app = angular.module('publication', []);
+	var app = angular.module('publication', ['ui.bootstrap']);
 
 	// directive for the filter items
 	app.directive('filter', function(){
