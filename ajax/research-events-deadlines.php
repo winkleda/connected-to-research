@@ -23,7 +23,6 @@ include '../scripts/connection.php';
 
 session_start();
 
-/*   !!!!! commenting out for now for test puropses
 
 // Find user id 
 $get_user_id = "SELECT user_id
@@ -33,14 +32,13 @@ $result = $mysqli->query($get_user_id);
 $user = $result->fetch_assoc();
 
 
- */
 
 // 1 should be user[user_id]
 /* gets associated research and event deadlines for the user */
 $get_user_reds = "
 	SELECT *
 	FROM ctr_re_deadlines a, ctr_user_red_link u
-	WHERE a.re_id = u.research_id AND u.user_id = 1 AND re_date >= CURDATE() 
+	WHERE a.re_id = u.research_id AND u.user_id = '$user[user_id]' AND re_date >= CURDATE() 
 	ORDER BY re_date ASC";
 
 $user_red = $mysqli->query($get_user_reds);
