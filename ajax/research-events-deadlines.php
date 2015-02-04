@@ -40,37 +40,38 @@ $user = $result->fetch_assoc();
 $get_user_reds = "
 	SELECT *
 	FROM ctr_re_deadlines a, ctr_user_red_link u
-	WHERE a.re_id = u.research_id AND u.user_id = 1 
+	WHERE a.re_id = u.research_id AND u.user_id = 1 AND re_date >= CURDATE() 
 	ORDER BY re_date ASC";
 
 $user_red = $mysqli->query($get_user_reds);
 
 /* creates the array to send to the client */
 $data = array();
-$months = array(
-	1 => array(),
-	2 => array(),
-	3 => array(),
-	4 => array(),
-	5 => array(),
-	6 => array(),
-	7 => array(),
-	8 => array(),
-	9 => array(),
-	10 => array(),
-	11 => array(),
-	12 => array()
-);
+$months = array();
 
+$current_date = date("Y-m-d");
 
 while($red = $user_red->fetch_assoc()){
-	echo "<p>";
-	var_dump($red);
-	echo "</p>";	
-	
+	$temp_month = date("m",strtotime($red["re_date"]));
+	$temp_month = intval($temp_month);
+
+	$months[$temp_month][] = ["date" => intval(date("d",strtotime($red["re_date"]))), "event" => $red["re_title"]];	
 }
 
+$current_month_num = intval(date("m"));
+$months_keys = array_keys($months);
 
+foreach($months_keys as $month_key) {
+	$current_month_array = array();
+	$month_name = date("F", mktime( 0, 0, 0, $month_key));
+ 	$current_month_array["month"] = $month_name;
+	$month_away = $month_key - intval(date("n"));
+	$current_month_array["monthAway"] = $month_away;
+	$current_month_array["events"] = $months[$month_key];
+
+	$data[] = $current_month_array;	
+	
+}
 
 /*
 $data = array(
