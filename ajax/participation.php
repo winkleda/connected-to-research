@@ -73,7 +73,7 @@ while ($call = $calls->fetch_assoc()) {
 		"title" => $call['title'],
 		"date" => $call['p_date'],
 		"location" => $call['location'],
-		"impactfactor" => "",
+		//"impactfactor" => "",
 		"description" => $call['description'],
 		// "events" => array(
 		// 	array(
