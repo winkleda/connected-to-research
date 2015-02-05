@@ -72,7 +72,7 @@ $sql_create_user_red_link = "CREATE TABLE ctr_user_red_link (
 $sql_create_re_deadlines = "CREATE TABLE ctr_re_deadlines (
 	re_date date,
 	re_id int unsigned auto_increment primary key,
-	title varchar(255) not null,
+	re_title varchar(255) not null,
 	location varchar(255),
 	status varchar(255)
 )";
