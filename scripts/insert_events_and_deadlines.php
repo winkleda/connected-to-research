@@ -84,151 +84,150 @@ $RED_info = [
 	
 ];
 
-
 $RED_links = [
 	array(
 		"research_id" => 1,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 1
 	),
 	array(
 		"research_id" => 2,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 2
 	),
 	array(
 		"research_id" => 3,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 3
 	),
 	array(
 		"research_id" => 4,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 4
 	),
 	array(
 		"research_id" => 5,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 5
 	),
 	array(
 		"research_id" => 6,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 6
 	),
 	array(
 		"research_id" => 7,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 7
 	),
 	array(
 		"research_id" => 8,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 8
 	),
 	array(
 		"research_id" => 9,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 9
 	),
 	array(
 		"research_id" => 10,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 10
 	),
 	array(
 		"research_id" => 11,
-		"user_id" => 1,
+		"email" => "user1",
 		"id" => 11
 	),
 	array(
 		"research_id" => 1,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 12
 	),
 	array(
 		"research_id" => 2,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 13
 	),
 	array(
 		"research_id" => 3,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 14
 	),
 	array(
 		"research_id" => 4,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 15
 	),
 	array(
 		"research_id" => 5,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 16
 	),
 	array(
 		"research_id" => 6,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 17
 	),
 	array(
 		"research_id" => 7,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 18
 	),
 	array(
 		"research_id" => 8,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 19
 	),
 	array(
 		"research_id" => 9,
-		"user_id" => 2,
+		"email" => "user2",
 		"id" => 20
 	),
 	array(
 		"research_id" => 3,
-		"user_id" => 3,
+		"email" => "user2",
 		"id" => 21
 	),
 	array(
 		"research_id" => 4,
-		"user_id" => 3,
+		"email" => "user2",
 		"id" => 22
 	),
 	array(
 		"research_id" => 5,
-		"user_id" => 3,
+		"email" => "user3",
 		"id" => 23
 	),
 	array(
 		"research_id" => 6,
-		"user_id" => 3,
+		"email" => "user3",
 		"id" => 24
 	),
 	array(
 		"research_id" => 7,
-		"user_id" => 3,
+		"email" => "user3",
 		"id" => 25
 	),
 	array(
 		"research_id" => 8,
-		"user_id" => 3,
+		"email" => "user3",
 		"id" => 26
 	),
 	array(
 		"research_id" => 9,
-		"user_id" => 3,
+		"email" => "user3",
 		"id" => 27
 	),
 	array(
 		"research_id" => 10,
-		"user_id" => 3,
+		"email" => "user3",
 		"id" => 28
 	),
 	array(
 		"research_id" => 11,
-		"user_id" => 3,
+		"email" => "user3",
 		"id" => 29
 	)
 ];
@@ -265,23 +264,20 @@ foreach($RED_info as $info){
 
 }
 
-
 foreach($RED_links as $info){
 
 	if (!($stmt = $mysqli->prepare(
 		"INSERT INTO ctr_user_red_link(
 			research_id,
-			user_id,
-			id) 
-		VALUES (?, ?, ?)"))) {
+			email) 
+		VALUES (?, ?)"))) {
 		
 		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 	}
 
-	if (!$stmt->bind_param("sss", 
+	if (!$stmt->bind_param("is", 
 		$info["research_id"],
-		$info["user_id"],
-		$info["id"]
+		$info["email"]
 		)) {
 		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 	}

@@ -16,10 +16,9 @@ $br = "<br/>";
 
 // the user table creation sql 
 $sql_create_user = "CREATE TABLE ctr_user (
-	user_id int unsigned auto_increment primary key,
+	email  varchar(255) primary key,
 	name_f varchar(255) not null,
 	name_l varchar(255) not null,
-	email  varchar(255) not null,
 	password varchar(255) not null,
 	user_img_src varchar(255),
 	user_occ varchar(255)
@@ -27,9 +26,8 @@ $sql_create_user = "CREATE TABLE ctr_user (
 
 //the user article link table creation sql
 $sql_create_user_article_link = "CREATE TABLE ctr_user_article_link (
-	id int unsigned auto_increment primary key,
-	article_id int unsigned not null,
-	user_id int unsigned not null,
+	email  varchar(255) primary key,
+	origin varchar(255) not null,
 	status varchar(255) not null
 )";
 
@@ -64,8 +62,7 @@ $sql_create_article = "CREATE TABLE ctr_article (
 // the user research and events link create table sql
 $sql_create_user_red_link = "CREATE TABLE ctr_user_red_link (
 	research_id int unsigned,
-	user_id int unsigned,
-	id int unsigned auto_increment primary key
+	email varchar(255)
 )";
 
 // the research events and deadlines create table sql
@@ -99,8 +96,8 @@ $sql_create_call_part_item = "CREATE TABLE ctr_call_part_item (
 
 // call for participation item table creation sql
 $sql_create_user_call_link = "CREATE TABLE ctr_user_call_link (
-	user_id int unsigned,
-	call_id int unsigned
+	email varchar(255) primary key,
+	origin varchar(255)
 )";
 
 $sql_table_creation_array = array(

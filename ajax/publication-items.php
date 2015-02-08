@@ -4,17 +4,11 @@ include '../scripts/connection.php';
 
 session_start();
 
-/* Find user id*/
-$sql = "SELECT user_id 
-		FROM ctr_user 
-		WHERE email = '$_SESSION[email]'";
-$result = $mysqli->query($sql);
-$user = $result->fetch_assoc();
-
-/* Queries first 3 articles from database */
+/* Queries articles linked to user */
 $sql = "SELECT * 
 		FROM ctr_article a, ctr_user_article_link u 
-		WHERE a.id = u.article_id AND u.user_id = '$user[user_id]'";
+		WHERE a.origin = u.origin AND u.email = '$_SESSION[email]'
+		LIMIT 5";
 $articles = $mysqli->query($sql);
 
 // structure of the data to be sent to the client
