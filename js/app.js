@@ -51,6 +51,11 @@
 			navbarCtrl.userInfo = data;
 		});
 
+		navbarCtrl.navBarPublicationItems = [];
+		$http.get("ajax/nav-bar-publications.php").success(function(data){
+			navbarCtrl.navBarPublicationItems = data;
+		});
+
 	}]);
 
 	//main controller for the content
