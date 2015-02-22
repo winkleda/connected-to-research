@@ -51,6 +51,11 @@
 			navbarCtrl.userInfo = data;
 		});
 
+		navbarCtrl.navBarPublicationItems = [];
+		$http.get("ajax/nav-bar-publications.php").success(function(data){
+			navbarCtrl.navBarPublicationItems = data;
+		});
+
 	}]);
 
 	//main controller for the content
@@ -76,11 +81,6 @@
 		publicationCtrl.researchEventsDeadlines = [];
 		$http.get("ajax/research-events-deadlines.php").success(function(data){
 			publicationCtrl.researchEventsDeadlines = data;
-		});
-
-		publicationCtrl.navBarPublicationItems = [];
-		$http.get("ajax/nav-bar-publications.php").success(function(data){
-			publicationCtrl.navBarPublicationItems = data;
 		});
 	}]);
 	
