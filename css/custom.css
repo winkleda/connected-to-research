@@ -81,6 +81,15 @@
 }
 
 /*
+ *  publication drop down menu styling
+ */
+.publication-dropdown-menu{
+	width:500px;
+	padding: 0px 10px;
+}
+
+
+/*
  *********************************************************
  *
  *  FILTER COLUMN
