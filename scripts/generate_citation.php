@@ -7,11 +7,7 @@ include 'connection.php';
 
 session_start();
 
-
-/* Uncomment this line after GET variable is set!! */
-//$article_id = $_POST['id'];
-
-$article_id = 324; /* Temp article */
+$article_id = $_GET['id'];
 
 /* Queries specificed article */
 $sql = "SELECT * 
@@ -45,10 +41,10 @@ $enw = preg_replace('/\t/', '', $enw);
 if ($metadata['type'] == 'JOUR') {
 	$mla_journ = 
 		str_replace(";", ", ", $metadata['authors']) . 
-		"\"$metadata[title].\" " . 
+		" \"$metadata[title].\" " . 
 		"<i>$metadata[j_name]</i> " .
 		"$metadata[j_volume]." . 
-		"$metadata[j_issue]." . 
+		"$metadata[j_issue] " . 
 		"($metadata[a_date]): " .
 		"$metadata[startpage]-$metadata[endpage]. " .
 		"Print.";
