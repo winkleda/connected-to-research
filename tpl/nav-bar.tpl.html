@@ -11,7 +11,16 @@
 	</div>
 	<div class="col-xs-6">
 		<ul class="nav navbar-nav custom-main-nav-bar">
-			<li><a href="#">Publications</a></li>
+			<li class="dropdown" ng-class="{open : hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"><a href="#">Publications</a>
+				<ul class="dropdown-menu" role="menu">
+					<div class="publication-dropdown">
+						{{publicationCtrl.navBarPublicationItems}}
+						<div class = "publication-dropdown-item" ng-repeat="navPub in publicationCtrl.navBarPublicationItems">
+							<h1><a href="#">{{navPub.title}}</a></h1>
+						</div>
+					</div>
+				</ul>
+			</li>
 			<li><a href="#">People</a></li>
 			<li><a href="#">Funding</a></li>
 			<li><a href="./scripts/logout.php">Logout</a></li>
