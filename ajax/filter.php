@@ -4,6 +4,12 @@ include '../scripts/connection.php';
 
 session_start();
 
+/* Queries count statistics for filter */
+// $sql = "SELECT count(*) 
+// 		FROM ctr_user_call_link c, ctr_call_for_part p
+// 		WHERE c.p_id = p.p_id AND c.email = '$_SESSION[email]'";
+// $calls = $mysqli->query($sql);
+
 // the structure of the json data and what to send back
 //
 // everything in <> is a comment to say what should be there
@@ -43,8 +49,11 @@ $data = array(
 			array(
 				"groupItem" => "Read",
 				"amount" => 0
+			),
+			array(
+				"groupItem" => "Favorited",
+				"amount" => 0
 			)
-			
 		)
 	),
 	array(
@@ -65,28 +74,6 @@ $data = array(
 			array(
 				"groupItem" => "Read",
 				"amount" => 0
-			)
-			
-		)
-	),
-	array(
-		"header" => "Sort",
-		"items" => array(
-			array(
-				"groupItem" => "Relevancy",
-				"amount" => 3
-			),
-			array(
-				"groupItem" => "Citations",
-				"amount" => 3
-			),
-			array(
-				"groupItem" => "Date",
-				"amount" => 3
-			),
-			array(
-				"groupItem" => "Unread",
-				"amount" => 3
 			)
 			
 		)

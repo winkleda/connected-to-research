@@ -5,7 +5,7 @@ include 'parse.php';
 
 /* Specifies which XML file should be read and inserted into database */
 /* Returns array of parsed calls */
-$origin = "calls1.xml";
+$origin = "calls2.xml";
 
 $calls = parseXML("../xml_docs/" . $origin, "cfp");
 

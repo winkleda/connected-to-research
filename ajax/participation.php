@@ -7,7 +7,7 @@ session_start();
 /* Queries articles linked to current user */
 $sql = "SELECT * 
 		FROM ctr_user_call_link c, ctr_call_for_part p
-		WHERE c.origin = p.origin AND c.email = '$_SESSION[email]'";
+		WHERE c.p_id = p.p_id AND c.email = '$_SESSION[email]'";
 $calls = $mysqli->query($sql);
 
 // the data structure for the participation column

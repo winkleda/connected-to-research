@@ -96,8 +96,14 @@ $sql_create_call_part_item = "CREATE TABLE ctr_call_part_item (
 
 // call for participation item table creation sql
 $sql_create_user_call_link = "CREATE TABLE ctr_user_call_link (
-	email varchar(255) primary key,
-	origin varchar(255)
+	email varchar(255),
+	p_id int
+)";
+
+// user's favorite article
+$sql_create_user_fav = "CREATE TABLE ctr_user_fav (
+	email varchar(255),
+	a_id int
 )";
 
 $sql_table_creation_array = array(
@@ -108,7 +114,8 @@ $sql_table_creation_array = array(
 	$sql_create_re_deadlines,
 	$sql_create_call_for_part,
 	$sql_create_call_part_item,
-	$sql_create_user_call_link
+	$sql_create_user_call_link,
+	$sql_create_user_fav
 );
 
 $i = 1;
