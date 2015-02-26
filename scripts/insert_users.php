@@ -14,28 +14,4 @@ if(!$result) {
 } else {
 	echo "Accounts for scientists has been created.<br>";
 }
-
-/* Creates 3 articles for each user to fetch */
-$sql = "INSERT INTO ctr_user_article_link(email, origin)
-		VALUES
-		('user1', 'article1.xml'),
-		('user2', 'article2.xml'),
-		('user3', 'article3.xml')";
-$result = $mysqli->query($sql);
-if(!$result) {
-	echo "Query failed: " . mysql_error();
-} else {
-	echo "Articles have been linked to users.<br>";
-}
-
-/* Creates calls for participation for each user to fetch */
-$sql = "INSERT INTO ctr_user_call_link(email, origin)
-		VALUES
-		('user1', 'calls1.xml')";
-$result = $mysqli->query($sql);
-if(!$result) {
-	echo "Query failed: " . mysql_error();
-} else {
-	echo "Calls have been linked to users.<br>";
-}
 ?>

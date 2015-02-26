@@ -5,7 +5,7 @@ include 'parse.php';
 
 /* Specifies which XML file should be read and inserted into database */
 /* Returns array of parsed articles */
-$origin = "article1.xml";
+$origin = $_GET['xml'];
 
 $articles = parseXML("../xml_docs/" . $origin, "record");
 

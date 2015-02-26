@@ -36,7 +36,6 @@ $calls = $mysqli->query($sql);
 //
 // ]
 
-//$data = array();
 while ($call = $calls->fetch_assoc()) {
 	$data[] = array(
 		"title" => $call['title'],

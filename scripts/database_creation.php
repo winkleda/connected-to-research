@@ -26,9 +26,10 @@ $sql_create_user = "CREATE TABLE ctr_user (
 
 //the user article link table creation sql
 $sql_create_user_article_link = "CREATE TABLE ctr_user_article_link (
-	email  varchar(255) primary key,
-	origin varchar(255) not null,
-	status varchar(255) not null
+	email  varchar(255),
+	id int,
+	status varchar(255) not null,
+	UNIQUE unique_index(email, id)
 )";
 
 // the create article sql
