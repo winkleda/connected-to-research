@@ -1,4 +1,3 @@
-<p>
 <?php
 ini_set('display_errors', 'On');
 include 'connection.php';
@@ -104,7 +103,15 @@ $sql_create_user_call_link = "CREATE TABLE ctr_user_call_link (
 // user's favorite article
 $sql_create_user_fav = "CREATE TABLE ctr_user_fav (
 	email varchar(255),
-	a_id int
+	a_id int,
+	UNIQUE unique_index(email, a_id)
+)";
+
+$sql_create_user_share = "CREATE TABLE ctr_user_share (
+	shared_by varchar(255),
+	shared_to varchar(255),
+	a_id int,
+	UNIQUE unique_index(shared_by, shared_to, a_id)
 )";
 
 $sql_table_creation_array = array(
@@ -116,7 +123,8 @@ $sql_table_creation_array = array(
 	$sql_create_call_for_part,
 	$sql_create_call_part_item,
 	$sql_create_user_call_link,
-	$sql_create_user_fav
+	$sql_create_user_fav,
+	$sql_create_user_share
 );
 
 $i = 1;
@@ -132,4 +140,3 @@ foreach ($sql_table_creation_array as $sql){
 $mysqli->close();
 
 ?>
-</p>

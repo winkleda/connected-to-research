@@ -7,14 +7,18 @@ session_start();
 /* Queries count statistics for filter */
 
 /* Total articles assigned to user */
-$sql = "SELECT count(*) as total
+$sql = "SELECT count(*) as count
  		FROM ctr_user_article_link
  		WHERE email = '$_SESSION[email]'";
 $result = $mysqli->query($sql);
 $total = $result->fetch_assoc();
 
-/* Total articles where type is journ */
-
+/* Total articles favorited by user */
+$sql = "SELECT count(*) as count
+ 		FROM ctr_user_fav
+ 		WHERE email = '$_SESSION[email]'";
+$result = $mysqli->query($sql);
+$favorite = $result->fetch_assoc();
 
 $data = array(
 	array(
@@ -22,7 +26,7 @@ $data = array(
 		"items" => array(
 			array(
 				"groupItem" => "All",
-				"amount" => $total['total']
+				"amount" => $total['count']
 			),
 			array(
 				"groupItem" => "Journal Articles",
@@ -34,6 +38,10 @@ $data = array(
 			),
 			array(
 				"groupItem" => "Favorited",
+				"amount" => $favorite['count']
+			),
+			array(
+				"groupItem" => "Shared",
 				"amount" => 0
 			)
 		)
@@ -43,7 +51,7 @@ $data = array(
 		"items" => array(
 			array(
 				"groupItem" => "All",
-				"amount" => $total['total']
+				"amount" => $total['count']
 			),
 			array(
 				"groupItem" => "Since 2015",
