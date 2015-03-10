@@ -5,9 +5,12 @@ include 'parse.php';
 
 /* Specifies which XML file should be read and inserted into database */
 /* Returns array of parsed articles */
-$origin = $_GET['xml'];
+//$origin = $_GET['xml'];
 
-$articles = parseXML("../xml_docs/" . $origin, "record");
+$articles = parseXML($_POST['article'], "record");
+
+
+//$articles = parseXML("../xml_docs/" . $origin, "record");
 
 /* Iterates through each article and adds it to database */
 /* NOTE: lang and discipline attributes are not added! */
