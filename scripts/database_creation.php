@@ -28,6 +28,7 @@ $sql_create_user_article_link = "CREATE TABLE ctr_user_article_link (
 	email  varchar(255),
 	id int,
 	status varchar(255) not null,
+	time_issued timestamp,
 	UNIQUE unique_index(email, id)
 )";
 

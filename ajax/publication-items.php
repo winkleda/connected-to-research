@@ -7,7 +7,8 @@ session_start();
 /* Queries articles linked to user */
 $sql = "SELECT * 
 		FROM ctr_article a, ctr_user_article_link u 
-		WHERE a.id = u.id AND u.email = '$_SESSION[email]'";
+		WHERE a.id = u.id AND u.email = '$_SESSION[email]'
+		ORDER BY time_issued DESC";
 $articles = $mysqli->query($sql);
 
 $data = array();
