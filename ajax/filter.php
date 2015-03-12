@@ -6,7 +6,7 @@ session_start();
 
 /* Queries count statistics for filter */
 
-/* Total articles assigned to user */
+/* Total recommended articles assigned to user */
 $sql = "SELECT count(*) as count
  		FROM ctr_user_article_link
  		WHERE email = '$_SESSION[email]'";
@@ -20,12 +20,20 @@ $sql = "SELECT count(*) as count
 $result = $mysqli->query($sql);
 $favorite = $result->fetch_assoc();
 
+
+/* Total articles shared to user*/
+$sql = "SELECT count(*) as count
+ 		FROM ctr_user_share
+ 		WHERE shared_to = '$_SESSION[email]'";
+$result = $mysqli->query($sql);
+$shared = $result->fetch_assoc();
+
 $data = array(
 	array(
 		"header" => "Type",
 		"items" => array(
 			array(
-				"groupItem" => "All",
+				"groupItem" => "Recommended",
 				"amount" => $total['count']
 			),
 			array(
@@ -42,7 +50,7 @@ $data = array(
 			),
 			array(
 				"groupItem" => "Shared",
-				"amount" => 0
+				"amount" => $shared['count']
 			)
 		)
 	),

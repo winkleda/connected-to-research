@@ -5,12 +5,10 @@ include 'parse.php';
 
 /* Specifies which XML file should be read and inserted into database */
 /* Returns array of parsed articles */
-//$origin = $_GET['xml'];
 
-$articles = parseXML($_POST['article'], "record");
+$articles = simplexml_load_string($_POST['article']);
+//$articles = parseXML($_POST['article'], "record");
 
-
-//$articles = parseXML("../xml_docs/" . $origin, "record");
 
 /* Iterates through each article and adds it to database */
 /* NOTE: lang and discipline attributes are not added! */
@@ -65,7 +63,8 @@ foreach ($articles as $article) {
 	if (!$stmt->execute()) {
 		echo "Failed to insert article " . $article->id . ": " . $stmt->error . "<br>";
 	} else {
-		echo "Article " . $article->id . " successfully inserted into database.<br>";
+		echo "<strong>INSERTED</strong> " . $article->title . "<br>" . 
+		"ID: " . $mysqli->insert_id . "<br><br>";
 	}
 }
 
