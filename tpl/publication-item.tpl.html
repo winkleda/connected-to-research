@@ -25,7 +25,18 @@
 	</div>
 	<div class="publication-share-bar">
 		<div class="publication-dog-ear" ng-click=""></div>
-		<div class="publication-share-link"><a href=""><span class="glyphicon glyphicon-share"></span>  Share</a></div>
+		<div class="publication-share-link dropdown" ng-class="{open : shareMenuEx}">
+			<a href="" ng-click="shareMenuEx = !shareMenuEx" >
+				<span class="glyphicon glyphicon-share"></span>Share
+			</a>
+			<ul class="dropdown-menu " role="menu">
+				<li ng-repeat="otherUser in publicationCtrl.otherUsers">
+					<input type="checkbox"> {{otherUser}} </input>
+				</li>
+				<button class="btn btn-primary">Share</button>
+			</ul>
+		
+		</div>
 		<div class="publication-end-note-add"><a href="" popover="check stuff" ><span class="glyphicon glyphicon-plus-sign"></span> Cite Article</a></div>
 	</div>
 </div>

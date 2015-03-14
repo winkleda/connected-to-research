@@ -82,6 +82,12 @@
 		$http.get("ajax/research-events-deadlines.php").success(function(data){
 			publicationCtrl.researchEventsDeadlines = data;
 		});
+
+		publicationCtrl.otherUsers = [];
+		$http.get("scripts/get_users.php").success(function(data){
+			publicationCtrl.otherUsers = data;
+		});
+
 	}]);
 	
 })();
