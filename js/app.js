@@ -59,7 +59,7 @@
 	}]);
 
 	//main controller for the content
-	app.controller('PublicationController',['$http', '$scope', '$log', function($http, $scope, $log){
+	app.controller('PublicationController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
 		var publicationCtrl = this;
 		publicationCtrl.selectedUsers = [];
 
@@ -123,6 +123,26 @@
 				}
 			});
 		};
+		
+		$scope.refreshCall = function(){
+			$http.get("ajax/filter.php").success(function(data){
+				publicationCtrl.filter = data;
+			});
+
+			$http.get("ajax/publication-items.php").success(function(data){
+				publicationCtrl.publicationItems = data;
+			});	
+
+			$http.get("ajax/participation.php").success(function(data){
+				publicationCtrl.participationItems = data;
+			});
+		
+			$http.get("ajax/research-events-deadlines.php").success(function(data){
+				publicationCtrl.researchEventsDeadlines = data;
+			});
+		};
+		
+		$interval(function(){$scope.refreshCall();}, 10000);
 		
 	}]);
 	
