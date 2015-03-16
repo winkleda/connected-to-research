@@ -59,9 +59,9 @@
 	}]);
 
 	//main controller for the content
-	app.controller('PublicationController',['$http', function($http){
+	app.controller('PublicationController',['$http', '$scope', '$log', function($http, $scope, $log){
 		var publicationCtrl = this;
-	
+		publicationCtrl.selectedUsers = [];
 
 		publicationCtrl.filter = [];
 		$http.get("ajax/filter.php").success(function(data){
@@ -88,6 +88,32 @@
 			publicationCtrl.otherUsers = data;
 		});
 
+		// this function will check to see what users have been selected and then 
+		// call the share script with the selected user and article id as the 
+		// params to be sent in the get request. 
+		$scope.shareWithUsers = function(users, articleID){
+			var userString = '';
+			//$log.log(users);
+			//$log.log(articleID);
+			for (var index in users){
+				if(users[index]){
+					userString = userString + index + ',';
+				}
+			}
+			if(userString.length != 0){
+				//$log.log('current userString: ' + userString);
+				userString = userString.substring(0, userString.length - 1);
+				$http({
+					method:'GET',
+					url:'scripts/share_article.php',
+					params:{
+						user: userString,
+						id: articleID
+					}
+				});
+			}
+		};
+		
 	}]);
 	
 })();

@@ -29,11 +29,11 @@
 			<a href="" ng-click="shareMenuEx = !shareMenuEx" >
 				<span class="glyphicon glyphicon-share"></span>Share
 			</a>
-			<ul class="dropdown-menu " role="menu">
-				<li ng-repeat="otherUser in publicationCtrl.otherUsers">
-					<input type="checkbox"> {{otherUser}} </input>
+			<ul class="dropdown-menu share-check-menu" role="menu">
+				<li ng-repeat="otherUser in publicationCtrl.otherUsers" class = "share-check-line">
+					<input type="checkbox" class="share-check-input" ng-model="publicationCtrl.selectedUsers[otherUser]" > {{otherUser}} </input>
 				</li>
-				<button class="btn btn-primary">Share</button>
+				<button class="btn btn-primary" ng-click='shareMenuEx = false; shareWithUsers(publicationCtrl.selectedUsers, pubItem.articleID);'>Share</button>
 			</ul>
 		
 		</div>
