@@ -114,6 +114,16 @@
 			}
 		};
 		
+		$scope.favoriteArticle = function(articleID){
+			$http({
+				method:'GET',
+				url:'scripts/favorite_article.php',
+				params:{
+					id: articleID
+				}
+			});
+		};
+		
 	}]);
 	
 })();
