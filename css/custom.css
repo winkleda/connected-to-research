@@ -86,8 +86,41 @@
 .publication-dropdown-menu{
 	width:500px;
 	padding: 0px 10px;
+	border: 5px solid rgba(184, 80, 16, 0.9);
+
 }
 
+.publication-dropdown-item{
+	border-top:0px;
+	border-bottom:1px;
+	border-left:0px;
+	border-right:0px;
+	border-style:dashed;
+	border-color:gray;
+}
+
+.publication-dropdown-item > h4 > a {
+	color:black;
+	font-size:14px;
+} 
+
+.publication-dropdown-item:last-child{
+	border-bottom:0px;
+}
+
+.custom-main-nav-bar > li > a:hover, .custom-main-nav-bar > li > a:focus, .custom-main-nav-bar > li > a:active{
+	background-color:rgba(184, 80, 16, 0.9) !important;
+	color:white;
+	border-top:2px;
+	border-color:white;
+}
+
+.custom-main-nav-bar-hover > a{
+	background-color:rgba(184, 80, 16, 0.9) !important;
+	color:white;
+	border-top:2px;
+	border-color:white;
+}
 
 /*
  *********************************************************

@@ -11,7 +11,7 @@
 	</div>
 	<div class="col-xs-6">
 		<ul class="nav navbar-nav custom-main-nav-bar">
-			<li class="dropdown" ng-class="{open : hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"><a href="#">Publications</a>
+			<li class="dropdown" ng-class="{'open custom-main-nav-bar-hover' : hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"><a href="#">Publications</a>
 				<ul class="dropdown-menu publication-dropdown-menu" role="menu">
 					<div class = "publication-dropdown-item" ng-repeat="navPub in navbarCtrl.navBarPublicationItems">
 						<h4><a href="#">{{navPub.title}}</a></h4>
