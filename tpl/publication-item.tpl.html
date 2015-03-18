@@ -37,7 +37,16 @@
 			</ul>
 		
 		</div>
-		<div class="publication-end-note-add"><a href="" popover="check stuff" ><span class="glyphicon glyphicon-plus-sign"></span> Cite Article</a></div>
+		<div class="publication-end-note-add dropdown" ng-class="{open : citationDropDown}">
+			<a href="" ng-click="getCitation(pubItem.articleID); citationDropDown = !citationDropDown;" >
+				<span class="glyphicon glyphicon-plus-sign"></span> Cite Article
+			</a>
+			<div class="dropdown-menu citation-dropdown" role="menu">
+				{{citationData.mla_journ}}
+			</div>
+		
+		
+		</div>
 	</div>
 </div>
 </div>

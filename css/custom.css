@@ -296,6 +296,14 @@
 }
 
 /*
+ * citation dropdown styling
+ */
+.citation-dropdown{
+	left: -100px;
+	width: 400px;
+}
+
+/*
  *********************************************************
  *
  *   RESEARCH EVENTS AND DEADLINES COLUMN

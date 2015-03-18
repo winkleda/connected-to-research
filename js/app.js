@@ -129,9 +129,10 @@
 				publicationCtrl.filter = data;
 			});
 
-			$http.get("ajax/publication-items.php").success(function(data){
-				publicationCtrl.publicationItems = data;
-			});	
+// commenting out refreshing the publication items for now, might not need this
+//			$http.get("ajax/publication-items.php").success(function(data){
+//				publicationCtrl.publicationItems = data;
+//			});	
 
 			$http.get("ajax/participation.php").success(function(data){
 				publicationCtrl.participationItems = data;
@@ -143,6 +144,17 @@
 		};
 		
 		$interval(function(){$scope.refreshCall();}, 10000);
+		
+		$scope.getCitation = function(articleID){
+			$scope.citationData = []
+			$http({
+				method:"GET",
+				url:"scripts/generate_citation.php",
+				params:{ id: articleID }
+				}).success(function(data){
+				$scope.citationData = data;
+			});
+		};
 		
 	}]);
 	
