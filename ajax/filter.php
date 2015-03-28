@@ -4,29 +4,45 @@ include '../scripts/connection.php';
 
 session_start();
 
-/* Queries count statistics for filter */
+/* User currently logged in */
+$email = $_SESSION['email'];
+
+$stmt = $mysqli->stmt_init();
 
 /* Total recommended articles assigned to user */
-$sql = "SELECT count(*) as count
+$num_recommended = "SELECT count(*) as count
  		FROM ctr_user_article_link
- 		WHERE email = '$_SESSION[email]'";
-$result = $mysqli->query($sql);
-$total = $result->fetch_assoc();
+ 		WHERE email = ?";
 
 /* Total articles favorited by user */
-$sql = "SELECT count(*) as count
+$num_favorited = "SELECT count(*) as count
  		FROM ctr_user_fav
- 		WHERE email = '$_SESSION[email]'";
-$result = $mysqli->query($sql);
-$favorite = $result->fetch_assoc();
-
+ 		WHERE email = ?";
 
 /* Total articles shared to user*/
-$sql = "SELECT count(*) as count
+$num_shared = "SELECT count(*) as count
  		FROM ctr_user_share
- 		WHERE shared_to = '$_SESSION[email]'";
-$result = $mysqli->query($sql);
-$shared = $result->fetch_assoc();
+ 		WHERE shared_to = ?";
+
+$categories = array("recommended" => $num_recommended, 
+					"favorited" => $num_favorited,
+					"shared" => $num_shared); 
+$count_value = array();
+
+/* Executes above queries and stores count values in array */
+foreach($categories as $key => $query) {
+	
+	if(!$stmt->prepare($query)) {
+		echo "Prepared failed: " . $stmt->error;
+	}
+
+	$stmt->bind_param("s", $email);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	
+	$columns = $result->fetch_assoc();
+	$count_value[$key] = $columns['count'];
+}
 
 $data = array(
 	array(
@@ -34,7 +50,7 @@ $data = array(
 		"items" => array(
 			array(
 				"groupItem" => "Recommended",
-				"amount" => $total['count']
+				"amount" => $count_value['recommended']
 			),
 			array(
 				"groupItem" => "Journal Articles",
@@ -46,11 +62,11 @@ $data = array(
 			),
 			array(
 				"groupItem" => "Favorited",
-				"amount" => $favorite['count']
+				"amount" => $count_value['favorited']
 			),
 			array(
 				"groupItem" => "Shared",
-				"amount" => $shared['count']
+				"amount" => $count_value['shared']
 			)
 		)
 	),
@@ -59,7 +75,9 @@ $data = array(
 		"items" => array(
 			array(
 				"groupItem" => "All",
-				"amount" => $total['count']
+				"amount" => $count_value['recommended'] + 
+							$count_value['favorited'] + 
+							$count_value['shared']
 			),
 			array(
 				"groupItem" => "Since 2015",
@@ -77,8 +95,10 @@ $data = array(
 	),
 );
 
+$stmt->close();
+$mysqli->close();
+
 // encodes the $data varible to json and then echos it back to the client
 echo json_encode($data);
-
 ?>
 

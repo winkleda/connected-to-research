@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<title>Create XML Data</title>
+	</head>
+	<body>
+		<p>Enter XML of item.</p>
+		<textarea rows="25" cols="80" name="article" form="form"></textarea>
+
+		<p>This XML data contains:<p>
+		<form action="insert_article.php" method="POST" id="form">
+			<input type = "radio" name="type" value="articles">Articles<br>
+			<input type = "radio" name="type" value="calls">Calls for participation<br><br>
+			<input type="submit" value="Insert into DB">
+		</form>
+	</body>
+</html>
+
+
