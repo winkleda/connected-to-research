@@ -21,12 +21,14 @@ switch($type) {
 	case "favorited":
 		$query = "SELECT *
 				FROM ctr_article a, ctr_user_fav u
-				WHERE a.id = u.a_id AND u.email = ?";
+				WHERE a.id = u.a_id AND u.email = ?
+				ORDER BY time_issued DESC";
 		break;
 	case "shared":
 		$query = "SELECT *
 				FROM ctr_article a, ctr_user_share u
-				WHERE a.id = u.a_id AND u.shared_to = ?";
+				WHERE a.id = u.a_id AND u.shared_to = ?
+				ORDER BY time_issued DESC";
 		break;
 	default:
 		$query = "SELECT * 

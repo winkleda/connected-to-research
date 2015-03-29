@@ -105,6 +105,7 @@ $sql_create_user_call_link = "CREATE TABLE ctr_user_call_link (
 $sql_create_user_fav = "CREATE TABLE ctr_user_fav (
 	email varchar(255),
 	a_id int,
+	time_issued timestamp,
 	UNIQUE unique_index(email, a_id)
 )";
 
@@ -112,6 +113,7 @@ $sql_create_user_share = "CREATE TABLE ctr_user_share (
 	shared_by varchar(255),
 	shared_to varchar(255),
 	a_id int,
+	time_issued timestamp,
 	UNIQUE unique_index(shared_by, shared_to, a_id)
 )";
 
