@@ -40,14 +40,13 @@ function insert_articles($mysqli, $articles) {
 				isbn_issn,
 				notes,
 				authors,
-				availability,
-				origin) 
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
+				availability) 
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
 			
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
-		if (!$stmt->bind_param("iiiiiissssssssssss", 
+		if (!$stmt->bind_param("iiiiiisssssssssss", 
 			$article->id,
 			$article->date,
 			$article->startpage,
@@ -64,8 +63,7 @@ function insert_articles($mysqli, $articles) {
 			$article->isbnorissn,
 			$article->notes,
 			$article->authors,
-			$article->availability,
-			$origin)) {
+			$article->availability)) {
 			echo "Binding parameters failed: (" . $stmt->errno . ") " 
 			. $stmt->error;
 		}
@@ -89,19 +87,17 @@ function insert_calls($mysqli, $calls) {
 				p_date,
 				title,
 				location,
-				description,
-				origin) 
-			VALUES (?, ?, ?, ?, ?)"))) {
+				description) 
+			VALUES (?, ?, ?, ?)"))) {
 			
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
-		if (!$stmt->bind_param("sssss", 
+		if (!$stmt->bind_param("ssss", 
 			$call->when,
 			$call->event,
 			$call->where,
-			$call->desc,
-			$origin)) {
+			$call->desc)) {
 			echo "Binding parameters failed: (" . $stmt->errno . ") " 
 			. $stmt->error;
 		}

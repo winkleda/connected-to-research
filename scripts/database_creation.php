@@ -55,7 +55,6 @@ $sql_create_article = "CREATE TABLE ctr_article (
 	notes text,
 	availability text,
 	image_url varchar(255),
-	origin varchar(255),
 	UNIQUE(title) /* Ensures title of article is unique */
 )";
 
@@ -83,7 +82,6 @@ $sql_create_call_for_part = "CREATE TABLE ctr_call_for_part (
 	p_id int unsigned auto_increment primary key,
 	impact_fact mediumint unsigned,
 	description varchar(255),
-	origin varchar(255),
 	UNIQUE(title) /* Ensures there's no duplicate events */
 )";
 
@@ -98,7 +96,9 @@ $sql_create_call_part_item = "CREATE TABLE ctr_call_part_item (
 // call for participation item table creation sql
 $sql_create_user_call_link = "CREATE TABLE ctr_user_call_link (
 	email varchar(255),
-	p_id int
+	p_id int,
+	time_issued timestamp,
+	UNIQUE unique_index(email, p_id)
 )";
 
 // user's favorite article

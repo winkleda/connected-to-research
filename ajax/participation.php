@@ -10,7 +10,8 @@ $email = $_SESSION['email'];
 /* Queries calls for participation linked to current user */
 $query = "SELECT * 
 		FROM ctr_user_call_link c, ctr_call_for_part p
-		WHERE c.p_id = p.p_id AND c.email = ?";
+		WHERE c.p_id = p.p_id AND c.email = ?
+		ORDER BY time_issued DESC";
 
 $stmt = $mysqli->stmt_init();
 if(!$stmt->prepare($query)) {
