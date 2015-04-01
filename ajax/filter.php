@@ -50,23 +50,28 @@ $data = array(
 		"items" => array(
 			array(
 				"groupItem" => "Recommended",
-				"amount" => $count_value['recommended']
+				"amount" => $count_value['recommended'],
+				"filterName" => "recommended"
 			),
 			array(
 				"groupItem" => "Journal Articles",
-				"amount" => 0
+				"amount" => 0,
+				"filterName" => "recommended"
 			),
 			array(
 				"groupItem" => "Cited Work",
-				"amount" => 0
+				"amount" => 0,
+				"filterName" => "recommended"
 			),
 			array(
 				"groupItem" => "Favorited",
-				"amount" => $count_value['favorited']
+				"amount" => $count_value['favorited'],
+				"filterName" => "favorited"
 			),
 			array(
 				"groupItem" => "Shared",
-				"amount" => $count_value['shared']
+				"amount" => $count_value['shared'],
+				"filterName" => "shared"
 			)
 		)
 	),

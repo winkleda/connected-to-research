@@ -9,7 +9,7 @@ $email = $_SESSION['email'];
 
 /* Specifies type of articles to retrieve*/
 $type = $_GET['type'];
-$type = "recommended";
+//$type = "recommended";
 
 switch($type) {
 	case "recommended":

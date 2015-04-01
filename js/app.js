@@ -73,15 +73,21 @@
 
 		publicationCtrl.publicationItems = [];
 		
-		$http({
-			method:'GET',
-			url:'ajax/publication-items.php',
-			params:{
-				type:publicationCtrl.currentFilterType
-			}
-		}).success(function(data){
-			publicationCtrl.publicationItems=data;
-		});
+		$scope.publicationItemCall = function(type){
+			publicationCtrl.currentFilterType = type;
+
+			$http({
+				method:'GET',
+				url:'ajax/publication-items.php',
+				params:{
+					type:publicationCtrl.currentFilterType
+				}
+			}).success(function(data){
+				publicationCtrl.publicationItems=data;
+			});
+		};
+
+		$scope.publicationItemCall(publicationCtrl.currentFilterType);
 
 		publicationCtrl.participationItems = [];
 		$http.get("ajax/participation.php").success(function(data){
