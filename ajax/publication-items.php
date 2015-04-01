@@ -8,7 +8,7 @@ session_start();
 $email = $_SESSION['email'];
 
 /* Specifies type of articles to retrieve*/
-//$type = $_GET['type'];
+$type = $_GET['type'];
 $type = "recommended";
 
 switch($type) {

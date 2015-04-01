@@ -61,6 +61,9 @@
 	//main controller for the content
 	app.controller('PublicationController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
 		var publicationCtrl = this;
+
+		publicationCtrl.currentFilterType = 'recommended';
+
 		publicationCtrl.selectedUsers = [];
 
 		publicationCtrl.filter = [];
@@ -69,9 +72,16 @@
 		});
 
 		publicationCtrl.publicationItems = [];
-		$http.get("ajax/publication-items.php").success(function(data){
-			publicationCtrl.publicationItems = data;
-		});	
+		
+		$http({
+			method:'GET',
+			url:'ajax/publication-items.php',
+			params:{
+				type:publicationCtrl.currentFilterType
+			}
+		}).success(function(data){
+			publicationCtrl.publicationItems=data;
+		});
 
 		publicationCtrl.participationItems = [];
 		$http.get("ajax/participation.php").success(function(data){
