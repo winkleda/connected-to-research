@@ -62,17 +62,18 @@ $sql_create_article = "CREATE TABLE ctr_article (
 // the user research and events link create table sql
 $sql_create_user_red_link = "CREATE TABLE ctr_user_red_link (
 	research_id int unsigned,
-	email varchar(255)
+	email varchar(255),
+	UNIQUE unique_index(email, research_id)
 )";
 
 // the research events and deadlines create table sql
-$sql_create_re_deadlines = "CREATE TABLE ctr_re_deadlines (
-	re_date date,
-	re_id int unsigned auto_increment primary key,
-	re_title varchar(255) not null,
-	location varchar(255),
-	status varchar(255)
-)";
+// $sql_create_re_deadlines = "CREATE TABLE ctr_re_deadlines (
+// 	re_date date,
+// 	re_id int unsigned auto_increment primary key,
+// 	re_title varchar(255) not null,
+// 	location varchar(255),
+// 	status varchar(255)
+// )";
 
 // the call for participation create table sql
 $sql_create_call_for_part = "CREATE TABLE ctr_call_for_part (
@@ -122,7 +123,7 @@ $sql_table_creation_array = array(
 	$sql_create_user_article_link,
 	$sql_create_article,
 	$sql_create_user_red_link,
-	$sql_create_re_deadlines,
+	//$sql_create_re_deadlines,
 	$sql_create_call_for_part,
 	$sql_create_call_part_item,
 	$sql_create_user_call_link,
