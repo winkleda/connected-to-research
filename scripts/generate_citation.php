@@ -1,7 +1,4 @@
 <?php
-//header("Content-type: text/plain");
-//header("Content-Disposition: attachment; filename='enw.enw'");
-
 ini_set('display_errors', 'On');
 include 'connection.php';
 
