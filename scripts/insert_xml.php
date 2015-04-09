@@ -40,13 +40,14 @@ function insert_articles($mysqli, $articles) {
 				isbn_issn,
 				notes,
 				authors,
-				availability) 
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
+				availability,
+				image_url) 
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
 			
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
-		if (!$stmt->bind_param("iiiiiisssssssssss", 
+		if (!$stmt->bind_param("iiiiiissssssssssss", 
 			$article->id,
 			$article->date,
 			$article->startpage,
@@ -63,7 +64,8 @@ function insert_articles($mysqli, $articles) {
 			$article->isbnorissn,
 			$article->notes,
 			$article->authors,
-			$article->availability)) {
+			$article->availability,
+			$article->image_url)) {
 			echo "Binding parameters failed: (" . $stmt->errno . ") " 
 			. $stmt->error;
 		}

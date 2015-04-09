@@ -9,7 +9,6 @@ $email = $_SESSION['email'];
 
 /* Specifies type of articles to retrieve*/
 $type = $_GET['type'];
-//$type = "recommended";
 
 switch($type) {
 	case "recommended":
@@ -60,7 +59,7 @@ while ($article = $articles->fetch_assoc()) {
 		"authors" => $authors,
 		"abstract" => $article['abstract'],
 		"articleID" => $article['id'],
-		"imageSrc" => "./img/article_img/test-image-1.jpg"
+		"imageSrc" => $article['image_url']
 	);
 }
 
