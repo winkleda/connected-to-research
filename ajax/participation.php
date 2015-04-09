@@ -28,6 +28,7 @@ while ($call = $calls->fetch_assoc()) {
 		"date" => $call['p_date'],
 		"location" => $call['location'],
 		"description" => $call['description'],
+		"id" => $call['p_id']
 	);
 }
 

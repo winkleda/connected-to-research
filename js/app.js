@@ -172,6 +172,14 @@
 			});
 		};
 		
+		$scope.addParticipationEvent = function(eventID){
+			$http({
+				method:"GET",
+				url:"scripts/insert_events_and_deadlines.php",
+				params:{ id: eventID }
+			});
+		};
+		
 	}]);
 	
 })();
