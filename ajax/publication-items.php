@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors', 'On');
 include '../scripts/connection.php';
+include '../scripts/article_likes.php';
 
 session_start();
 
@@ -55,7 +56,7 @@ while ($article = $articles->fetch_assoc()) {
 		"tagList" => $keywords,
 		"publication" => $article['j_name'],
 		"title" => $article['title'],
-		"userInterest" => 0,
+		"userInterest" => get_likes($article['id'], $mysqli),
 		"authors" => $authors,
 		"abstract" => $article['abstract'],
 		"articleID" => $article['id'],

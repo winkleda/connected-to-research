@@ -11,7 +11,7 @@ $email = $_SESSION['email'];
 $query = "SELECT * 
 		FROM ctr_user_call_link c, ctr_call_for_part p
 		WHERE c.p_id = p.p_id AND c.email = ?
-		ORDER BY time_issued DESC";
+		ORDER BY start_date ASC";
 
 $stmt = $mysqli->stmt_init();
 if(!$stmt->prepare($query)) {

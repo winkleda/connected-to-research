@@ -8,7 +8,7 @@ $email = $_SESSION['email'];
 
 /* Gets associated research and event deadlines for the user */
 if (!($stmt = $mysqli->prepare(
-	"SELECT p_date, title
+	"SELECT start_date, title
 	FROM ctr_call_for_part c, ctr_user_red_link u
 	WHERE c.p_id = u.research_id AND u.email = ?"))) {
 	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
@@ -27,28 +27,11 @@ $months = array();
 
 $current_date = date("Y-m-d");
 
-$month_to_num = array(
-	"Jan" => "01",
-	"Feb" => "02",
-	"Mar" => "03",
-	"Apr" => "04",
-	"May" => "05",
-	"Jun" => "06",
-	"Jul" => "07",
-	"Aug" => "08",
-	"Sep" => "09",
-	"Oct" => "10",
-	"Nov" => "11",
-	"Dec" => "12");
-
 while($red = $result->fetch_assoc()){
-	$output = preg_split("/[\s,-]+/", $red["p_date"]);  //split the string by comma, space and dash
-	$formatted_date = $output[2] . "-" . $month_to_num[$output[0]] . "-" . $output[1];
-
-	$temp_month = date("m", strtotime($formatted_date));
+	$temp_month = date("m", strtotime($red['start_date']));
 	$temp_month = intval($temp_month);
 
-	$months[$temp_month][] = ["date" => intval(date("d",strtotime($formatted_date))), "event" => $red["title"]];	
+	$months[$temp_month][] = ["date" => intval(date("d",strtotime($red['start_date']))), "event" => $red["title"]];	
 }
 
 $current_month_num = intval(date("m"));

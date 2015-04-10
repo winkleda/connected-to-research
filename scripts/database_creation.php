@@ -78,6 +78,8 @@ $sql_create_user_red_link = "CREATE TABLE ctr_user_red_link (
 // the call for participation create table sql
 $sql_create_call_for_part = "CREATE TABLE ctr_call_for_part (
 	p_date varchar(255),
+	start_date date, 
+	end_date date,
 	title varchar(255),
 	location varchar(255),
 	p_id int unsigned auto_increment primary key,
