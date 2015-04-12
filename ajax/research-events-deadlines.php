@@ -10,7 +10,8 @@ $email = $_SESSION['email'];
 if (!($stmt = $mysqli->prepare(
 	"SELECT p_date, title
 	FROM ctr_call_for_part c, ctr_user_red_link u
-	WHERE c.p_id = u.research_id AND u.email = ?"))) {
+	WHERE c.p_id = u.research_id AND u.email = ? 
+	ORDER BY c.p_date"))) {
 	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
 
@@ -45,20 +46,33 @@ while($red = $result->fetch_assoc()){
 	$output = preg_split("/[\s,-]+/", $red["p_date"]);  //split the string by comma, space and dash
 	$formatted_date = $output[2] . "-" . $month_to_num[$output[0]] . "-" . $output[1];
 
-	$temp_month = date("m", strtotime($formatted_date));
+	$temp_month = date("mY", strtotime($formatted_date));
 	$temp_month = intval($temp_month);
+	$temp_year = intval($output[2]);
 
-	$months[$temp_month][] = ["date" => intval(date("d",strtotime($formatted_date))), "event" => $red["title"]];	
+	$months[$temp_month][] = ["date" => intval(date("d",strtotime($formatted_date))), "event" => $red["title"], "year" => $temp_year ];	
 }
 
 $current_month_num = intval(date("m"));
 $months_keys = array_keys($months);
+$current_year = intval(date("Y"));
 
 foreach($months_keys as $month_key) {
 	$current_month_array = array();
-	$month_name = date("F", mktime( 0, 0, 0, $month_key));
- 	$current_month_array["month"] = $month_name;
-	$month_away = $month_key - intval(date("n"));
+	$month_digit = intval(floor($month_key / 10000));
+	$month_name = date("F", mktime( 0, 0, 0, $month_digit));
+	$current_month_array["month"] = $month_name;
+	$month_away = $month_digit - intval(date("n"));
+	//this is to fix the negative months away bug
+	$years_away = $months[$month_key][0]["year"]- $current_year;
+	
+	$month_away = $month_away + ($years_away * 12);
+	
+	if($month_away < 0){
+		$month_away = $month_away + 12;
+	}
+	
+
 	$current_month_array["monthAway"] = $month_away;
 	$current_month_array["events"] = $months[$month_key];
 
@@ -66,5 +80,15 @@ foreach($months_keys as $month_key) {
 	
 }
 
+
+//function to sort the data array
+function compareByMonthAway($a, $b){
+	
+	return $a['monthAway'] - $b['monthAway'] ;
+}
+
+usort($data, 'compareByMonthAway');
+
 echo json_encode($data);
+
 ?>
