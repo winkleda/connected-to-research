@@ -104,6 +104,24 @@
 			publicationCtrl.otherUsers = data;
 		});
 
+		$scope.refreshCall = function(){
+			$http.get("ajax/filter.php").success(function(data){
+				publicationCtrl.filter = data;
+			});
+
+// commenting out refreshing the publication items for now, might not need this
+//			$http.get("ajax/publication-items.php").success(function(data){
+//				publicationCtrl.publicationItems = data;
+//			});	
+
+			$http.get("ajax/participation.php").success(function(data){
+				publicationCtrl.participationItems = data;
+			});
+		
+			$http.get("ajax/research-events-deadlines.php").success(function(data){
+				publicationCtrl.researchEventsDeadlines = data;
+			});
+		};
 		// this function will check to see what users have been selected and then 
 		// call the share script with the selected user and article id as the 
 		// params to be sent in the get request. 
@@ -126,6 +144,8 @@
 						user: userString,
 						id: articleID
 					}
+				}).success(function(data){
+					$scope.refreshCall();		
 				});
 			}
 		};
@@ -137,28 +157,11 @@
 				params:{
 					id: articleID
 				}
+			}).success(function(data){
+				$scope.refreshCall();
 			});
-		};
-		
-		$scope.refreshCall = function(){
-			$http.get("ajax/filter.php").success(function(data){
-				publicationCtrl.filter = data;
-			});
+		};		
 
-// commenting out refreshing the publication items for now, might not need this
-//			$http.get("ajax/publication-items.php").success(function(data){
-//				publicationCtrl.publicationItems = data;
-//			});	
-
-			$http.get("ajax/participation.php").success(function(data){
-				publicationCtrl.participationItems = data;
-			});
-		
-			$http.get("ajax/research-events-deadlines.php").success(function(data){
-				publicationCtrl.researchEventsDeadlines = data;
-			});
-		};
-		
 		$interval(function(){$scope.refreshCall();}, 10000);
 		
 		$scope.getCitation = function(articleID){
@@ -177,6 +180,8 @@
 				method:"GET",
 				url:"scripts/insert_events_and_deadlines.php",
 				params:{ id: eventID }
+			}).success(function(data){
+				$scope.refreshCall();
 			});
 		};
 		
