@@ -40,13 +40,14 @@ function insert_articles($mysqli, $articles) {
 				isbn_issn,
 				notes,
 				authors,
-				availability) 
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
+				availability,
+				image_url) 
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))) {
 			
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
-		if (!$stmt->bind_param("iiiiiisssssssssss", 
+		if (!$stmt->bind_param("iiiiiissssssssssss", 
 			$article->id,
 			$article->date,
 			$article->startpage,
@@ -63,7 +64,8 @@ function insert_articles($mysqli, $articles) {
 			$article->isbnorissn,
 			$article->notes,
 			$article->authors,
-			$article->availability)) {
+			$article->availability,
+			$article->image_url)) {
 			echo "Binding parameters failed: (" . $stmt->errno . ") " 
 			. $stmt->error;
 		}
@@ -79,25 +81,48 @@ function insert_articles($mysqli, $articles) {
 }
 
 function insert_calls($mysqli, $calls) {
+	$month_to_num = array(
+	"Jan" => "01",
+	"Feb" => "02",
+	"Mar" => "03",
+	"Apr" => "04",
+	"May" => "05",
+	"Jun" => "06",
+	"Jul" => "07",
+	"Aug" => "08",
+	"Sep" => "09",
+	"Oct" => "10",
+	"Nov" => "11",
+	"Dec" => "12");
+
 	/* Iterates through each call and adds it to database */
 	/* NOTE: lang and discipline attributes are not added! */
 	foreach ($calls as $call) {
+
+		$formatted_date = preg_split("/[\s,-]+/", $call->when);  //split the string by comma, space and dash
+		$start = $formatted_date[2] . "-" . $month_to_num[$formatted_date[0]] . "-" . $formatted_date[1];
+		$end = $formatted_date[5] . "-" . $month_to_num[$formatted_date[3]] . "-" . $formatted_date[4];
+
 		if (!($stmt = $mysqli->prepare(
 			"INSERT INTO ctr_call_for_part(
 				p_date,
 				title,
 				location,
-				description) 
-			VALUES (?, ?, ?, ?)"))) {
+				description,
+				start_date,
+				end_date) 
+			VALUES (?, ?, ?, ?, ?, ?)"))) {
 			
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
-		if (!$stmt->bind_param("ssss", 
+		if (!$stmt->bind_param("ssssss", 
 			$call->when,
 			$call->event,
 			$call->where,
-			$call->desc)) {
+			$call->desc,
+			$start,
+			$end)) {
 			echo "Binding parameters failed: (" . $stmt->errno . ") " 
 			. $stmt->error;
 		}

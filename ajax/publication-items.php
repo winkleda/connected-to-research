@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors', 'On');
 include '../scripts/connection.php';
+include '../scripts/article_likes.php';
 
 session_start();
 
@@ -9,7 +10,6 @@ $email = $_SESSION['email'];
 
 /* Specifies type of articles to retrieve*/
 $type = $_GET['type'];
-//$type = "recommended";
 
 switch($type) {
 	case "recommended":
@@ -56,11 +56,11 @@ while ($article = $articles->fetch_assoc()) {
 		"tagList" => $keywords,
 		"publication" => $article['j_name'],
 		"title" => $article['title'],
-		"userInterest" => 0,
+		"userInterest" => get_likes($article['id'], $mysqli),
 		"authors" => $authors,
 		"abstract" => $article['abstract'],
 		"articleID" => $article['id'],
-		"imageSrc" => "./img/article_img/test-image-1.jpg"
+		"imageSrc" => $article['image_url']
 	);
 }
 
