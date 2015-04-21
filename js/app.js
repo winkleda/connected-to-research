@@ -86,6 +86,15 @@
 				publicationCtrl.publicationItems=data;
 			});
 		};
+		
+		$scope.favoritedCheck = function(toCheck, arrayToCheck){
+			for(var i = 0; i < arrayToCheck.length; i++ ){
+				if( arrayToCheck[i] == toCheck){
+					return true;
+				}
+			}
+			return false;
+		};
 
 		$scope.publicationItemCall(publicationCtrl.currentFilterType);
 
@@ -102,6 +111,12 @@
 		publicationCtrl.otherUsers = [];
 		$http.get("scripts/get_users.php").success(function(data){
 			publicationCtrl.otherUsers = data;
+		});
+
+		publicationCtrl.favoritedArticles = [];
+		$http.get("scripts/view_favorites.php").success(function(data){
+			publicationCtrl.favoritedArticles = data;
+			
 		});
 
 		$scope.refreshCall = function(){

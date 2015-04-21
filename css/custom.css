@@ -229,8 +229,13 @@
 
 .publication-dog-ear{
 	border-bottom:30px solid;
+	border-right:30px solid transparent;	
+}
+
+.publication-dog-ear-favorited{
+	border-bottom:30px solid;
+	border-color: rgba(184, 80, 16, 0.9);
 	border-right:30px solid transparent;
-	
 }
 
 .publication-end-note-add, .publication-share-link{
