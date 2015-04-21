@@ -1,7 +1,7 @@
 <h4 class="panel-header">{{filter.header}}</h4>
 <div class="panel-body filter-column-groups">
-	<ul class="list-group" ng-repeat="item in filter.items">
-		<a href="#" class="list-group-item" ng-click="publicationItemCall(item.filterName)" >
+	<ul class="list-group"  ng-repeat="item in filter.items" ng-class="{ 'filter-column-item-active' : publicationCtrl.currentFilterType == item.filterName}" >
+		<a href="#" class="list-group-item" ng-click=" publicationItemCall(item.filterName);" >
 			{{item.groupItem}}
 			<span>{{item.amount}}</span>
 		</a>

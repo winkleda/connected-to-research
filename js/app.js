@@ -163,7 +163,8 @@
 		};		
 
 		$interval(function(){$scope.refreshCall();}, 10000);
-		
+
+
 		$scope.getCitation = function(articleID){
 			$scope.citationData = []
 			$http({
