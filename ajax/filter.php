@@ -56,12 +56,12 @@ $data = array(
 			array(
 				"groupItem" => "Journal Articles",
 				"amount" => 0,
-				"filterName" => "recommended"
+				"filterName" => "journalArticle"
 			),
 			array(
 				"groupItem" => "Cited Work",
 				"amount" => 0,
-				"filterName" => "recommended"
+				"filterName" => "citedWork"
 			),
 			array(
 				"groupItem" => "Favorited",
