@@ -30,6 +30,24 @@ switch($type) {
 				WHERE a.id = u.a_id AND u.shared_to = ?
 				ORDER BY time_issued DESC";
 		break;
+	case "at2015":
+		$query = "SELECT * 
+				FROM ctr_article a, ctr_user_article_link u 
+				WHERE a.a_date = 2015 AND a.id = u.id AND u.email = ?
+				ORDER BY time_issued DESC";
+		break;
+	case "at2014":
+		$query = "SELECT * 
+				FROM ctr_article a, ctr_user_article_link u 
+				WHERE a.a_date = 2014 AND a.id = u.id AND u.email = ?
+				ORDER BY time_issued DESC";
+		break;
+	case "pre2014":
+		$query = "SELECT * 
+				FROM ctr_article a, ctr_user_article_link u 
+				WHERE a.a_date < 2014 AND a.id = u.id AND u.email = ?
+				ORDER BY time_issued DESC";
+		break;
 	default:
 		$query = "SELECT * 
 				FROM ctr_article a, ctr_user_article_link u 

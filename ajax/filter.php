@@ -24,9 +24,27 @@ $num_shared = "SELECT count(*) as count
  		FROM ctr_user_share
  		WHERE shared_to = ?";
 
+/* Total articles from 2015 recommended to user */
+$num_at2015 = "SELECT count(*) as count
+		FROM ctr_article a, ctr_user_article_link u 
+		WHERE a.a_date = 2015 AND a.id = u.id AND u.email = ?";
+
+/* Total articles from 2014 recommended to user */
+$num_at2014 = "SELECT count(*) as count
+		FROM ctr_article a, ctr_user_article_link u 
+		WHERE a.a_date = 2014 AND a.id = u.id AND u.email = ?";
+
+/* Total articles before 2014 recommended to user */
+$num_pre2014 = "SELECT count(*) as count
+		FROM ctr_article a, ctr_user_article_link u 
+		WHERE a.a_date < 2014 AND a.id = u.id AND u.email = ?";
+
 $categories = array("recommended" => $num_recommended, 
 					"favorited" => $num_favorited,
-					"shared" => $num_shared); 
+					"shared" => $num_shared,
+					"at2015" => $num_at2015,
+					"at2014" => $num_at2014,
+					"pre2014" => $num_pre2014); 
 $count_value = array();
 
 /* Executes above queries and stores count values in array */
@@ -80,21 +98,23 @@ $data = array(
 		"items" => array(
 			array(
 				"groupItem" => "All",
-				"amount" => $count_value['recommended'] + 
-							$count_value['favorited'] + 
-							$count_value['shared']
+				"amount" => $count_value['recommended'],
+				"filterName" => "recommended"
 			),
 			array(
-				"groupItem" => "Since 2015",
-				"amount" => 0
+				"groupItem" => "From 2015",
+				"amount" => $count_value['at2015'],
+				"filterName" => "at2015"
 			),
 			array(
-				"groupItem" => "Since 2014",
-				"amount" => 0
+				"groupItem" => "From 2014",
+				"amount" => $count_value['at2014'],
+				"filterName" => "at2014"
 			),
 			array(
 				"groupItem" => "Before 2014",
-				"amount" => 0
+				"amount" => $count_value['pre2014'],
+				"filterName" => "pre2014"
 			)
 		)
 	),
