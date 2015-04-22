@@ -39,7 +39,7 @@ if ($metadata['type'] == 'JOUR') {
 	$mla_journ = 
 		str_replace(";", ", ", $metadata['authors']) . 
 		" \"$metadata[title].\" " . 
-		"<i>$metadata[j_name]</i> " .
+		"$metadata[j_name] " .
 		"$metadata[j_volume]." . 
 		"$metadata[j_issue] " . 
 		"($metadata[a_date]): " .
