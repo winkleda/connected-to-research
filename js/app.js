@@ -174,6 +174,9 @@
 				}
 			}).success(function(data){
 				$scope.refreshCall();
+				$http.get("scripts/view_favorites.php").success(function(data){
+					publicationCtrl.favoritedArticles = data;
+				});
 			});
 		};		
 
