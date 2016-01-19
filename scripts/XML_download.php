@@ -1,12 +1,18 @@
 <?php
+/*
+** dl_grantsgov_xml - Downloads yesterday's XML dump as 'GrantsDBExtract.xml'
+** dl_fbogov_nightly - Downloads yesterdays XML dump as 'FBOnightly.xml'
+** dl_fbogov_weekly - Downloads FBO's weekly XML dump as 'FBOweekly.xml'
+** 
+** Beware: FBO's weekly dump might be big enough to exceed our school server data limit.
+*/
+
 
 /*
 ** Download Grants.gov's XML data. 
 ** Gets yesterday's data in case today's isn't ready yet.
 */
 function dl_grantsgov_xml(){
-	ini_set('display_errors', 'On');
-
 	$destination_path = "../temp_xml/";
 	$destination = $destination_path . "grants-gov.zip";
 
@@ -22,29 +28,20 @@ function dl_grantsgov_xml(){
 	$timestamp = time() - (24 * 60 * 60);
 	$source_url .=  date("Ymd", $timestamp) . ".zip";
 
-	// echo for debugging
-	echo "destination folder:   " . $destination_path . '<br>';
-	echo "destination filename: " . $destination . '<br>';
-	echo "XML source URL:       " . $source_url . '<br>';
-
 	// Copy the source file from grants.gov to our temp directory.
-	echo "<br> Copying file from source to destination. Please wait... <br>";
 	if (copy($source_url, $destination) == FALSE)
 		die("Failed to copy file from source URL to server. <br>");
-	echo "Copy successful. <br>";
 
 	// Now extract the .zip file to get at the XML
 	$zip = new ZipArchive;
 	$result = $zip->open($destination);
 	if ($result == TRUE) {
-		echo "<br> Extracting XML from .zip archive. Please wait... <br>";
 		// Extract the contents of the zip file
 		if ($zip->extractTo($destination_path) == FALSE)
 			die("Failed to extract zip file. <br>");
 		// Close the zip file
 		if($zip->close() == FALSE)
 			die("Failed to close zip file. <br>");
-		echo "Extract successful. <br>";
 	}
 	else
 		die("Failed to open zip file: returned \"" . $result . "\" <br>");
@@ -58,15 +55,12 @@ function dl_grantsgov_xml(){
 ** Gets yesterday's data in case today's isn't ready yet.
 */
 function dl_fbogov_nightly(){
-	ini_set('display_errors', 'On');
-
 	$destination_path = "../temp_xml/";
-	// Output file is '.fake.xml' to remind you that it's not real XML
-	$destination = $destination_path . "FBOnightly.fake.xml";
+	$destination = $destination_path . "FBOnightly.xml";
 
 	// The source URL from FBO.gov is simpler.
 	// We can download the nightly files directly.
-	// ftp://ftp.fbo.gov/FBOFeed20160112
+	// EXAMPLE: ftp://ftp.fbo.gov/FBOFeed20160112
 	$source_url = "ftp://ftp.fbo.gov/FBOFeed";
 
 	// Add the date to the filename. YYYYMMDD format expected.
@@ -74,21 +68,42 @@ function dl_fbogov_nightly(){
 	$timestamp = time() - (24 * 60 * 60);
 	$source_url .=  date("Ymd", $timestamp);
 
-	// echo for debugging
-	echo "destination folder:   " . $destination_path . '<br>';
-	echo "destination filename: " . $destination . '<br>';
-	echo "XML source URL:       " . $source_url . '<br>';
-
 	// Copy the source file from grants.gov to our temp directory.
-	echo "<br> Copying file from source to destination. Please wait... <br>";
 	if (copy($source_url, $destination) == FALSE)
 		die("Failed to copy file from source URL to server. <br>");
-	echo "Copy successful. <br>";
 }
 
+/*
+** Download FBO's weekly XML
+** Gets whatever is there, because the filename doesn't change.
+*/
+function dl_fbogov_weekly(){
+	$destination_path = "../temp_xml/";
+	$destination = $destination_path . "FBOweekly.xml";
+
+	// The source URL from FBO.gov is simpler.
+	// We can download the nightly files directly.
+	$source_url = "ftp://ftp.fbo.gov/datagov/FBOFullXML.xml";
+
+	// Copy the source file from grants.gov to our temp directory.
+	if (copy($source_url, $destination) == FALSE)
+		die("Failed to copy file from source URL to server. <br>");
+}
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 // Keep test here until its ready
-echo "Downloading nightly XML from FedBizOps <br>";
+echo "Downloading NIGHTLY XML from FedBizOps <br>";
 dl_fbogov_nightly();
+echo "Finished.<br>";
+
 echo "<br><br> Downloading XML from Grants.gov <br>";
 dl_grantsgov_xml();
+echo "Finished.<br>";
+
+echo "<br><br>Downloading WEEKLY XML from FedBizOps <br>";
+echo "This is a large file, so be patient.<br>";
+dl_fbogov_weekly();
+echo "Finished.<br>";
+
 ?>
