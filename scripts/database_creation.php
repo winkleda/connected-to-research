@@ -120,6 +120,46 @@ $sql_create_user_share = "CREATE TABLE ctr_user_share (
 	UNIQUE unique_index(shared_by, shared_to, a_id)
 )";
 
+// Create a table for base funding opportunity info:
+$sql_create_funding_base = "CREATE TABLE ctr_funding_base (
+    id          VARCHAR(128) PRIMARY KEY,
+    title       VARCHAR(255),
+    post_date   DATE,
+    due_date    DATE,
+    interests   VARCHAR(255),
+    agency      VARCHAR(255),
+    address     VARCHAR(255),
+    contact     VARCHAR(300),
+    office      VARCHAR(255),
+    description TEXT
+)";
+
+// Create a table for Grants.gov funding opportunities:
+$sql_create_funding_grants = "CREATE TABLE ctr_funding_grants (
+    opp_number              VARCHAR(255) PRIMARY KEY,
+    due_date_explanation    VARCHAR(255),
+    funding_total           VARCHAR(15),
+    award_ceiling           VARCHAR(15),
+    award_floor             VARCHAR(15),
+    category_explanation    TEXT,
+    instrument_type         VARCHAR(2),
+    award_number            VARCHAR(15),
+    elegibility_category    CHAR(2),
+    eligibility_info        TEXT,
+    cost_sharing            CHAR(1),
+    FOREIGN KEY (opp_number) REFERENCES ctr_funding_base(id)
+)";
+
+// Create a table for FBO.gov funding opportunities:
+$sql_create_funding_fbo = "CREATE TABLE ctr_funding_fbo (
+    sol_number      VARCHAR(128) PRIMARY KEY,
+    notice_type     VARCHAR(8),
+    award_amount    VARCHAR(64),
+    award_date      DATE,
+    set_aside       VARCHAR(60),
+    FOREIGN KEY (sol_number) REFERENCES ctr_funding_base(id)
+)";
+
 $sql_table_creation_array = array(
 	$sql_create_user,
 	$sql_create_user_article_link,
@@ -130,7 +170,10 @@ $sql_table_creation_array = array(
 	$sql_create_call_part_item,
 	$sql_create_user_call_link,
 	$sql_create_user_fav,
-	$sql_create_user_share
+	$sql_create_user_share,
+    $sql_create_funding_base,
+    $sql_create_funding_grants,
+    $sql_create_funding_fbo
 );
 
 $i = 1;
