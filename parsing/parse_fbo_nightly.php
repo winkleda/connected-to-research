@@ -4,11 +4,15 @@ ini_set("display_errors", 1);
 include("../scripts/XML_download.php");
 include("../scripts/connection.php");
 
-echo "downloading FBO nightly XML <br>\n";
-//dl_fbogov_nightly(); // Downloads "FBOnightly.xml"
-echo "Finished. <br><br><br>\n";
-
 $path = "../temp_xml/FBOnightly.xml";
+
+// If the noghtly file was downloaded more than a day ago, update it.
+if((time() - filemtime($path)) > (24*60*60))
+{
+    echo "downloading FBO nightly XML <br>\n";
+    //dl_fbogov_nightly();
+    echo "Finished. <br><br><br>\n";
+}
 
 //Due to the way the file is made, we can"t parse it using a normal XML parser.
 //Instead, we have to read it line by line like a normal file.
@@ -55,6 +59,8 @@ while(($line = fgets($file)) !== FALSE)
         // Once we do, read throguh all subsequent lines until we find a matching </PRESOL>
         while(($line = fgets($file)) !== FALSE)
         {
+// Tag for goto
+top:
             //If we read a </PRESOL>, this element ended
             if((strncmp($line, "</PRESOL>", strlen("</PRESOL>")) == 0)
             || (strncmp($line, "</SRCSGT>", strlen("</SRCSGT>")) == 0)
@@ -84,14 +90,12 @@ while(($line = fgets($file)) !== FALSE)
                 $classcod = $mysqli->escape_string(str_replace("<CLASSCOD>", "", $line));
             if(strncmp($line, "<NAICS>", strlen("<NAICS>")) == 0)
                 $naics = $mysqli->escape_string(str_replace("<NAICS>", "", $line));
-            if(strncmp($line, "<OFFADD>", strlen("<OFFADD>")) == 0)
-                $offadd = $mysqli->escape_string(str_replace("<OFFADD>", "", $line));
+//            if(strncmp($line, "<OFFADD>", strlen("<OFFADD>")) == 0)
+//                $offadd = $mysqli->escape_string(str_replace("<OFFADD>", "", $line));
             if(strncmp($line, "<SUBJECT>", strlen("<SUBJECT>")) == 0)
                 $subject = $mysqli->escape_string(str_replace("<SUBJECT>", "", $line));
             if(strncmp($line, "<RESPDATE>", strlen("<RESPDATE>")) == 0)
                 $respdate = $mysqli->escape_string(str_replace("<RESPDATE>", "", $line));
-            if(strncmp($line, "<CONTACT>", strlen("<CONTACT>")) == 0)
-                $contact = $mysqli->escape_string(str_replace("<CONTACT>", "", $line));
             if(strncmp($line, "<NTYPE>", strlen("<NTYPE>")) == 0)
                 $ntype = $mysqli->escape_string(str_replace("<NTYPE>", "", $line));
             if(strncmp($line, "<AWDAMT>", strlen("<AWDAMT>")) == 0)
@@ -103,14 +107,67 @@ while(($line = fgets($file)) !== FALSE)
             if(strncmp($line, "<AWDDATE>", strlen("<AWDDATE>")) == 0)
                 $awddate = $mysqli->escape_string(str_replace("<AWDDATE>", "", $line));
             /* 
-            ** DESC is spectial because it is sometimes duplicated in the file, but the second DESC
-            ** is not important, and it can contain HTML tags. So we need to strip the <DESC>, then
-            ** strip the tags, THEN convert HTML special characters into normal characters, THEN
-            ** insert excape characters before we have an acceptable description.
+            ** Some fields are special because they can be multiple lines 
+            ** and may contain HTML. So after reading either, we need to 
+            ** continue reading until the next tag, then start over from the top
             */
-            if((strncmp($line, "<DESC>", strlen("<DESC>")) == 0)
-                && ($desc == ""))
-                $desc = $mysqli->escape_string(html_entity_decode(strip_tags(str_replace("<DESC>", "", $line), "<br>")));
+            if((strncmp($line, "<DESC>", strlen("<DESC>")) == 0) && ($desc == ""))
+            {
+            $desc = $line;
+                while(($line = fgets($file)) !== FALSE)
+                {
+                    // DESC is always followed by a LINK
+                    if(strncmp($line, "<LINK>", strlen("<LINK>")) == 0)
+                        break;
+                    $desc = $desc . $line;
+                }
+                $desc = str_replace("<DESC>", "", $desc);
+                $desc = str_replace(["\r\n", "\n"], "<br>", $desc);
+                $desc = strip_tags($desc, "<br><p></p>");
+                $desc = html_entity_decode($desc);
+                $desc = $mysqli->escape_string($desc);
+                
+                goto top;
+            }
+            if((strncmp($line, "<CONTACT>", strlen("<CONTACT>")) == 0) && ($contact == ""))
+            {
+                $contact = $line;
+                while(($line = fgets($file)) !== FALSE)
+                {
+                    // CONTACT is always followed by a DESC
+                    if(strncmp($line, "<DESC>", strlen("<DESC>")) == 0)
+                        break;
+                    $contact = $contact . $line;
+                }
+                $contact = str_replace("<CONTACT>", "", $contact);
+                $contact = str_replace(["\r\n", "\n"], "<br>", $contact);
+                $contact = strip_tags($contact, "<br><p></p>");
+                $contact = html_entity_decode($contact);
+                $contact = $mysqli->escape_string($contact);
+                
+                // The problem is that when it finds a <DESC>, it returns, but we don't want it to. We want it to add the line to 
+                
+                goto top;
+            }
+            if((strncmp($line, "<OFFADD>", strlen("<OFFADD>")) == 0) && ($offadd == ""))
+            {
+                $offadd = $line;
+                while(($line = fgets($file)) !== FALSE)
+                {
+                    if(strncmp($line, "<SUBJECT>", strlen("<SUBJECT>")) == 0)
+                        break;
+                    $offadd = $offadd . $line;
+                }
+                $offadd = str_replace("<OFFADD>", "", $offadd);
+                $offadd = str_replace(["\r\n", "\n"], "<br>", $offadd);
+                $offadd = strip_tags($offadd, "<br><p></p>");
+                $offadd = html_entity_decode($offadd);
+                $offadd = $mysqli->escape_string($offadd);
+                
+                // The problem is that when it finds a <DESC>, it returns, but we don't want it to. We want it to add the line to 
+                
+                goto top;
+            }
         }
         
         if($ntype == "")
