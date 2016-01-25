@@ -89,21 +89,4 @@ function dl_fbogov_weekly(){
 	if (copy($source_url, $destination) == FALSE)
 		die("Failed to copy file from source URL to server. <br>");
 }
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
-
-// Keep test here until its ready
-echo "Downloading NIGHTLY XML from FedBizOps <br>";
-dl_fbogov_nightly();
-echo "Finished.<br>";
-
-echo "<br><br> Downloading XML from Grants.gov <br>";
-dl_grantsgov_xml();
-echo "Finished.<br>";
-
-echo "<br><br>Downloading WEEKLY XML from FedBizOps <br>";
-echo "This is a large file, so be patient.<br>";
-dl_fbogov_weekly();
-echo "Finished.<br>";
-
 ?>
