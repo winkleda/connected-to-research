@@ -131,6 +131,7 @@ $sql_create_funding_base = "CREATE TABLE ctr_funding_base (
     address     VARCHAR(255),
     contact     VARCHAR(300),
     office      VARCHAR(255),
+    url         VARCHAR(255),
     description TEXT
 )";
 
