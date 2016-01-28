@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="funding">
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom.css" />
+		<script type="text/javascript" src = "js/angular.min.js"></script>
+		<script type="text/javascript" src = "js/ui-bootstrap-tpls-0.12.0.min.js"></script>
+		<script type="text/javascript" src = "js/app.js"></script>
+        <script type="text/javascript" src = "js/funding.js"></script>
+	</head>
+    
+	<body>
+		<header class="container-fluid navbar custom-main-header-bar" ng-controller="NavbarController as navbarCtrl">
+			<user-nav-bar></user-nav-bar>
+            <h4>This is the navbar</h4>
+		</header>
+        
+		<div id="main-content" class="container-fluid" ng-controller="FundingController as fundingCtrl">
+			<div class="row">
+				<div id="filter-column" class="col-xs-2 panel panel-default text-right " >
+					<filter ng-repeat="filter in fundingCtrl.filter" ></filter>
+				</div>
+                
+                <!--using publication-column temporarily, will need one for funding -->
+				<div id="publication-column" class="col-xs-7 panel panel-default ">
+					<h4 class="panel-header">Funding Opportunities</h4>
+					<div class="panel-body">
+						<funding-item ng-repeat="fundItem in fundingCtrl.fundingItems"></funding-item>
+					</div>	
+				</div>
+                
+                <!--events and deadlines-->
+				<div class="col-xs-3">
+					<div class="row">	
+						<div id="events-deadlines-column" class="col-xs-6 panel panel-default ">
+							<h4 class="panel-header">Research Events and Deadlines</h4>
+							<div class="panel-body">
+								<research-events-and-deadlines ng-repeat="REDMonth in fundingCtrl.researchEventsDeadlines"></research-events-and-deadlines> 
+							</div>
+						</div>
+					</div>
+				</div>
+                
+			</div>
+		</div>
+        
+	</body>
+</html>
