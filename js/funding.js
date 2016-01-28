@@ -3,6 +3,12 @@
 	var app = angular.module('funding', ['ui.bootstrap']);
 	
     //directive for Navbar under here
+    app.directive('userNavBar', function(){
+		return{
+			restrict: 'E',
+			templateUrl:'tpl/nav-bar-funding.tpl.html'
+		};
+	});
     
 	//directive for filtering funding items
 	app.directive('filterFunding', function(){
@@ -21,6 +27,17 @@
 	});
     
 	//directive for research events and deadlines under here
+    
+    //controller for NavBar - to display user info up top
+    app.controller('NavbarController', ['$http', function($http){
+		var navbarCtrl = this;
+
+		navbarCtrl.userInfo = [];
+		$http.get("ajax/user-nav-bar-info.php").success(function(data){
+			navbarCtrl.userInfo = data;
+		});
+
+	}]);
 
 	//main controller for the content - will utilize http, scope, log, and interval
 	app.controller('FundingController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){

@@ -12,12 +12,11 @@
 	<body>
 		<header class="container-fluid navbar custom-main-header-bar" ng-controller="NavbarController as navbarCtrl">
 			<user-nav-bar></user-nav-bar>
-            <h4>This is the navbar</h4>
 		</header>
         
 		<div id="main-content" class="container-fluid" ng-controller="FundingController as fundingCtrl">
 			<div class="row">
-				<div id="filter-column" class="col-xs-2 panel panel-default text-right " >
+				<div id="filter-column" class="col-xs-2 panel panel-default text-right">
 					<filter ng-repeat="filter in fundingCtrl.filter" ></filter>
 				</div>
                 
