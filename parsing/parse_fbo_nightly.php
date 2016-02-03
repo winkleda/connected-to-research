@@ -1,4 +1,10 @@
 <?php
+/*
+** Parse the data from an FBO nightly dump.
+** Helpful data: https://www.fbo.gov/index?&static=interface
+** CLASSCOD: https://www.fbo.gov/?s=getstart&static=faqs&mode=list&tabmode=list#q17
+*/
+
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 include("../scripts/XML_download.php");
@@ -10,7 +16,7 @@ $path = "../temp_xml/FBOnightly.xml";
 if((time() - filemtime($path)) > (24*60*60))
 {
     echo "downloading FBO nightly XML <br>\n";
-    //dl_fbogov_nightly();
+    dl_fbogov_nightly();
     echo "Finished. <br><br><br>\n";
 }
 
@@ -30,6 +36,8 @@ while(($line = fgets($file)) !== FALSE)
     if((strncmp($line, "<PRESOL>", strlen("<PRESOL>")) == 0)    // Presolicitation
     || (strncmp($line, "<SRCSGT>", strlen("<SRCSGT>")) == 0)    // Sources Sought
     || (strncmp($line, "<COMBINE>", strlen("<COMBINE>")) == 0)  // Combined Synopsis/Solicitation
+    || (strncmp($line, "<AMDCSS>", strlen("<AMDCSS>")) == 0)    // Amendment to a Previous Combined Solicitation
+    || (strncmp($line, "<MOD>", strlen("<MOD>")) == 0)          // Modification to a Previous Base Notice
     || (strncmp($line, "<SNOTE>", strlen("<SNOTE>")) == 0))     // Special Notice
     {
         //echo "########## NEW ###########\n";
@@ -42,7 +50,7 @@ while(($line = fgets($file)) !== FALSE)
         $solnbr = "";
         $office = "";   
         $location = "";
-        $zip = "";
+        //$zip = "";
         $classcod = "";
         $naics = "";
         $offadd = "";
@@ -56,7 +64,10 @@ while(($line = fgets($file)) !== FALSE)
         $url = "";
         $awddate = "";
         
-        // Once we do, read throguh all subsequent lines until we find a matching </PRESOL>
+        $base_query = "";
+        $fbo_query = "";
+        
+        // Once we do, read through all subsequent lines until we find a matching </PRESOL>
         while(($line = fgets($file)) !== FALSE)
         {
 // Tag for goto
@@ -65,6 +76,8 @@ top:
             if((strncmp($line, "</PRESOL>", strlen("</PRESOL>")) == 0)
             || (strncmp($line, "</SRCSGT>", strlen("</SRCSGT>")) == 0)
             || (strncmp($line, "</COMBINE>", strlen("</COMBINE>")) == 0)
+            || (strncmp($line, "</AMDCSS>", strlen("</AMDCSS>")) == 0)
+            || (strncmp($line, "</MOD>", strlen("</MOD>")) == 0)
             || (strncmp($line, "</SNOTE>", strlen("</SNOTE>")) == 0))
                 break;
             
@@ -82,16 +95,15 @@ top:
                 $office = $mysqli->escape_string(str_replace("<OFFICE>", "", $line));
             if(strncmp($line, "<LOCATION>", strlen("<LOCATION>")) == 0)
                 $location = $mysqli->escape_string(str_replace("<LOCATION>", "", $line));
-            if(strncmp($line, "<ZIP>", strlen("<ZIP>")) == 0)
-                $zip = $mysqli->escape_string(str_replace("<ZIP>", "", $line));
+            // ZIP is already included in OFFADD so we don't need it here
+            //if(strncmp($line, "<ZIP>", strlen("<ZIP>")) == 0)
+            //    $zip = $mysqli->escape_string(str_replace("<ZIP>", "", $line));
             if(strncmp($line, "<SOLNBR>", strlen("<SOLNBR>")) == 0)
                 $solnbr = $mysqli->escape_string(str_replace("<SOLNBR>", "", $line));
             if(strncmp($line, "<CLASSCOD>", strlen("<CLASSCOD>")) == 0)
                 $classcod = $mysqli->escape_string(str_replace("<CLASSCOD>", "", $line));
             if(strncmp($line, "<NAICS>", strlen("<NAICS>")) == 0)
                 $naics = $mysqli->escape_string(str_replace("<NAICS>", "", $line));
-//            if(strncmp($line, "<OFFADD>", strlen("<OFFADD>")) == 0)
-//                $offadd = $mysqli->escape_string(str_replace("<OFFADD>", "", $line));
             if(strncmp($line, "<SUBJECT>", strlen("<SUBJECT>")) == 0)
                 $subject = $mysqli->escape_string(str_replace("<SUBJECT>", "", $line));
             if(strncmp($line, "<RESPDATE>", strlen("<RESPDATE>")) == 0)
@@ -145,8 +157,6 @@ top:
                 $contact = html_entity_decode($contact);
                 $contact = $mysqli->escape_string($contact);
                 
-                // The problem is that when it finds a <DESC>, it returns, but we don't want it to. We want it to add the line to 
-                
                 goto top;
             }
             if((strncmp($line, "<OFFADD>", strlen("<OFFADD>")) == 0) && ($offadd == ""))
@@ -164,8 +174,6 @@ top:
                 $offadd = html_entity_decode($offadd);
                 $offadd = $mysqli->escape_string($offadd);
                 
-                // The problem is that when it finds a <DESC>, it returns, but we don't want it to. We want it to add the line to 
-                
                 goto top;
             }
         }
@@ -179,19 +187,80 @@ top:
         if($awddate !== "")
             $awddate =  $awddate[4].$awddate[5].$awddate[0].$awddate[1].$awddate[2].$awddate[3];
         
-        // Construct the query using the fields we pulled out earlier.
-        $base_query =    "INSERT INTO ctr_funding_base
-                    (id, title, post_date, due_date, interests, agency, address, contact, office, description, url)
-                    VALUES
-                    ('".
-                    $solnbr ."', '". $subject ."', '". $post_date ."', '". $due_date
-                    ."', '', '". $agency ."', '". $offadd ."', '". $contact ."', '". 
-                    $office ."', '". $desc ."', '" . $url ."');";
-        $fbo_query = "INSERT INTO ctr_funding_fbo
-                    (sol_number, notice_type, award_amount, award_date, set_aside)
-                    VALUES
-                    ('". $solnbr ."','". $ntype ."','". $awdmt ."','". $awddate ."','". $setaside ."');";
-        
+        // If the type is AMDCSS then we need to update a record already in our database.
+        // In that case, be sure to concat any existing items
+        if(($type == 'AMDCSS')
+            || ($type == 'MOD'))
+        {
+            // Initialize empty array of values
+            $base_values = [];
+            $fbo_values = [];
+            
+            // Required fields which will be not null
+            $base_values[] = "address = '". $offadd . "'";
+            $base_values[] = "title = '". $subject . "'";
+            $base_values[] = "contact = '". $contact . "'";
+            
+            // Modify the description to note the update
+            $desc = "<br>Description modified on "
+                    . date_format(date_create_from_format('ymd', $post_date), 'Y-m-d')
+                    . "<br>" . $desc;
+            
+            // optionally null fields
+            if(($naics !== "") && ($classcod !== ""))
+                $base_values[] = "interests='cc:" . $classcod . ",naics:" . $naics . "'";
+            if($offadd !== "")
+                $base_values[] = "address = '". $offadd . "'";
+            if($ntype !== "")
+                $fbo_values[] = "notice_type = '". $ntype . "'";
+            if($respdate !== "")
+                $base_values[] = "due_date = '". $due_date . "'";
+            if($url !== "")
+                $base_values[] = "url = '". $url . "'";
+            if($setaside !== "")
+                $fbo_values[] = "set_aside = '". $setaside . "'";
+            if($desc !== "")
+                $base_values[] = "description=concat(ifnull(description,''), '". $desc ."')";
+            
+            // Construct queries to update using any values
+            $base_query = "UPDATE ctr_funding_base SET "
+                          . implode(", ", $base_values)
+                          . " WHERE id='".$solnbr."';";
+                          
+            $fbo_query = "UPDATE ctr_funding_fbo SET "
+                          . implode(", ", $fbo_values)
+                          . " WHERE sul_number='".$solnbr."';";
+            
+            echo "AMDCSS/MOD: ";
+        }
+        else 
+        {
+            // Construct the query using the fields we pulled out earlier.
+            $base_query =    "INSERT INTO ctr_funding_base
+                        (id, title, post_date, due_date, interests, agency, address, contact, office, description, url)
+                        VALUES
+                        ('".
+                        $solnbr ."','". 
+                        $subject ."','". 
+                        $post_date ."','". 
+                        $due_date ."','". 
+                        "cc:" . $classcod . ",naics:" . $naics ."','".
+                        $agency ."','". 
+                        $offadd ."','". 
+                        $contact ."','". 
+                        $office ."','". 
+                        $desc ."','" . 
+                        $url ."');";
+            $fbo_query = "INSERT INTO ctr_funding_fbo
+                        (sol_number, notice_type, award_amount, award_date, set_aside)
+                        VALUES
+                        ('". 
+                        $solnbr ."','". 
+                        $ntype ."','". 
+                        $awdmt ."','". 
+                        $awddate ."','". 
+                        $setaside ."');";
+        }
         // All we need is a solnbr to add something to our database
         if($solnbr !== "")
         {
