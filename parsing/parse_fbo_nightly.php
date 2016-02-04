@@ -12,7 +12,7 @@ include("../scripts/connection.php");
 
 $path = "../temp_xml/FBOnightly.xml";
 
-// If the noghtly file was downloaded more than a day ago, update it.
+// If the nightly file was downloaded more than a day ago, update it.
 if((time() - filemtime($path)) > (24*60*60))
 {
     echo "downloading FBO nightly XML <br>\n";
