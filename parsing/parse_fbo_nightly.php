@@ -208,7 +208,7 @@ top:
             
             // optionally null fields
             if(($naics !== "") && ($classcod !== ""))
-                $base_values[] = "interests='cc:" . $classcod . ",naics:" . $naics . "'";
+                $base_values[] = "interests='cc:" . $classcod . ";naics:" . $naics . "'";
             if($offadd !== "")
                 $base_values[] = "address = '". $offadd . "'";
             if($ntype !== "")
@@ -229,7 +229,7 @@ top:
                           
             $fbo_query = "UPDATE ctr_funding_fbo SET "
                           . implode(", ", $fbo_values)
-                          . " WHERE sul_number='".$solnbr."';";
+                          . " WHERE sol_number='".$solnbr."';";
             
             echo "AMDCSS/MOD: ";
         }
