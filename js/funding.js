@@ -14,7 +14,7 @@
 	app.directive('filterFunding', function(){
 		return{
 			restrict:'E',
-			templateUrl:"tpl/filter.tpl.html"
+			templateUrl:"tpl/filter-funding.tpl.html"
 		};
 	});
 	
@@ -28,7 +28,8 @@
     
 	//directive for research events and deadlines under here
     
-    //controller for NavBar - to display user info up top
+    //controller for NavBar - to display user info up top, 
+    //uses same NavbarController of previous publications team
     app.controller('NavbarController', ['$http', function($http){
 		var navbarCtrl = this;
 
@@ -45,9 +46,9 @@
 		var fundingCtrl = this;
         fundingCtrl.currentFilterType = 'sourceFBO';
 
-        //get the funding-filter
+        //get the filter-funding
 		fundingCtrl.filter = [];
-		$http.get("ajax/funding-filter.php").success(function(data){
+		$http.get("ajax/filter-funding.php").success(function(data){
 			fundingCtrl.filter = data;
 		});
 
@@ -78,7 +79,7 @@
 
         //call to refresh funding filter and event deadlines
 		$scope.refreshCall = function(){
-			$http.get("ajax/funding-filter.php").success(function(data){
+			$http.get("ajax/filter-funding.php").success(function(data){
 				fundingCtrl.filter = data;
 			});
 		
