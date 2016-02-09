@@ -8,20 +8,18 @@ session_start();
 $email = $_SESSION['email'];
 $stmt = $mysqli->stmt_init();
 
-//The funding source - FedBizOpps 
+//The funding source - FedBizOpps
 $funding_sourceFBO = "SELECT count(*) as count
-        FROM ctr_funding_fbo f JOIN ctr_funding_base b
-        WHERE b.id = f.sol_number";
+        FROM ctr_funding_fbo";
 
 //The funding source - Grants
 $funding_sourceGrants = "SELECT count(*) as count
-        FROM ctr_funding_grants g JOIN ctr_funding_base b
-        WHERE b.id = g.opp_number";
+        FROM ctr_funding_grants";
 
 //The agency the funding is from
 $funding_agency = "SELECT agency, count(*) as count
         FROM ctr_funding_base
-        GROUP BY agency";
+        ORDER BY count DESC";
 
 //The notice type for FBO
 $funding_noticeFBO = "SELECT notice_type, count(*) as count
@@ -36,12 +34,13 @@ $funding_noticeGrants = "SELECT instrument_type, count(*) as count
 //Posted Date
 $posted_date = "SELECT count(*) as count
         FROM ctr_funding_base
-        WHERE post_date = ?";
+        WHERE YEAR(post_date) = ?";
 
 //Due Date
 $due_date = "SELECT count(*) as count
         FROM ctr_funding_base
         WHERE due_date = ?";
+
 
 //assigning key => values to an array set to fields
 $fields = array("sourceFBO" => $funding_sourceFBO, 
@@ -50,24 +49,77 @@ $fields = array("sourceFBO" => $funding_sourceFBO,
 				"noticeFBO" => $funding_noticeFBO,
 				"noticeGrants" => $funding_noticeGrants,
 				"postedDate" => $posted_date,
-                "dueDate" => $due_date);
+                "dueDate" => $due_date
+                );
 
-//empty array to hold count(s) later
-$count_value = array();
+//empty array to hold count(s) later, might not need
+//$count_value = array();
 
-//function executes the queries above, then stores the counts in the empty array
-foreach($fields as $key => $query) {
-	
-	if(!$stmt->prepare($query)) {
-		echo "preparing stmt failed: " . $stmt->error;
-	}
-//need to check the binding parameters again
-	$stmt->bind_param("ssss", $agency, $notice_type, $post_date, $due_date);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	
-	$columns = $result->fetch_assoc();
-	$count_value[$key] = $columns['count'];
+if($stmt->prepare($funding_sourceFBO)){
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["sourceFBO"] = $columns['count'];
+    }   
+}
+if($stmt->prepare($funding_sourceGrants)){
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["sourceGrants"] = $columns['count'];
+    }
+}
+if($stmt->prepare($funding_agency)){
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["agency"] = $columns['count'];
+    }
+}
+if($stmt->prepare($funding_noticeFBO)){
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["noticeFBO"] = $columns['count'];
+    }
+}
+if($stmt->prepare($funding_noticeGrants)){
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["noticeGrants"] = $columns['count'];
+    }
+    
+}
+if($stmt->prepare($posted_date)){
+    
+    $stmt->bind_param("s", $post_date);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["postedDate"] = $columns['count'];
+    }
+}
+if($stmt->prepare($due_date)){
+    
+    $stmt->bind_param("s", $due_date);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["dueDate"] = $columns['count'];
+    } 
 }
 
 $data = array(

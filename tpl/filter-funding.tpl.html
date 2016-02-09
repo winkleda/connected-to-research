@@ -1,7 +1,7 @@
-<h4 class="panel-header">{{filterFunding.header}}</h4>
+<h4 class="panel-header">{{filter.header}}</h4>
 <div class="panel-body filter-column-groups">
-	<ul class="list-group"  ng-repeat="item in filter-funding.items" ng-class="{ 'filter-column-item-active' : fundingCtrl.currentFilterType == item.filterName }">
-		<a href="#" class="list-group-item" ng-click=" fundingItemCall(item.filterName);">
+	<ul class="list-group"  ng-repeat="item in filter.items" ng-class="{ 'filter-column-item-active' : fundingCtrl.currentFilterType == item.filterName }">
+		<a href="#" class="list-group-item" ng-click="fundingItemCall(item.filterName);">
 			{{item.groupItem}}
 			<span>{{item.amount}}</span>
 		</a>
