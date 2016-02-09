@@ -79,12 +79,14 @@ function parseGrant($values)
 function print_db($db) 
 { 
 	global $mysqli;
+	$name = "Grants";
 	foreach($db as $in) {
 		$post_date = $in->{'PostDate'}[4].($in->{'PostDate'}[5]).($in->{'PostDate'}[6]).($in->{'PostDate'}[7]).($in->{'PostDate'}[0]).($in->{'PostDate'}[1]).($in->{'PostDate'}[2]).($in->{'PostDate'}[3]);
 		$due_date = $in->{'ApplicationsDueDate'}[4].($in->{'ApplicationsDueDate'}[5]).($in->{'ApplicationsDueDate'}[6]).($in->{'ApplicationsDueDate'}[7]).($in->{'ApplicationsDueDate'}[0]).($in->{'ApplicationsDueDate'}[1]).($in->{'ApplicationsDueDate'}[2]).($in->{'ApplicationsDueDate'}[3]);
 		
 		$base_query = "INSERT INTO ctr_funding_base
-		(id, 
+		(id,
+		 source, 
 		 title, 
 		 post_date, 
 		 due_date, 
@@ -97,6 +99,7 @@ function print_db($db)
 		 url) 
 		 VALUES (
 		 '". $in->{'FundingOppNumber'} ."', 
+		 '". $name ."',
 		 '". $in->{'FundingOppTitle'} ."', 
 		 '". $post_date ."', '". $due_date ."', 
 		 '". $in->{'EligibilityCategory'} ."', 
