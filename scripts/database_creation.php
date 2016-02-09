@@ -123,6 +123,7 @@ $sql_create_user_share = "CREATE TABLE ctr_user_share (
 // Create a table for base funding opportunity info:
 $sql_create_funding_base = "CREATE TABLE ctr_funding_base (
     id          VARCHAR(128) PRIMARY KEY,
+    source      VARCHAR(255),
     title       VARCHAR(255),
     post_date   DATE,
     due_date    DATE,
