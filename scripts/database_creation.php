@@ -181,7 +181,8 @@ $sql_table_creation_array = array(
 	$sql_create_user_share,
     $sql_create_funding_base,
     $sql_create_funding_grants,
-    $sql_create_funding_fbo
+    $sql_create_funding_fbo,
+	$sql_create_interests
 );
 
 $i = 1;
