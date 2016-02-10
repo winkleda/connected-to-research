@@ -16,12 +16,12 @@
         
 		<div id="main-content" class="container-fluid" ng-controller="FundingController as fundingCtrl">
 			<div class="row">
-				<div id="filter-column" class="col-xs-2 panel panel-default text-right">
+				<div id="filter-column" class="col-xs-3 panel panel-default text-right">
 					<filter-funding ng-repeat="filter in fundingCtrl.filter" ></filter-funding>
 				</div>
                 
                 <!--using publication-column temporarily, will need one for funding -->
-				<div id="funding-column" class="col-xs-7 panel panel-default ">
+				<div id="funding-column" class="col-xs-6 panel panel-default ">
 					<h4 class="panel-header">Funding Opportunities</h4>
 					<div class="panel-body">
 						<funding-item ng-repeat="fundItem in fundingCtrl.fundingItems"></funding-item>
