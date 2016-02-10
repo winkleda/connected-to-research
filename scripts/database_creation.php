@@ -165,7 +165,7 @@ $sql_create_funding_fbo = "CREATE TABLE ctr_funding_fbo (
 // Create a table for mapping user interests to codes
 $sql_create_interests = "CREATE TABLE ctr_funding_interests (
 	category    VARCHAR(255),
-	interests   VARCAHR(255)
+	interests   VARCHAR(255)
 )";
 
 $sql_table_creation_array = array(
