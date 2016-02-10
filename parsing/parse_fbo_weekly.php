@@ -26,7 +26,7 @@ function clean_string($string, $mysqli)
 {
     // Replace newlines with <br>
     $string = str_replace(["\r\n", "\n"], "<br>", $string);
-    $string = strip_tags($string, "<br><p></p>");
+    $string = strip_tags($string);
     $string = $mysqli->escape_string($string);
     return $string;
 }
@@ -95,7 +95,7 @@ while($xml->read())
     // echo "<br><br>&nbsp;&nbsp;&nbsp;" . $xml->name . '<br>';
     $node = new SimpleXMLElement($xml->readOuterXML());
 
-    echo "SOLNBR: " . $node->SOLNBR . "<br>";
+    echo "NOTICE TYPE: " . clean_string($xml->name, $mysqli) . ". SOLNBR: " . $node->SOLNBR . "<br>";
 
     // The due date is silly. Reformat from MMDDYYYY to YYYYMMDD
     // NOTE: documentation says the date is separated into DATE and YEAR fields, but it isn't.
@@ -115,6 +115,7 @@ while($xml->read())
     $base_values = [];
     $fbo_values = [];
 
+    $fbo_values[] = "notice_type = '" . clean_string($xml->name, $mysqli) . "'";
     $base_values[] = "source = 'FedBizOpps'";
     $base_values[] = "post_date = '" . clean_string($post_date, $mysqli) . "'";
     $base_values[] = "title = '" . clean_string($node->SUBJECT, $mysqli) . "'";
@@ -134,8 +135,6 @@ while($xml->read())
         $fbo_values[] = "award_date = '". clean_string($node->AWDDATE, $mysqli) . "'";
     if(!empty($node->RESPDATE))
         $base_values[] = "due_date = '" . clean_string($due_date, $mysqli) . "'";
-    if(!empty($xml->name))
-        $fbo_values[] = "notice_type = '" . clean_string($xml->name, $mysqli) . "'";
 
     $office = [];
     if(!empty($node->OFFICE))
@@ -178,6 +177,7 @@ while($xml->read())
         $base_query = "INSERT INTO ctr_funding_base SET "
                      . implode(", ", $base_values) .";";
     }
+	
     // Execute whatever query we have
     $result = $mysqli->query($base_query);
     if($result == FALSE)
@@ -257,6 +257,21 @@ while($xml->read())
                           . implode(", ", $fbo_values)
                           . " WHERE sol_number='".$solnbr."';";
             // echo "MOD: <br>" . $fbo_query . "<br>" . $base_query . "<br>";
+			
+			// Execute whatever query we have
+			$result = $mysqli->query($base_query);
+			if($result == FALSE)
+			{
+				echo "DB query failed: " . $mysqli->error . "<br>";
+				echo "Query: <br>" . $base_query . "<br><br>";
+			}
+
+			$result = $mysqli->query($fbo_query);
+			if($result == FALSE)
+			{
+				echo "DB query failed: " . $mysqli->error . "<br>";
+				echo "Query: <br>" . $base_query . "<br><br>";
+			}
         }
     }
 
