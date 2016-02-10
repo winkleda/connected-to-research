@@ -162,6 +162,12 @@ $sql_create_funding_fbo = "CREATE TABLE ctr_funding_fbo (
     FOREIGN KEY (sol_number) REFERENCES ctr_funding_base(id)
 )";
 
+// Create a table for mapping user interests to codes
+$sql_create_interests = "CREATE TABLE ctr_funding_interests (
+	category    VARCHAR(255),
+	interests   VARCAHR(255)
+)";
+
 $sql_table_creation_array = array(
 	$sql_create_user,
 	$sql_create_user_article_link,
