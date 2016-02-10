@@ -16,10 +16,17 @@ $funding_sourceFBO = "SELECT count(*) as count
 $funding_sourceGrants = "SELECT count(*) as count
         FROM ctr_funding_grants";
 
-//The agency the funding is from
-$funding_agency = "SELECT agency, count(*) as count
+
+//agency total for clicking on all
+$funding_agency_total = "SELECT count(*) as count
+        FROM ctr_funding_base";
+
+//query to filter by name and count
+$agency_name = "SELECT agency, count(*) as count
         FROM ctr_funding_base
-        ORDER BY count DESC";
+        GROUP BY agency
+        ORDER BY count DESC
+        LIMIT 0, 10";
 
 //The notice type for FBO
 $funding_noticeFBO = "SELECT notice_type, count(*) as count
@@ -45,15 +52,15 @@ $due_date = "SELECT count(*) as count
 //assigning key => values to an array set to fields
 $fields = array("sourceFBO" => $funding_sourceFBO, 
 				"sourceGrants" => $funding_sourceGrants,
-				"agency" => $funding_agency,
+				"agency" => $funding_agency_total,
 				"noticeFBO" => $funding_noticeFBO,
 				"noticeGrants" => $funding_noticeGrants,
 				"postedDate" => $posted_date,
                 "dueDate" => $due_date
                 );
 
-//empty array to hold count(s) later, might not need
-//$count_value = array();
+//empty array to hold count(s) later
+$count_value = array();
 
 if($stmt->prepare($funding_sourceFBO)){
     
@@ -73,15 +80,45 @@ if($stmt->prepare($funding_sourceGrants)){
         $count_value["sourceGrants"] = $columns['count'];
     }
 }
-if($stmt->prepare($funding_agency)){
+
+$agencyArray = array();
+
+if($stmt->prepare($funding_agency_total)){
     
     $stmt->execute();
     $result = $stmt->get_result();
+    
     if($result !== false) {
+        
         $columns = $result->fetch_assoc();
-        $count_value["agency"] = $columns['count'];
+        if($columns !== false){
+            $agency = array(
+                "groupItem" => "All",
+				"amount" => $columns['count'],
+				"filterName" => "agency"
+               );
+            array_push($agencyArray, $agency);
+        } 
     }
 }
+    
+if($stmt->prepare($agency_name)){
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if($result !== false) {
+        while(($columns = $result->fetch_assoc())) {
+            $agency = array(
+                "groupItem" => $columns["agency"],
+                "amount" => $columns["count"],
+                "filterName" => 'agency'
+            );
+            array_push($agencyArray, $agency);
+        }   
+    } 
+}
+
 if($stmt->prepare($funding_noticeFBO)){
     
     $stmt->execute();
@@ -140,14 +177,20 @@ $data = array(
 	),
 	array(
 		"header" => "Agency",
-		"items" => array(
-			array(
-				"groupItem" => "All",
-				"amount" => $count_value['agency'],
-				"filterName" => "agency"
-			)
-		)
+		"items" => //array(
+            $agencyArray
+		//)
 	),
+//    array(
+//		"header" => "Agency2",
+//		"agents" => array(
+//            array(
+//				"agentItem" => $count_value['agencyName'],
+//				"agentAmount" => $count_value['agencyCount'],
+//				"filterName" => "agency"
+//			)
+//		)
+//	),
     array(
 		"header" => "Notice Type",
 		"items" => array(
