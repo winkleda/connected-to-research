@@ -82,6 +82,7 @@ if($stmt->prepare($funding_sourceGrants)){
 }
 
 $agencyArray = array();
+$agencyPrefix = "agency=";
 
 if($stmt->prepare($funding_agency_total)){
     
@@ -95,7 +96,7 @@ if($stmt->prepare($funding_agency_total)){
             $agency = array(
                 "groupItem" => "All",
 				"amount" => $columns['count'],
-				"filterName" => "agency"
+				"filterName" => $agencyPrefix . 'All'
                );
             array_push($agencyArray, $agency);
         } 
@@ -112,7 +113,7 @@ if($stmt->prepare($agency_name)){
             $agency = array(
                 "groupItem" => $columns["agency"],
                 "amount" => $columns["count"],
-                "filterName" => 'agency'
+                "filterName" => $agencyPrefix . $columns["agency"]
             );
             array_push($agencyArray, $agency);
         }   
@@ -177,20 +178,9 @@ $data = array(
 	),
 	array(
 		"header" => "Agency",
-		"items" => //array(
+		"items" =>
             $agencyArray
-		//)
 	),
-//    array(
-//		"header" => "Agency2",
-//		"agents" => array(
-//            array(
-//				"agentItem" => $count_value['agencyName'],
-//				"agentAmount" => $count_value['agencyCount'],
-//				"filterName" => "agency"
-//			)
-//		)
-//	),
     array(
 		"header" => "Notice Type",
 		"items" => array(
