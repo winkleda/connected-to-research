@@ -1,0 +1,49 @@
+	[
+		{	
+			"tagList":[
+					"Toxicology",
+					"Chemistry",
+					"Herbology"
+				],
+			"publication":"FedBizOpps",
+			"title":"Foam Hand Soap",
+			"userInterest":"79",
+			"authors":[
+				"Department of the Navy"
+			],
+			"abstract":"The Naval Sea Systems Command (NAVSEA) intends to draft specifications and standards to accommodate a variety of design solutions and processes, and to encourage a broad vender base.",
+			"imageSrc":"./img/test-image-1.jpg"
+		}
+		{	
+			"tagList":[
+					"Research & Development",
+					"Professional, Scientific, and Technical Services",
+					"Herbology"
+				],
+			"publication":"FedBizOpps",
+			"title":"NIDDK Genetics and Biosample Repositories",
+			"userInterest":"A",
+			"authors":[
+				"Department of Health and Human Services"
+			],
+			"abstract":"This is a Small Business Sources Sought notice. This is NOT a solicitation for proposals, proposal abstracts, or quotations. The purpose of this notice is to obtain information regarding: (1) the availability and capability of qualified small business sources; (2) whether they are small businesses; HUBZone small businesses; service-disabled, veteran-owned small businesses;",
+			"imageSrc":""
+		}
+		{	
+			"tagList":[
+					"Research & Development",
+					"Professional, Scientific, and Technical Services",
+					"Military"
+				],
+			"publication":"FedBizOpps",
+			"title":"Chemistry Immunoassay Analyzer Equipment and Reagents Lease",
+			"userInterest":"65",
+			"authors":[
+				"Department of the Army"
+			],
+			"abstract":"This is a combined synopsis/solicitation for commercial services prepared in accordance with the format in Subpart 12.6, as supplemented with additional information included in this notice. This announcement constitutes the only solicitation; quotations are being requested and a separate written solicitation will not be issued. The solicitation document and incorporated provisions and clauses are those in effect through Federal Acquisition Circular 2005-86. The Regional Health Contracting Office - Atlantic (Provisional), Army Health Contracting Activity (Provisional), US Army Medical Command intends to solicit, negotiate, and award a Single-Award ",
+			"imageSrc":""
+		}
+	]
+
+
