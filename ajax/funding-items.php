@@ -13,15 +13,17 @@ $type = $_GET['type'];
 switch($type) {
 	case "sourceFBO":
 		$query = "SELECT * 
-				FROM ctr_funding_fbo f, ctr_funding_base b 
-				WHERE b.id = f.sol_number AND u.email = ?
-				ORDER BY post_date DESC";
+				FROM ctr_funding_base
+				WHERE source = 'FedBizOpps'
+				ORDER BY post_date DESC
+                LIMIT 0, 5";
 		break;
 	case "sourceGrants":
 		$query = "SELECT *
-				FROM ctr_funding_grants g, ctr_funding_base b
-				WHERE b.id = g.opp_number AND u.email = ?
-				ORDER BY post_date DESC";
+				FROM ctr_funding_base
+				WHERE source = 'Grants'
+				ORDER BY post_date DESC
+                LIMIT 0, 5";
 		break;
 	case "agency":
 		$query = "SELECT *
@@ -40,16 +42,16 @@ switch($type) {
                 WHERE b.id = g.opp_number
 				ORDER BY instrument_type AND post_date DESC";
 		break;
-	case "postedDate":
-		$query = "SELECT * 
-				FROM ctr_funding_base
-				ORDER BY post_date DESC";
-		break;
-	case "dueDate":
-		$query = "SELECT * 
-				FROM ctr_funding_base
-				ORDER BY due_date DESC";
-		break;
+//	case "postedDate":
+//		$query = "SELECT * 
+//				FROM ctr_funding_base
+//				ORDER BY post_date DESC";
+//		break;
+//	case "dueDate":
+//		$query = "SELECT * 
+//				FROM ctr_funding_base
+//				ORDER BY due_date DESC";
+//		break;
 	default:
 		$query = "SELECT * 
 				FROM ctr_funding_base
@@ -69,13 +71,13 @@ $data = array();
 while($funding = $fundings->fetch_assoc()) {
     $data[] = array(
 //        "funding" => $fundings[''],
-        "title" => $fundings['title'],
-        "url" => $fundings['url'],
-        "agency" => $fundings['agency'],
-        "postDate" => $fundings['post_date'],
-        "dueDate" => $fundings['due_date'],
-        "description" => $fundings['description'],
-        "source" => $fundings['source']
+        "title" => $funding['title'],
+        "url" => $funding['url'],
+        "agency" => $funding['agency'],
+        "postDate" => $funding['post_date'],
+        "dueDate" => $funding['due_date'],
+        "description" => $funding['description'],
+//        "source" => $funding['source']
     );
 }
 

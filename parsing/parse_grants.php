@@ -3,11 +3,35 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 include("../scripts/connection.php");
+include("../scripts/XML_download.php");
+
+$path = "../temp_xml/GrantsDBExtract.xml";
+
+if((time() - filemtime($path)) > (24*60*60))
+{
+    echo "downloading Grants.gov XML file <br>\n";
+    dl_grantsgov_xml();
+    echo "Finished. <br><br><br>\n";
+}
 
 $db = new XMLReader();
-$db->open('test1.xml');
+$db->open($path);
 
 $doc = new DOMDocument;
+
+if(!set_time_limit ( 60 * 60 ))
+    echo "FAILED TO INCREATE TIME LIMIT<br>";
+else
+    echo "Increased script execution time limit<br>";
+
+function clean_string($string, $mysqli)
+{
+    // Replace newlines with <br>
+    $string = str_replace(["\r\n", "\n"], "<br>", $string);
+    $string = strip_tags($string, "<br><p></p>");
+    $string = $mysqli->escape_string($string);
+    return $string;
+}
 
 echo "Output of Database for Grant objects:\n";
 
@@ -50,18 +74,18 @@ while ($db->name == 'FundingOppSynopsis')
 	 description, 
 	 url) 
 	 VALUES (
-	 '". $node->FundingOppNumber ."', 
-	 '". $name ."',
-	 '". $node->FundingOppTitle ."', 
-	 '". $post_date ."', 
-	 '". $due_date ."', 
+	 '". clean_string($node->FundingOppNumber, $mysqli) ."', 
+	 '". clean_string($name, $mysqli) ."',
+	 '". clean_string($node->FundingOppTitle, $mysqli) ."', 
+	 '". clean_string($post_date, $mysqli) ."', 
+	 '". clean_string($due_date, $mysqli) ."', 
 	 '". $interest ."', 
-	 '". $node->Agency ."', 
-	 '". $node->Location ."', 
-	 '". $node->AgencyContact ."', 
-	 '". $node->Office ."', 
-	 '". addslashes($node->FundingOppDescription) ."', 
-	 '". $node->ObtainFundingOppText ."');";
+	 '". clean_string($node->Agency, $mysqli) ."', 
+	 '". clean_string($node->Location, $mysqli) ."', 
+	 '". clean_string($node->AgencyContact, $mysqli) ."', 
+	 '". clean_string($node->Office, $mysqli) ."', 
+	 '". clean_string($node->FundingOppDescription, $mysqli) ."', 
+	 '". clean_string($node->ObtainFundingOppText, $mysqli) ."');";
 	
 	$grant_query = "INSERT INTO ctr_funding_grants
 	(opp_number, 
@@ -75,17 +99,17 @@ while ($db->name == 'FundingOppSynopsis')
 	 elegibility_category, 
 	 eligibility_info, cost_sharing)
 	 VALUES (
-	 '". $node->FundingOppNumber ."', 
-	 '". $node->ApplicationsDueDateExplanation ."', 
-	 '". $node->EstimatedFunding ."', 
-	 '". $node->AwardCeiling ."', 
-	 '". $node->AwardFloor ."', 
-	 '". $node->OtherCategoryExplanation ."', 
+	 '". clean_string($node->FundingOppNumber, $mysqli) ."', 
+	 '". clean_string($node->ApplicationsDueDateExplanation, $mysqli) ."', 
+	 '". clean_string($node->EstimatedFunding, $mysqli) ."', 
+	 '". clean_string($node->AwardCeiling, $mysqli) ."', 
+	 '". clean_string($node->AwardFloor, $mysqli) ."', 
+	 '". clean_string($node->OtherCategoryExplanation, $mysqli) ."', 
 	 '". $instrument ."', 
-	 '". $node->NumberOfAwards ."', 
+	 '". clean_string($node->NumberOfAwards, $mysqli) ."', 
 	 '". $interest ."', 
-	 '". $node->AdditionalEligibilityInfo ."', 
-	 '". $node->CostSharing ."');";
+	 '". clean_string($node->AdditionalEligibilityInfo, $mysqli) ."', 
+	 '". clean_string($node->CostSharing, $mysqli) ."');";
 
 	//echo $base_query . "<br>";
 	//echo $grant_query . "<br><br><br>";
@@ -104,5 +128,7 @@ while ($db->name == 'FundingOppSynopsis')
 	//Go to the next grant
 	$db->next('FundingOppSynopsis');
 }
+
+echo "<br><br><br>". "COMPLETED PARSING!" . "<br>";
 
 ?>
