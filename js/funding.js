@@ -27,6 +27,12 @@
 	});
     
 	//directive for research events and deadlines under here
+    app.directive('researchEventsAndDeadlines', function(){
+		return{
+			restrict:'E',
+			templateUrl:'tpl/research-events-deadlines.tpl.html'
+		};
+	});
     
     //controller for NavBar - to display user info up top, 
     //uses same NavbarController of previous publications team
