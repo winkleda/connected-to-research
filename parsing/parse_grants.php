@@ -16,7 +16,6 @@ if((time() - filemtime($path)) > (24*60*60))
 
 $db = new XMLReader();
 $db->open($path);
-
 $doc = new DOMDocument;
 
 if(!set_time_limit ( 60 * 60 ))
@@ -46,8 +45,7 @@ while ($db->name == 'FundingOppSynopsis')
 	$name = "Grants";
 	
 	$post_date = substr($node->PostDate, 4, 4).substr($node->PostDate, 0, 2).substr($node->PostDate, 2, 2);
-	$due_date = substr($node->ApplicationsDueDate, 4, 4).substr($node->ApplicationsDueDate, 0, 2).substr($node->ApplicationDueDate, 2, 2);
-	
+	$due_date = substr($node->ApplicationsDueDate, 4, 4).substr($node->ApplicationsDueDate, 0, 2).substr($node->ApplicationsDueDate, 2, 2);
 	$interest = $node->EligibilityCategory;
         for ($i = 1; $i < count($node->EligibilityCategory); $i++) {
                 $interest .= ", ";
