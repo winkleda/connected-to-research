@@ -9,6 +9,7 @@
 \PY{x}{    // echo "}\PY{x}{<}\PY{x}{br>}\PY{x}{<}\PY{x}{br>&nbsp;&nbsp;&nbsp;" . \PYZdl{}xml->name . '}\PY{x}{<}\PY{x}{br>';}
 \PY{x}{    \PYZdl{}node = new SimpleXMLElement(\PYZdl{}xml->readOuterXML());}
 
-\PY{x}{    echo "NOTICE TYPE: " . clean\PYZus{}string(\PYZdl{}xml->name, \PYZdl{}mysqli) . ". SOLNBR: " . \PYZdl{}node->SOLNBR . "}\PY{x}{<}\PY{x}{br>";}
+\PY{x}{    echo "NOTICE TYPE: " . clean\PYZus{}string(\PYZdl{}xml->name, \PYZdl{}mysqli) . ". SOLNBR: "}
+\PY{x}{    . \PYZdl{}node->SOLNBR . "}\PY{x}{<}\PY{x}{br>";}
 \PY{x}{...}
 \end{Verbatim}
