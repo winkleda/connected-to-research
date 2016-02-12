@@ -20,7 +20,8 @@ $sql_create_user = "CREATE TABLE ctr_user (
 	name_l varchar(255) not null,
 	password varchar(255) not null,
 	user_img_src varchar(255),
-	user_occ varchar(255)
+	user_occ varchar(255),
+	interests varchar(255)
 )";
 
 //the user article link table creation sql
