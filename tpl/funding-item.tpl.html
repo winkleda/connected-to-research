@@ -4,9 +4,11 @@
         <div class="funding-info-wrapper">
 <!--            <div class="funding-info">{{fundItem.funding}}</div>-->
             <h3 class="funding-title">{{fundItem.title}}</h3>
+<!--
             <div class="funding-url">
-                <p>{{fundItem.url}}</p>
+                <a href="{{fundItem.url}}">{{fundItem.url}}</a>
             </div>
+-->
             <div class="funding-agency">
                 <p>Agency: {{fundItem.agency}}</p>
             </div>
@@ -20,7 +22,24 @@
                 <p>{{fundItem.description}}</p>
             </div>
             <div class="funding-source">
-                <p>Source: {{fundItem.source}}</p>
+                <p>Source: <a href="{{fundItem.url}}">{{fundItem.source}}</a></p>
+            </div>
+        </div>
+        <div class="funding-share-bar">
+<!--            <div ng-class="{true:'funding-dog-ear-favorited', false:'funding-dog-ear'}[ favoritedCheck(fundItem.articleID,fundingCtrl.favoritedArticles)]" ng-click="favoriteArticle(pubItem.articleID)"></div>-->
+            <div class="funding-favorite-link">
+                <button class="glyphicon glyphicon-favorite">Favorite</button>
+            </div>
+            <div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">
+                <a href="" ng-click="shareMenuEx = !shareMenuEx">
+                    <span class="glyphicon glyphicon-share"></span>Share
+                </a>
+                <ul class="dropdown-menu share-check-menu" role="menu">
+                    <input type="text" ng-model="searchBox">
+                    <div ng-controller="PeopleController as peopleCtrl">
+                        <li ng-repeat="fundingShareUser in peopleCtrl.fundingShareUsers | filter: searchBox">{{fundingShareUser.email}}</li>
+                    </div>
+                </ul>
             </div>
         </div>
     </div>

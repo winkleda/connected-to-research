@@ -22,6 +22,7 @@ switch($type) {
 		$query = "SELECT *
 				FROM ctr_funding_base
 				WHERE source = 'Grants'
+                AND due_date >= CURDATE()
 				ORDER BY post_date DESC
                 LIMIT 0, 5";
 		break;
@@ -77,7 +78,7 @@ while($funding = $fundings->fetch_assoc()) {
         "postDate" => $funding['post_date'],
         "dueDate" => $funding['due_date'],
         "description" => $funding['description'],
-//        "source" => $funding['source']
+        "source" => $funding['source']
     );
 }
 

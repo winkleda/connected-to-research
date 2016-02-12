@@ -94,9 +94,25 @@
 			});
 		};
 		
+//        $scope.favoriteArticle = function(){
+//			
+//		};
+        
         //setting refreshCall at an interval
 		$interval(function(){$scope.refreshCall();}, 10000);
 		
 	}]);
+    
+    app.controller('PeopleController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
+        
+        var peopleCtrl = this;
+        
+        peopleCtrl.fundingShareUsers = [];
+        if($scope !== ''){
+            $http.get("ajax/shareFunding.php").success(function(data){
+            peopleCtrl.fundingShareUsers = data; 
+            });
+        }
+    }]);
 	
 })();
