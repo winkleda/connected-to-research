@@ -451,6 +451,9 @@
     padding: 5px 0px;
 }
 
+/*
+ *styling for funding.tpl.html
+ */
 .funding-item-v:hover{
 	background: -moz-linear-gradient(top,  rgba(0,0,0,0.07) 0%, rgba(0,0,0,0) 3%, rgba(0,0,0,0) 97%, rgba(0,0,0,0.07) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.07)), color-stop(3%,rgba(0,0,0,0)), color-stop(97%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.07))); /* Chrome,Safari4+ */
@@ -483,6 +486,58 @@
 
 .funding-title {
 	clear: both;
+}
+
+/*dog ear styling*/
+.funding-dog-ear {
+	border-bottom: 30px solid;
+	border-right: 30px solid transparent;	
+}
+
+.funding-dog-ear-favorited {
+	border-bottom: 30px solid;
+	border-color: rgba(184, 80, 16, 0.9);
+	border-right: 30px solid transparent;
+}
+
+/*style for favorite button*/
+.funding-favorite-link {
+	margin: 3% 10px;	
+}
+
+.funding-favorite-link a:hover {
+	text-decoration: none;
+}
+
+.funding-favorite-link {
+	float: left;
+}
+
+/*styling for funding share bar*/
+.funding-share-bar {
+	height: 48px;
+	margin-right: 10px;
+	visibility: hidden;
+}
+
+.funding-item:hover > .funding-share-bar {
+	visibility: visible;
+}
+
+.funding-share-bar > div {
+	display: inline;
+}
+
+.funding-share-link {
+	margin: 3% 10px;	
+}
+
+.funding-share-link a:hover {
+	text-decoration: none;
+}
+
+.funding-share-link {
+	float: right;
 }
 
 .funding-separation-bar {
