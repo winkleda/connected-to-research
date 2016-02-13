@@ -26,6 +26,14 @@
 		};
 	});
     
+    //directive for funding deadlines
+    app.directive('fundingDeadlines', function(){
+       return{
+           restrict:'E',
+           templateUrl:"tpl/funding-deadlines.tpl.html"
+       }; 
+    });
+    
 	//directive for research events and deadlines under here
     app.directive('researchEventsAndDeadlines', function(){
 		return{
@@ -78,6 +86,13 @@
         //currentFilterType for the funding controller
 		$scope.fundingItemCall(fundingCtrl.currentFilterType);
 		
+        //getting funding deadlines
+        fundingCtrl.fundingDeadlines = [];
+        $http.get("ajax/funding-deadlines.php").success(function(data){
+           fundingCtrl.fundingDeadlines = data; 
+        });
+        
+        //test
 		fundingCtrl.researchEventsDeadlines = [];
 		$http.get("ajax/research-events-deadlines.php").success(function(data){
 			fundingCtrl.researchEventsDeadlines = data;
@@ -88,7 +103,12 @@
 			$http.get("ajax/filter-funding.php").success(function(data){
 				fundingCtrl.filter = data;
 			});
-		
+            
+            $http.get("ajax/funding-deadlines.php").success(function(data){
+               fundingCtrl.fundingDeadlines = data; 
+            });
+            
+            //test
 			$http.get("ajax/research-events-deadlines.php").success(function(data){
 				fundingCtrl.researchEventsDeadlines = data;
 			});
