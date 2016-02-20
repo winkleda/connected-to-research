@@ -71,7 +71,6 @@ $fundings = $stmt->get_result();
 $data = array();
 while($funding = $fundings->fetch_assoc()) {
     $data[] = array(
-//        "funding" => $fundings[''],
         "title" => $funding['title'],
         "url" => $funding['url'],
         "agency" => $funding['agency'],

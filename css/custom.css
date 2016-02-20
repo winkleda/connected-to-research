@@ -544,3 +544,31 @@
 	margin: 0px 0px;
 	border-top: 1px solid #ddd;
 }
+
+/*
+ *********************************************************
+ *
+ *   FUNDING DEADLINES COLUMN
+ *
+ *********************************************************
+*/
+
+/*styling for funding deadlines column*/
+.funding-month {
+
+}
+.funding-month-title {
+	margin-bottom: 0px;
+}
+.funding-month-row {
+
+}
+.funding-event-date {
+	padding-right: 0px;
+}
+.funding-event-name {
+	margin: 10px 0;
+}
+.funding-month-away {
+	margin: 10px 0;
+}

@@ -68,7 +68,7 @@
 
 		fundingCtrl.fundingItems = [];
 		
-        //get the main funding items
+        //get the main funding items with the get method in $http service
 		$scope.fundingItemCall = function(type){
 			fundingCtrl.currentFilterType = type;
 
@@ -120,6 +120,17 @@
         
         //setting refreshCall at an interval
 		$interval(function(){$scope.refreshCall();}, 10000);
+        
+        //add funding deadline 
+        $scope.addFundingDeadline = function(fundID){
+			$http({
+				method:"GET",
+				url:"scripts/insert_funding_deadlines.php",
+				params:{ id: fundID }
+			}).success(function(data){
+				$scope.refreshCall();
+			});
+		};
 		
 	}]);
     
