@@ -169,6 +169,13 @@ $sql_create_interests = "CREATE TABLE ctr_funding_interests (
 	interests   VARCHAR(255)
 )";
 
+//Create a table for linking 
+$sql_create_user_fund_link = "CREATE TABLE ctr_user_fund_link (
+	fund_id    VARCHAR(128),
+	email      VARCHAR(255),
+	UNIQUE unique_index(email, fund_id)
+)";
+
 $sql_table_creation_array = array(
 	$sql_create_user,
 	$sql_create_user_article_link,
@@ -183,7 +190,8 @@ $sql_table_creation_array = array(
     $sql_create_funding_base,
     $sql_create_funding_grants,
     $sql_create_funding_fbo,
-	$sql_create_interests
+	$sql_create_interests,
+    $sql_create_user_fund_link
 );
 
 $i = 1;
