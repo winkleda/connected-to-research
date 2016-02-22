@@ -35,12 +35,12 @@
     });
     
 	//directive for research events and deadlines under here
-    app.directive('researchEventsAndDeadlines', function(){
-		return{
-			restrict:'E',
-			templateUrl:'tpl/research-events-deadlines.tpl.html'
-		};
-	});
+//    app.directive('researchEventsAndDeadlines', function(){
+//		return{
+//			restrict:'E',
+//			templateUrl:'tpl/research-events-deadlines.tpl.html'
+//		};
+//	});
     
     //controller for NavBar - to display user info up top, 
     //uses same NavbarController of previous publications team
@@ -93,15 +93,19 @@
         });
         
         //test
-		fundingCtrl.researchEventsDeadlines = [];
-		$http.get("ajax/research-events-deadlines.php").success(function(data){
-			fundingCtrl.researchEventsDeadlines = data;
-		});
+//		fundingCtrl.researchEventsDeadlines = [];
+//		$http.get("ajax/research-events-deadlines.php").success(function(data){
+//			fundingCtrl.researchEventsDeadlines = data;
+//		});
 
-        //call to refresh funding filter and event deadlines
+        //call to refresh funding filter, funding items, and event deadlines
 		$scope.refreshCall = function(){
 			$http.get("ajax/filter-funding.php").success(function(data){
 				fundingCtrl.filter = data;
+			});
+            
+            $http.get("ajax/funding-items.php").success(function(data){
+				fundingCtrl.fundingItems = data;
 			});
             
             $http.get("ajax/funding-deadlines.php").success(function(data){
@@ -109,9 +113,9 @@
             });
             
             //test
-			$http.get("ajax/research-events-deadlines.php").success(function(data){
-				fundingCtrl.researchEventsDeadlines = data;
-			});
+//			$http.get("ajax/research-events-deadlines.php").success(function(data){
+//				fundingCtrl.researchEventsDeadlines = data;
+//			});
 		};
 		
 //        $scope.favoriteArticle = function(){

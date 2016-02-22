@@ -77,7 +77,8 @@ while($funding = $fundings->fetch_assoc()) {
         "postDate" => $funding['post_date'],
         "dueDate" => $funding['due_date'],
         "description" => $funding['description'],
-        "source" => $funding['source']
+        "source" => $funding['source'],
+        "id" => $funding['id']
     );
 }
 
