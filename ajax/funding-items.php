@@ -9,40 +9,61 @@ $email = $_SESSION['email'];
 
 //type of funding to filter by
 $type = $_GET['type'];
+//echo $type;
 
+$agencyPrefix = "agency=";
+if(strncmp($type, $agencyPrefix, strlen($agencyPrefix)) == 0)  {
+    $query = "SELECT *
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND u.email = ?
+        AND b.agency=\"" . str_replace( $agencyPrefix, "", $type) . "\" ORDER BY b.agency DESC";
+    echo $query;
+}
+else{
 switch($type) {
+//    case "recommended":
+//        $query = "SELECT * 
+//				FROM ctr_user_fund_link
+//                LIMIT 0, 5";
+//        break;
 	case "sourceFBO":
 		$query = "SELECT * 
-				FROM ctr_funding_base
-				WHERE source = 'FedBizOpps'
+				FROM ctr_funding_base b, ctr_user_fund_link u
+				WHERE b.id = u.fund_id
+                AND u.email = ?
+                AND source = 'FedBizOpps'
+                AND due_date >= CURDATE()
 				ORDER BY post_date DESC
                 LIMIT 0, 5";
 		break;
 	case "sourceGrants":
 		$query = "SELECT *
-				FROM ctr_funding_base
-				WHERE source = 'Grants'
+				FROM ctr_funding_base b, ctr_user_fund_link u
+                WHERE b.id = u.fund_id
+                AND u.email = ?
+				AND source = 'Grants'
                 AND due_date >= CURDATE()
 				ORDER BY post_date DESC
                 LIMIT 0, 5";
 		break;
-	case "agency":
-		$query = "SELECT *
-				FROM ctr_funding_base
-				ORDER BY agency DESC AND post_date DESC";
-		break;
-	case "noticeFBO":
-		$query = "SELECT * 
-				FROM ctr_funding_fbo f, ctr_funding_base b
-                WHERE b.id = f.sol_number 
-				ORDER BY notice_type AND post_date DESC";
-		break;
-	case "noticeGrants":
-		$query = "SELECT * 
-				FROM ctr_funding_grants g, ctr_funding_base b
-                WHERE b.id = g.opp_number
-				ORDER BY instrument_type AND post_date DESC";
-		break;
+//	case $agencyPrefix . "All":
+//		$query = "SELECT *
+//				FROM ctr_funding_base
+//				ORDER BY agency DESC AND post_date DESC";
+//		break;
+//	case "noticeFBO":
+//		$query = "SELECT * 
+//				FROM ctr_funding_fbo f, ctr_funding_base b
+//                WHERE b.id = f.sol_number 
+//				ORDER BY notice_type AND post_date DESC";
+//		break;
+//	case "noticeGrants":
+//		$query = "SELECT * 
+//				FROM ctr_funding_grants g, ctr_funding_base b
+//                WHERE b.id = g.opp_number
+//				ORDER BY instrument_type AND post_date DESC";
+//		break;
 //	case "postedDate":
 //		$query = "SELECT * 
 //				FROM ctr_funding_base
@@ -58,13 +79,16 @@ switch($type) {
 				FROM ctr_funding_base
 				ORDER BY post_date DESC";
 }
-
+}
+    
 $stmt = $mysqli->stmt_init();
 if(!$stmt->prepare($query)) {
 	echo "Prepared failed: " . $stmt->error;
 }
 
-//no params to bind
+//echo $query;
+
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $fundings = $stmt->get_result();
 

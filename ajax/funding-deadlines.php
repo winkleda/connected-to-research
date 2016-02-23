@@ -9,8 +9,10 @@ $email = $_SESSION['email'];
 //get funding deadlines for the user
 if (!($stmt = $mysqli->prepare(
 	"SELECT due_date, title
-	FROM ctr_funding_base b, ctr_user_fund_link u
-	WHERE b.id = u.fund_id AND u.email = ?
+    FROM ctr_funding_base b, ctr_user_fund_link u
+	WHERE b.id = u.fund_id 
+    AND u.email = ?
+    AND due_date >= CURDATE()
 	ORDER BY b.due_date"))) {
 	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }

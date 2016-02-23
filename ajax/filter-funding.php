@@ -8,6 +8,14 @@ session_start();
 $email = $_SESSION['email'];
 $stmt = $mysqli->stmt_init();
 
+$funding_recommended = "SELECT count(*) as count
+        FROM ctr_user_fund_link
+        WHERE email = ?";
+
+//$funding_favorited = "SELECT count(*) as count
+//        FROM ctr_user_fav_funding
+//        WHERE email = ?";
+
 //The funding source - FedBizOpps
 $funding_sourceFBO = "SELECT count(*) as count
         FROM ctr_funding_fbo";
@@ -72,6 +80,16 @@ $fields = array("sourceFBO" => $funding_sourceFBO,
 //empty array to hold count(s) later
 $count_value = array();
 
+if($stmt->prepare($funding_recommended)){
+    
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["recommended"] = $columns['count'];
+    }   
+}
 if($stmt->prepare($funding_sourceFBO)){
     
     $stmt->execute();
@@ -214,6 +232,16 @@ $data = array(
 		"header" => "Source",
 		"items" => array(
 			array(
+				"groupItem" => "Recommended",
+				"amount" => $count_value['recommended'],
+				"filterName" => "recommended"
+			),
+//			array(
+//				"groupItem" => "Favorited",
+//				"amount" => $count_value['favorited'],
+//				"filterName" => "favorited"
+//			),
+            array(
 				"groupItem" => "FedBizOpps",
 				"amount" => $count_value['sourceFBO'],
 				"filterName" => "sourceFBO"
