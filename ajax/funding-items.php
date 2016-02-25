@@ -11,36 +11,53 @@ $email = $_SESSION['email'];
 $type = $_GET['type'];
 //echo $type; //for testing
 
-$agencyPrefix = "agency=";
-//$noticePrefix = "notice=";
-$postDatePrefix = "postDate=";
-$dueDatePrefix = "dueDate=";
+//$agencyPrefix = "agency=";
+//$agencyAllPrefix = "agency=All";
+////$noticePrefix = "notice=";
+//$postDatePrefix = "postDate=";
+//$dueDatePrefix = "dueDate=";
 //left takes in the column description and limits it to display 300 characters
-if(strncmp($type, $agencyPrefix, strlen($agencyPrefix)) == 0)  {
-    $query = "SELECT *, LEFT(description, 300) as description
-        FROM ctr_funding_base b, ctr_user_fund_link u
-        WHERE b.id = u.fund_id
-        AND u.email = ?
-        AND b.agency=\"" . str_replace( $agencyPrefix, "", $type) . "\" ORDER BY b.agency DESC";
-//    echo $query; //for testing
+//if(strncmp($type, $agencyPrefix, strlen($agencyPrefix)) == 0)  {
+//    if(strncmp($type, $agencyAllPrefix, strlen($agencyAllPrefix)) == 0) {
+////        $query = "SELECT *, LEFT(description, 300) as description
+////            FROM ctr_funding_base b, ctr_user_fund_link u
+////            WHERE b.id = u.fund_id
+////            AND u.email = ?
+////            AND post_date >= CURDATE()
+////            AND due_date >= CURDATE()
+////            GROUP BY agency
+////            ORDER BY b.post_date DESC";
+//        		$query = "SELECT *
+//				FROM ctr_funding_base
+//				GROUP BY agency 
+//                ORDER BY post_date DESC";
+//    }
+//    else {
+//        $query = "SELECT *, LEFT(description, 300) as description
+//            FROM ctr_funding_base b, ctr_user_fund_link u
+//            WHERE b.id = u.fund_id
+//            AND u.email = ?
+//            AND b.agency=\"" . str_replace( $agencyPrefix, "", $type) . "\" ORDER BY b.agency DESC";
+////    echo $query; //for testing
+//    }
 }
 //****
 //notice type goes here
 //****
-else if(strncmp($type, $postDatePrefix, strlen($postDatePrefix)) == 0)  {
-    $query = "SELECT *
-        FROM ctr_funding_base b, ctr_user_fund_link u
-        WHERE b.id = u.fund_id
-        AND u.email = ?
-        AND b.post_date=\"" . str_replace( $postDatePrefix, "", $type) . "\" ORDER BY b.post_date DESC";
-}
-else if(strncmp($type, $dueDatePrefix, strlen($dueDatePrefix)) == 0)  {
-    $query = "SELECT *
-        FROM ctr_funding_base b, ctr_user_fund_link u
-        WHERE b.id = u.fund_id
-        AND u.email = ?
-        AND b.due_date=\"" . str_replace( $dueDatePrefix, "", $type) . "\" ORDER BY b.due_date DESC";
-}
+//else if(strncmp($type, $postDatePrefix, strlen($postDatePrefix)) == 0)  {
+//    $query = "SELECT *
+//        FROM ctr_funding_base b, ctr_user_fund_link u
+//        WHERE b.id = u.fund_id
+//        AND u.email = ?
+//        AND b.post_date=\"" . str_replace( $postDatePrefix, "", $type) . "\" ORDER BY b.post_date DESC";
+//}
+//else if(strncmp($type, $dueDatePrefix, strlen($dueDatePrefix)) == 0)  {
+//    $query = "SELECT *
+//        FROM ctr_funding_base b, ctr_user_fund_link u
+//        WHERE b.id = u.fund_id
+//        AND u.email = ?
+//        AND b.due_date=\"" . str_replace( $dueDatePrefix, "", $type) . "\" ORDER BY b.due_date DESC";
+//}
 else{
 switch($type) {
 //    case "recommended":
@@ -49,25 +66,30 @@ switch($type) {
 //                LIMIT 0, 5";
 //        break;
 	case "sourceFBO":
-		$query = "SELECT * 
-				FROM ctr_funding_base b, ctr_user_fund_link u
-				WHERE b.id = u.fund_id
-                AND u.email = ?
-                AND source = 'FedBizOpps'
-                AND due_date >= CURDATE()
-				ORDER BY post_date DESC
-                LIMIT 0, 5";
+//		$query = "SELECT *, LEFT(description, 300) as description 
+//				FROM ctr_funding_base b, ctr_user_fund_link u
+//				WHERE b.id = u.fund_id
+//                AND u.email = ?
+//                AND source = 'FedBizOpps'
+//                AND due_date >= CURDATE()
+//				ORDER BY post_date DESC
+//                LIMIT 0, 5";
+        $query = "SELECT *
+                FROM ctr_funding_base 
+                WHERE source = 'FedBizOpps'
+                ORDER BY post_date DESC
+                LIMIT 0, 10";
 		break;
-	case "sourceGrants":
-		$query = "SELECT *
-				FROM ctr_funding_base b, ctr_user_fund_link u
-                WHERE b.id = u.fund_id
-                AND u.email = ?
-				AND source = 'Grants'
-                AND due_date >= CURDATE()
-				ORDER BY post_date DESC
-                LIMIT 0, 5";
-		break;
+//	case "sourceGrants":
+//		$query = "SELECT *, LEFT(description, 300) as description
+//				FROM ctr_funding_base b, ctr_user_fund_link u
+//                WHERE b.id = u.fund_id
+//                AND u.email = ?
+//				AND source = 'Grants'
+//                AND due_date >= CURDATE()
+//				ORDER BY post_date DESC
+//                LIMIT 0, 5";
+//		break;
 //	case $agencyPrefix . "All":
 //		$query = "SELECT *
 //				FROM ctr_funding_base
@@ -109,7 +131,7 @@ if(!$stmt->prepare($query)) {
 
 //echo $query;
 
-$stmt->bind_param("s", $email);
+//$stmt->bind_param("s", $email);
 $stmt->execute();
 $fundings = $stmt->get_result();
 
