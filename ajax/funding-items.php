@@ -9,16 +9,37 @@ $email = $_SESSION['email'];
 
 //type of funding to filter by
 $type = $_GET['type'];
-//echo $type;
+//echo $type; //for testing
 
 $agencyPrefix = "agency=";
+//$noticePrefix = "notice=";
+$postDatePrefix = "postDate=";
+$dueDatePrefix = "dueDate=";
+//left takes in the column description and limits it to display 300 characters
 if(strncmp($type, $agencyPrefix, strlen($agencyPrefix)) == 0)  {
-    $query = "SELECT *
+    $query = "SELECT *, LEFT(description, 300) as description
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
         AND u.email = ?
         AND b.agency=\"" . str_replace( $agencyPrefix, "", $type) . "\" ORDER BY b.agency DESC";
-    echo $query;
+//    echo $query; //for testing
+}
+//****
+//notice type goes here
+//****
+else if(strncmp($type, $postDatePrefix, strlen($postDatePrefix)) == 0)  {
+    $query = "SELECT *
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND u.email = ?
+        AND b.post_date=\"" . str_replace( $postDatePrefix, "", $type) . "\" ORDER BY b.post_date DESC";
+}
+else if(strncmp($type, $dueDatePrefix, strlen($dueDatePrefix)) == 0)  {
+    $query = "SELECT *
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND u.email = ?
+        AND b.due_date=\"" . str_replace( $dueDatePrefix, "", $type) . "\" ORDER BY b.due_date DESC";
 }
 else{
 switch($type) {
