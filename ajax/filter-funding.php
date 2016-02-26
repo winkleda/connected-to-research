@@ -18,51 +18,71 @@ $funding_recommended = "SELECT count(*) as count
 
 //The funding source - FedBizOpps
 $funding_sourceFBO = "SELECT count(*) as count
-        FROM ctr_funding_fbo";
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND source = 'FedBizOpps'
+        AND email = ?";
 
 //The funding source - Grants
 $funding_sourceGrants = "SELECT count(*) as count
-        FROM ctr_funding_grants";
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND source = 'Grants'
+        AND email = ?";
 
 
 //agency total for clicking on all
 $funding_agency_total = "SELECT count(*) as count
-        FROM ctr_funding_base";
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND email = ?";
 
 //query to filter by name and count
 $agency_name = "SELECT agency, count(*) as count
-        FROM ctr_funding_base
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND email = ?
         GROUP BY agency
         ORDER BY count DESC
         LIMIT 0, 10";
 
 //The notice type for FBO
 $funding_noticeFBO = "SELECT notice_type, count(*) as count
-        FROM ctr_funding_fbo
+        FROM ctr_funding_fbo f, ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND b.id = f.sol_number
+        AND email = ?
         GROUP BY notice_type
         ORDER BY count DESC
         LIMIT 0, 10";
 
 //The notice type for Grants
 $funding_noticeGrants = "SELECT instrument_type, count(*) as count
-        FROM ctr_funding_grants
+        FROM ctr_funding_grants g, ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND b.id = g.opp_number
+        AND email = ?
         GROUP BY instrument_type
         ORDER BY count DESC
         LIMIT 0, 10";
 
 //Posted Date
 $posted_date = "SELECT post_date, count(*) as count
-        FROM ctr_funding_base
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND email = ?
         GROUP BY post_date
-        ORDER BY count DESC
+        ORDER BY post_date DESC
         LIMIT 0, 5";
         //WHERE YEAR(post_date) = ?";
 
 //Due Date
 $due_date = "SELECT due_date, count(*) as count
-        FROM ctr_funding_base
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND email = ?
         GROUP BY due_date
-        ORDER BY count DESC
+        ORDER BY due_date ASC
         LIMIT 0, 5";
         //WHERE due_date = ?";
 
@@ -92,6 +112,7 @@ if($stmt->prepare($funding_recommended)){
 }
 if($stmt->prepare($funding_sourceFBO)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     if($result !== false) {
@@ -101,6 +122,7 @@ if($stmt->prepare($funding_sourceFBO)){
 }
 if($stmt->prepare($funding_sourceGrants)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     if($result !== false) {
@@ -115,6 +137,7 @@ $agencyPrefix = "agency=";
 //filter for All Agencies
 if($stmt->prepare($funding_agency_total)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -134,6 +157,7 @@ if($stmt->prepare($funding_agency_total)){
 //filter for specific names    
 if($stmt->prepare($agency_name)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -155,6 +179,7 @@ $noticePrefix = "notice=";
 //filter for notice types in FBO
 if($stmt->prepare($funding_noticeFBO)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -172,6 +197,7 @@ if($stmt->prepare($funding_noticeFBO)){
 //filter for notice types in Grants
 if($stmt->prepare($funding_noticeGrants)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -195,6 +221,7 @@ $dueDatePrefix = "dueDate=";
 //filter by post date
 if($stmt->prepare($posted_date)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -212,6 +239,7 @@ if($stmt->prepare($posted_date)){
 //filter by due date
 if($stmt->prepare($due_date)){
     
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     
