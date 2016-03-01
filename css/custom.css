@@ -529,15 +529,35 @@
 }
 
 .funding-share-link {
-	margin: 3% 10px;	
+	margin: 3% 10px;
+    float: right;
 }
 
 .funding-share-link a:hover {
 	text-decoration: none;
 }
 
-.funding-share-link {
-	float: right;
+.share-fund-menu > input {
+    margin: 0em 2em;
+}
+
+.share-fund-menu {
+    width: auto;
+}
+
+.share-fund-list {
+    padding: 5px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.share-fund-menu li {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.custom-fund-button {
+    text-align: center;
 }
 
 .funding-separation-bar {
