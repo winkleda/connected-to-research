@@ -121,6 +121,14 @@ $sql_create_user_share = "CREATE TABLE ctr_user_share (
 	UNIQUE unique_index(shared_by, shared_to, a_id)
 )";
 
+$sql_create_user_share_fund = "CREATE TABLE ctr_user_share_fund (
+	shared_by varchar(255),
+	shared_to varchar(255),
+	fund_id VARCHAR(255),
+	time_issued timestamp,
+	UNIQUE unique_index(shared_by, shared_to, fund_id)
+)";
+
 // Create a table for base funding opportunity info:
 $sql_create_funding_base = "CREATE TABLE ctr_funding_base (
     id          VARCHAR(128) PRIMARY KEY,
@@ -193,6 +201,7 @@ $sql_table_creation_array = array(
 	$sql_create_user_call_link,
 	$sql_create_user_fav,
 	$sql_create_user_share,
+    $sql_create_user_share_fund,
     $sql_create_funding_base,
     $sql_create_funding_grants,
     $sql_create_funding_fbo,

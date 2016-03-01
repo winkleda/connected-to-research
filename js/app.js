@@ -154,10 +154,11 @@
 				userString = userString.substring(0, userString.length - 1);
 				$http({
 					method:'GET',
-					url:'scripts/share_article.php',
+					url:'scripts/share.php',
 					params:{
 						user: userString,
-						id: articleID
+						id: articleID,
+                        type: article
 					}
 				}).success(function(data){
 					$scope.refreshCall();		
