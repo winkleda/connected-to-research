@@ -34,15 +34,19 @@
                 <a href="" ng-click="shareMenuEx = !shareMenuEx">
                     <span class="glyphicon glyphicon-share"></span>Share
                 </a>
-                <ul class="dropdown-menu share-fund-menu" role="menu">
+                <ul ng-controller="PeopleController as peopleCtrl" class="dropdown-menu share-fund-menu" role="menu">
                     <input type="text" ng-model="searchBox">
                     <div class="share-fund-list">
-                        <li ng-repeat="fundingShareUser in fundingCtrl.fundingShareUsers | filter: searchBox | limitTo: quantity">
-                            <input type="checkbox" class="share-fund-input" ng-model="fundingCtrl.selectedUsers[fundingShareUser]"> {{fundingShareUser}}
+                        <li ng-repeat="fundingShareUser in peopleCtrl.fundingShareUsers | filter: searchBox | limitTo: quantity">
+                            <input type="checkbox" 
+                                   class="share-fund-input" 
+                                   value="{{fundingShareUser.email}}" 
+                                   ng-model="fundingShareUser.selected"
+                                   > {{fundingShareUser.email}}
                         </li>
                     </div>
                     <div class="custom-fund-button">
-                        <button class="btn btn-primary" ng-click='shareMenuEx = false; shareWithUsers(fundingCtrl.selectedUsers, fundItem.id);'>Share</button>
+                        <button class="btn btn-primary" ng-click='shareMenuEx = false; shareWithUsers();'>Share</button>
                     </div>
                 </ul>
             </div>

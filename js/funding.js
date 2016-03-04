@@ -84,15 +84,6 @@
            fundingCtrl.fundingDeadlines = data; 
         });
         
-        fundingCtrl.fundingShareUsers = [];
-        fundingCtrl.selectedUsers = [];
-        
-        //get users with a defined quantity of names to display
-        $http.get("scripts/get_users.php").success(function(data){
-            fundingCtrl.fundingShareUsers = data; 
-        });
-        $scope.quantity = 5;
-        
         //call to refresh funding filter, funding items, and event deadlines
 		$scope.refreshCall = function(){
 			$http.get("ajax/filter-funding.php").success(function(data){
@@ -125,48 +116,52 @@
 				$scope.refreshCall();
 			});
 		};
+		
+	}]);
+    
+    //Controller for managing the share funding button
+    app.controller('PeopleController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
         
-        //share with other users function
-        $scope.shareWithUsers = function(users, fundID){
+        var peopleCtrl = this;
+        peopleCtrl.fundingShareUsers = [];
+//        peopleCtrl.selectedUsers = [];
+        
+        //get users with a defined quantity of names to display
+        $http.get("scripts/get_users_funding.php").success(function(data){
+            peopleCtrl.fundingShareUsers = data; 
+        });
+        $scope.quantity = 5;
+        
+        /*This function shares the funding opportunity based on the funding opportunity id.
+            It is separated from the funding controller in order to have each funding opportunity
+            display the other users' emails independently (this prevents the checkbox from being 
+            true on all funding opportunities).*/
+        $scope.shareWithUsers = function(){
 			var userString = '';
             
-			for (var index in users){
-				if(users[index]){
-					userString = userString + index + ',';
-				}
-			}
+            angular.forEach(peopleCtrl.fundingShareUsers, function(fundingShareUsers) {
+                if(!!fundingShareUsers.selected) userString = userString + fundingShareUsers.email + ',';
+            })
+            
+            console.log(userString);
+            console.log($scope.fundItem.id);
+            
 			if(userString.length != 0){
 				userString = userString.substring(0, userString.length - 1);
 				$http({
 					method:'GET',
-					url:'ajax/shareFunding.php',
+					url:'scripts/share.php',
 					params:{
 						user: userString,
-						id: fundID
+						id: $scope.fundItem.id,
+                        type: 'funding'
 					}
 				}).success(function(data){
 					$scope.refreshCall();		
 				});
 			}
 		};
-		
-	}]);
-    
-    //Controller for managing the share funding button
-//    app.controller('PeopleController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
-//        
-//        var peopleCtrl = this;
-//        peopleCtrl.fundingShareUsers = [];
-//        peopleCtrl.selectedUsers = [];
-//        
-//        //get users with a defined quantity of names to display
-//        $http.get("scripts/get_users.php").success(function(data){
-//            peopleCtrl.fundingShareUsers = data; 
-//        });
-//        $scope.quantity = 5;
-//        
-//
-//        
-//    }]);
+        
+    }]);
 	
 })();
