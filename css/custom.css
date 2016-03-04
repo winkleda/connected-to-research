@@ -480,10 +480,6 @@
 	padding-left: 10px;
 }
 
-.funding-info {
-	float: right;
-}
-
 .funding-title {
 	clear: both;
 }
@@ -501,16 +497,13 @@
 }
 
 /*style for favorite button*/
-.funding-favorite-link {
-	margin: 3% 10px;	
+.funding-deadline-link {
+	margin: 3% 10px;
+    float: left;
 }
 
-.funding-favorite-link a:hover {
+.funding-deadline-link a:hover {
 	text-decoration: none;
-}
-
-.funding-favorite-link {
-	float: left;
 }
 
 /*styling for funding share bar*/

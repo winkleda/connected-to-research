@@ -8,7 +8,7 @@ $id = $_GET['id'];
 $email = $_SESSION['email'];
 
 if (!($stmt = $mysqli->prepare(
-	"INSERT INTO ctr_user_fund_link(fund_id, email) 
+	"INSERT INTO ctr_user_fod_link(fund_id, email) 
 	VALUES (?, ?)"))) {
 	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }

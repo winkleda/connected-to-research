@@ -34,14 +34,6 @@
        }; 
     });
     
-	//directive for research events and deadlines under here
-//    app.directive('researchEventsAndDeadlines', function(){
-//		return{
-//			restrict:'E',
-//			templateUrl:'tpl/research-events-deadlines.tpl.html'
-//		};
-//	});
-    
     //controller for NavBar - to display user info up top, 
     //uses same NavbarController of previous publications team
     app.controller('NavbarController', ['$http', function($http){
@@ -59,13 +51,13 @@
 		
 		var fundingCtrl = this;
         fundingCtrl.currentFilterType = 'sourceFBO';
-
+        
         //get the filter-funding
 		fundingCtrl.filter = [];
 		$http.get("ajax/filter-funding.php").success(function(data){
 			fundingCtrl.filter = data;
 		});
-
+        
 		fundingCtrl.fundingItems = [];
 		
         //get the main funding items with the get method in $http service
@@ -82,22 +74,25 @@
 				fundingCtrl.fundingItems = data;
 			});
 		};
-
+        
         //currentFilterType for the funding controller
 		$scope.fundingItemCall(fundingCtrl.currentFilterType);
-		
+        
         //getting funding deadlines
         fundingCtrl.fundingDeadlines = [];
         $http.get("ajax/funding-deadlines.php").success(function(data){
            fundingCtrl.fundingDeadlines = data; 
         });
         
-        //test
-//		fundingCtrl.researchEventsDeadlines = [];
-//		$http.get("ajax/research-events-deadlines.php").success(function(data){
-//			fundingCtrl.researchEventsDeadlines = data;
-//		});
-
+        fundingCtrl.fundingShareUsers = [];
+        fundingCtrl.selectedUsers = [];
+        
+        //get users with a defined quantity of names to display
+        $http.get("scripts/get_users.php").success(function(data){
+            fundingCtrl.fundingShareUsers = data; 
+        });
+        $scope.quantity = 5;
+        
         //call to refresh funding filter, funding items, and event deadlines
 		$scope.refreshCall = function(){
 			$http.get("ajax/filter-funding.php").success(function(data){
@@ -111,11 +106,6 @@
             $http.get("ajax/funding-deadlines.php").success(function(data){
                fundingCtrl.fundingDeadlines = data; 
             });
-            
-            //test
-//			$http.get("ajax/research-events-deadlines.php").success(function(data){
-//				fundingCtrl.researchEventsDeadlines = data;
-//			});
 		};
 		
 //        $scope.favoriteArticle = function(){
@@ -135,19 +125,48 @@
 				$scope.refreshCall();
 			});
 		};
+        
+        //share with other users function
+        $scope.shareWithUsers = function(users, fundID){
+			var userString = '';
+            
+			for (var index in users){
+				if(users[index]){
+					userString = userString + index + ',';
+				}
+			}
+			if(userString.length != 0){
+				userString = userString.substring(0, userString.length - 1);
+				$http({
+					method:'GET',
+					url:'ajax/shareFunding.php',
+					params:{
+						user: userString,
+						id: fundID
+					}
+				}).success(function(data){
+					$scope.refreshCall();		
+				});
+			}
+		};
 		
 	}]);
     
-    app.controller('PeopleController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
-        
-        var peopleCtrl = this;
-        
-        peopleCtrl.fundingShareUsers = [];
-        if($scope !== ''){
-            $http.get("ajax/shareFunding.php").success(function(data){
-            peopleCtrl.fundingShareUsers = data; 
-            });
-        }
-    }]);
+    //Controller for managing the share funding button
+//    app.controller('PeopleController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
+//        
+//        var peopleCtrl = this;
+//        peopleCtrl.fundingShareUsers = [];
+//        peopleCtrl.selectedUsers = [];
+//        
+//        //get users with a defined quantity of names to display
+//        $http.get("scripts/get_users.php").success(function(data){
+//            peopleCtrl.fundingShareUsers = data; 
+//        });
+//        $scope.quantity = 5;
+//        
+//
+//        
+//    }]);
 	
 })();
