@@ -8,9 +8,15 @@ session_start();
 $email = $_SESSION['email'];
 $stmt = $mysqli->stmt_init();
 
+//Recommended for the user
 $funding_recommended = "SELECT count(*) as count
         FROM ctr_user_fund_link
         WHERE email = ?";
+
+//Shared funding from other users to the logged in user
+$funding_shared = "SELECT count(*) as count
+        FROM ctr_user_share_fund
+        WHERE shared_to = '$email' ";
 
 //$funding_favorited = "SELECT count(*) as count
 //        FROM ctr_user_fav_funding
@@ -108,6 +114,15 @@ if($stmt->prepare($funding_recommended)){
     if($result !== false) {
         $columns = $result->fetch_assoc();
         $count_value["recommended"] = $columns['count'];
+    }   
+}
+if($stmt->prepare($funding_shared)){
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["shared"] = $columns['count'];
     }   
 }
 if($stmt->prepare($funding_sourceFBO)){
@@ -263,6 +278,11 @@ $data = array(
 				"groupItem" => "Recommended",
 				"amount" => $count_value['recommended'],
 				"filterName" => "recommended"
+			),
+            array(
+				"groupItem" => "Shared To Me",
+				"amount" => $count_value['shared'],
+				"filterName" => "shared"
 			),
 //			array(
 //				"groupItem" => "Favorited",

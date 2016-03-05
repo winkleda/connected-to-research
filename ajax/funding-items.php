@@ -61,64 +61,47 @@ else if(strncmp($type, $dueDatePrefix, strlen($dueDatePrefix)) == 0)  {
         AND b.due_date=\"" . str_replace( $dueDatePrefix, "", $type) . "\" ORDER BY b.due_date DESC";
 }
 else{
-switch($type) {
-//    case "recommended":
-//        $query = "SELECT * 
-//				FROM ctr_user_fund_link
-//                LIMIT 0, 5";
-//        break;
-	case "sourceFBO":
-		$query = "SELECT *, LEFT(description, 300) as description 
-				FROM ctr_funding_base b, ctr_user_fund_link u
-				WHERE b.id = u.fund_id
-                AND u.email = ?
-                AND source = 'FedBizOpps'
-                AND due_date >= CURDATE()
-				ORDER BY post_date DESC
-                LIMIT 0, 5";
-		break;
-	case "sourceGrants":
-		$query = "SELECT *, LEFT(description, 300) as description
-				FROM ctr_funding_base b, ctr_user_fund_link u
-                WHERE b.id = u.fund_id
-                AND u.email = ?
-				AND source = 'Grants'
-                AND due_date >= CURDATE()
-				ORDER BY post_date DESC
-                LIMIT 0, 5";
-		break;
-//	case $agencyPrefix . "All":
-//		$query = "SELECT *
-//				FROM ctr_funding_base
-//				ORDER BY agency DESC AND post_date DESC";
-//		break;
-//	case "noticeFBO":
-//		$query = "SELECT * 
-//				FROM ctr_funding_fbo f, ctr_funding_base b
-//                WHERE b.id = f.sol_number 
-//				ORDER BY notice_type AND post_date DESC";
-//		break;
-//	case "noticeGrants":
-//		$query = "SELECT * 
-//				FROM ctr_funding_grants g, ctr_funding_base b
-//                WHERE b.id = g.opp_number
-//				ORDER BY instrument_type AND post_date DESC";
-//		break;
-//	case "postedDate":
-//		$query = "SELECT * 
-//				FROM ctr_funding_base
-//				ORDER BY post_date DESC";
-//		break;
-//	case "dueDate":
-//		$query = "SELECT * 
-//				FROM ctr_funding_base
-//				ORDER BY due_date DESC";
-//		break;
-	default:
-		$query = "SELECT * 
-				FROM ctr_funding_base
-				ORDER BY post_date DESC";
-}
+    switch($type) {
+        case "recommended":
+            $query = "SELECT *, LEFT(description, 300) as description 
+                    FROM ctr_funding_base b, ctr_user_fund_link u
+                    WHERE b.id = u.fund_id
+                    AND email = ?
+                    AND due_date >= CURDATE()
+                    ORDER BY post_date DESC
+                    LIMIT 0, 10";
+            break;
+        case "shared":
+            $query = "SELECT *
+                    FROM ctr_funding_base b, ctr_user_share_fund s, ctr_user u
+                    WHERE b.id = s.fund_id
+                    AND s.shared_to = u.email
+                    AND u.email = ?";
+        case "sourceFBO":
+            $query = "SELECT *, LEFT(description, 300) as description 
+                    FROM ctr_funding_base b, ctr_user_fund_link u
+                    WHERE b.id = u.fund_id
+                    AND u.email = ?
+                    AND source = 'FedBizOpps'
+                    AND due_date >= CURDATE()
+                    ORDER BY post_date DESC
+                    LIMIT 0, 5";
+            break;
+        case "sourceGrants":
+            $query = "SELECT *, LEFT(description, 300) as description
+                    FROM ctr_funding_base b, ctr_user_fund_link u
+                    WHERE b.id = u.fund_id
+                    AND u.email = ?
+                    AND source = 'Grants'
+                    AND due_date >= CURDATE()
+                    ORDER BY post_date DESC
+                    LIMIT 0, 5";
+            break;
+        default:
+            $query = "SELECT * 
+                    FROM ctr_funding_base
+                    ORDER BY post_date DESC";
+    }
 }
     
 $stmt = $mysqli->stmt_init();
