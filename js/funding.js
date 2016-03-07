@@ -164,4 +164,18 @@
         
     }]);
 	
+	app.controller('FavoriteController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
+		console.log("FUNDID: "+$scope.fundItem.id);
+		$scope.addFavorite = function(){
+			$http({
+					method:'GET',
+					url:'scripts/favorite_funding.php',
+					params:{
+						id: $scope.fundItem.id
+					}
+				}).success(function(data){
+					$scope.refreshCall();		
+				});
+		}
+	}]);
 })();

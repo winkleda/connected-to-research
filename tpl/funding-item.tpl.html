@@ -28,7 +28,14 @@
             <div class="funding-deadline-link">
                 <button type="button" class="glyphicon glyphicon-plus-sign" ng-click="addFundingDeadline(fundItem.id)"></button>
             </div>
-            
+			<!--favorite funding opportunity-->
+			<div class="funding-favorite">
+				<ul ng-controller="FavoriteController as favoriteCtrl">
+					<div class="funding-favorite-link">
+						<button type="btn btn-primary" class="glyphicon glyphicon-star" ng-click="addFavorite()"></button>
+					</div>
+				</ul>
+			</div>
             <!--sharing funding opportunity-->
             <div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">
                 <a href="" ng-click="shareMenuEx = !shareMenuEx">

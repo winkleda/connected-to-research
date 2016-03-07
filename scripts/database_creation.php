@@ -190,6 +190,13 @@ $sql_create_user_fod_link = "CREATE TABLE ctr_user_fod_link (
 	UNIQUE unique_index(email, fund_id)
 )";
 
+$sql_create_user_fav_fund = "CREATE TABLE ctr_user_fav_fund (
+	email 	varchar(255),
+	fund_id varchar(128),
+	time_issued timestamp,
+	UNIQUE unique_index(email, fund_id)
+)";
+
 $sql_table_creation_array = array(
 	$sql_create_user,
 	$sql_create_user_article_link,
@@ -207,7 +214,8 @@ $sql_table_creation_array = array(
     $sql_create_funding_fbo,
 	$sql_create_interests,
     $sql_create_user_fund_link,
-    $sql_create_user_fod_link
+    $sql_create_user_fod_link,
+	$sql_create_user_fav_fund
 );
 
 $i = 1;
