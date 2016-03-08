@@ -71,12 +71,12 @@ else{
                     ORDER BY post_date DESC
                     LIMIT 0, 10";
             break;
-        case "shared":
-            $query = "SELECT *
-                    FROM ctr_funding_base b, ctr_user_share_fund s, ctr_user u
-                    WHERE b.id = s.fund_id
-                    AND s.shared_to = u.email
-                    AND u.email = ?";
+//        case "shared":
+//            $query = "SELECT *
+//                    FROM ctr_funding_base b, ctr_user_share_fund s, ctr_user u
+//                    WHERE b.id = s.fund_id
+//                    AND s.shared_to = u.email
+//                    AND u.email = ?";
         case "sourceFBO":
             $query = "SELECT *, LEFT(description, 300) as description 
                     FROM ctr_funding_base b, ctr_user_fund_link u

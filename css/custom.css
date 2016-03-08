@@ -496,7 +496,7 @@
 	border-right: 30px solid transparent;
 }
 
-/*style for favorite button*/
+/*style for deadline button*/
 .funding-deadline-link {
 	margin: 3% 10px;
     float: left;
@@ -506,15 +506,20 @@
 	text-decoration: none;
 }
 
+.funding-favorite-link {
+    margin: 3% 10px;
+    float: left;
+}
+
 /*styling for funding share bar*/
 .funding-share-bar {
 	height: 48px;
 	margin-right: 10px;
-	visibility: hidden;
+/*	visibility: hidden;*/
 }
 
 .funding-item:hover > .funding-share-bar {
-	visibility: visible;
+/*	visibility: visible;*/
 }
 
 .funding-share-bar > div {

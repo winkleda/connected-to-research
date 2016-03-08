@@ -98,10 +98,6 @@
                fundingCtrl.fundingDeadlines = data; 
             });
 		};
-		
-//        $scope.favoriteArticle = function(){
-//			
-//		};
         
         //setting refreshCall at an interval
 		$interval(function(){$scope.refreshCall();}, 10000);
