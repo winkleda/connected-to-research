@@ -10,22 +10,29 @@ $stmt = $mysqli->stmt_init();
 
 //Recommended for the user
 $funding_recommended = "SELECT count(*) as count
-        FROM ctr_user_fund_link
-        WHERE email = ?";
+        FROM ctr_funding_base b, ctr_user_fund_link u
+        WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
+        AND email = ?";
 
 //Shared funding from other users to the logged in user
 $funding_shared = "SELECT count(*) as count
-        FROM ctr_user_share_fund
-        WHERE shared_to = '$email' ";
+        FROM ctr_funding_base b, ctr_user_share_fund s
+        WHERE b.id = s.fund_id
+        AND due_date >= CURDATE()
+        AND shared_to = '$email' ";
 
-//$funding_favorited = "SELECT count(*) as count
-//        FROM ctr_user_fav_funding
-//        WHERE email = ?";
+$funding_favorited = "SELECT count(*) as count
+        FROM ctr_funding_base b, ctr_user_fav_fund f
+        WHERE b.id = f.fund_id
+        AND due_date >= CURDATE()
+        AND email = ?";
 
 //The funding source - FedBizOpps
 $funding_sourceFBO = "SELECT count(*) as count
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
         AND source = 'FedBizOpps'
         AND email = ?";
 
@@ -33,6 +40,7 @@ $funding_sourceFBO = "SELECT count(*) as count
 $funding_sourceGrants = "SELECT count(*) as count
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
         AND source = 'Grants'
         AND email = ?";
 
@@ -41,12 +49,14 @@ $funding_sourceGrants = "SELECT count(*) as count
 $funding_agency_total = "SELECT count(*) as count
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
         AND email = ?";
 
 //query to filter by name and count
 $agency_name = "SELECT agency, count(*) as count
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
         AND email = ?
         GROUP BY agency
         ORDER BY count DESC
@@ -57,6 +67,7 @@ $funding_noticeFBO = "SELECT notice_type, count(*) as count
         FROM ctr_funding_fbo f, ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
         AND b.id = f.sol_number
+        AND due_date >= CURDATE()
         AND email = ?
         GROUP BY notice_type
         ORDER BY count DESC
@@ -67,6 +78,7 @@ $funding_noticeGrants = "SELECT instrument_type, count(*) as count
         FROM ctr_funding_grants g, ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
         AND b.id = g.opp_number
+        AND due_date >= CURDATE()
         AND email = ?
         GROUP BY instrument_type
         ORDER BY count DESC
@@ -76,6 +88,7 @@ $funding_noticeGrants = "SELECT instrument_type, count(*) as count
 $posted_date = "SELECT post_date, count(*) as count
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
         AND email = ?
         GROUP BY post_date
         ORDER BY post_date DESC
@@ -86,6 +99,7 @@ $posted_date = "SELECT post_date, count(*) as count
 $due_date = "SELECT due_date, count(*) as count
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
         AND email = ?
         GROUP BY due_date
         ORDER BY due_date ASC
@@ -123,6 +137,16 @@ if($stmt->prepare($funding_shared)){
     if($result !== false) {
         $columns = $result->fetch_assoc();
         $count_value["shared"] = $columns['count'];
+    }   
+}
+if($stmt->prepare($funding_favorited)){
+    
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result !== false) {
+        $columns = $result->fetch_assoc();
+        $count_value["favorited"] = $columns['count'];
     }   
 }
 if($stmt->prepare($funding_sourceFBO)){
@@ -228,48 +252,13 @@ if($stmt->prepare($funding_noticeGrants)){
     } 
 }
 
-$postDateArray = array();
-$dueDateArray = array();
-$postDatePrefix = "postDate=";
-$dueDatePrefix = "dueDate=";
-
-//filter by post date
-if($stmt->prepare($posted_date)){
+//if(isset($count_value['favorited'])){
+//    echo 'it worked';
+//}
+//else{
+//    echo 'it failed';
+//}
     
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if($result !== false) {
-        while(($columns = $result->fetch_assoc())) {
-            $postDate = array(
-                "groupItem" => $columns["post_date"],
-                "amount" => $columns["count"],
-                "filterName" => $postDatePrefix . $columns["post_date"]
-            );
-            array_push($postDateArray, $postDate);
-        }   
-    } 
-}
-//filter by due date
-if($stmt->prepare($due_date)){
-    
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if($result !== false) {
-        while(($columns = $result->fetch_assoc())) {
-            $dueDate = array(
-                "groupItem" => $columns["due_date"],
-                "amount" => $columns["count"],
-                "filterName" => $dueDatePrefix . $columns["due_date"]
-            );
-            array_push($dueDateArray, $dueDate);
-        }   
-    } 
-}
-
 $data = array(
 	array(
 		"header" => "Source",
@@ -284,11 +273,11 @@ $data = array(
 				"amount" => $count_value['shared'],
 				"filterName" => "shared"
 			),
-//			array(
-//				"groupItem" => "Favorited",
-//				"amount" => $count_value['favorited'],
-//				"filterName" => "favorited"
-//			),
+			array(
+				"groupItem" => "Favorited",
+				"amount" => $count_value['favorited'],
+				"filterName" => "favorited"
+			),
             array(
 				"groupItem" => "FedBizOpps",
 				"amount" => $count_value['sourceFBO'],
@@ -310,16 +299,6 @@ $data = array(
 		"header" => "Notice Type",
 		"items" =>
             $noticeArray
-	),
-    array(
-		"header" => "Post Date",
-		"items" =>
-            $postDateArray
-	),
-    array(
-		"header" => "Due Date",
-		"items" =>
-            $dueDateArray
 	),
 );
 
