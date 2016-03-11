@@ -95,8 +95,6 @@ while($xml->read())
     // echo "<br><br>&nbsp;&nbsp;&nbsp;" . $xml->name . '<br>';
     $node = new SimpleXMLElement($xml->readOuterXML());
 
-    echo "NOTICE TYPE: " . clean_string($xml->name, $mysqli) . ". SOLNBR: " . $node->SOLNBR . "<br>";
-
     // The due date is silly. Reformat from MMDDYYYY to YYYYMMDD
     // NOTE: documentation says the date is separated into DATE and YEAR fields, but it isn't.
     $due_date = "";
@@ -115,11 +113,23 @@ while($xml->read())
     $base_values = [];
     $fbo_values = [];
 
-    $fbo_values[] = "notice_type = '" . clean_string($xml->name, $mysqli) . "'";
+    //$fbo_values[] = "notice_type = '" . clean_string($xml->name, $mysqli) . "'";
+    $notice_type = clean_string($xml->name, $mysqli);
+    if($notice_type == "COMBINE")
+        $notice_type = "Combined Solicitation";
+    else if($notice_type == "PRESOL")
+        $notice_type = "Presolicitation";
+    else if($notice_type == "SRCSGT")
+        $notice_type = "Sources Sought";
+    else if($notice_type == "SNOTE")
+        $notice_type = "Special Notice";
+    $fbo_values[] = "notice_type = '" . $notice_type . "'";
     $base_values[] = "source = 'FedBizOpps'";
     $base_values[] = "post_date = '" . clean_string($post_date, $mysqli) . "'";
     $base_values[] = "title = '" . clean_string($node->SUBJECT, $mysqli) . "'";
     $base_values[] = "contact = '" . clean_string($node->CONTACT, $mysqli) . "'";
+
+    echo "NOTICE TYPE: " . $notice_type . ". SOLNBR: " . $node->SOLNBR . "<br>";
 
     if(!empty($node->OFFADD))
         $base_values[] = "address = '" . clean_string($node->OFFADD, $mysqli) . "'";
@@ -244,7 +254,7 @@ while($xml->read())
             if(!empty($node->CLASSCOD))
                 $interests .= "cc:". clean_string($node->CLASSCOD, $mysqli);
             if(!empty($node->NAICS))
-                $interests .= "naics:". clean_string($node->NAICS, $mysqli);
+                $interests .= ";naics:". clean_string($node->NAICS, $mysqli);
             $base_values[] = "interests = '" . $interests . "'";
 
 

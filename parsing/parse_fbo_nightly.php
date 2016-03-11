@@ -211,8 +211,6 @@ top:
                 $base_values[] = "interests='cc:" . $classcod . ";naics:" . $naics . "'";
             if($offadd !== "")
                 $base_values[] = "address = '". $offadd . "'";
-            if($ntype !== "")
-                $fbo_values[] = "notice_type = '". $ntype . "'";
             if($respdate !== "")
                 $base_values[] = "due_date = '". $due_date . "'";
             if($url !== "")
@@ -221,6 +219,20 @@ top:
                 $fbo_values[] = "set_aside = '". $setaside . "'";
             if($desc !== "")
                 $base_values[] = "description=concat(ifnull(description,''), '". $desc ."')";
+
+            // convert notice type from something like PRESOL to Presolicitation
+            if($ntype !== "") {
+                if($ntype == "PRESOL")
+                    $ntype = "Presolicitation";
+                else if($ntype == "SRCSGT")
+                    $ntype = "Sources Sought";
+                else if($ntype == "COMBINE")
+                    $ntype = "Combined Synopsis/Solicitation";
+                else if($ntype == "SNOTE")
+                    $ntype = "Special Notice";
+
+                $fbo_values[] = "notice_type = '". $ntype . "'";
+            }
             
             // Construct queries to update using any values
             $base_query = "UPDATE ctr_funding_base SET "

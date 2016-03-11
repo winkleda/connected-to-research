@@ -85,6 +85,41 @@ while ($db->name == 'FundingOppSynopsis')
 	 '". clean_string($node->FundingOppDescription, $mysqli) ."', 
 	 '". clean_string($node->ObtainFundingOppText, $mysqli) ."');";
 	
+    if($interest == "99")
+        $interest = "Unrestricted";
+    else if($interest == "00")
+        $interest = "State governments";
+    else if($interest == "01")
+        $interest = "County governments";
+    else if($interest == "02")
+        $interest = "City or township governments";
+    else if($interest == "04")
+        $interest = "Special district governments";
+    else if($interest == "05")
+        $interest = "Independent school districts";
+    else if($interest == "06")
+        $interest = "Public and State controlled institutions of higher education";
+    else if($interest == "07")
+        $interest = "Native American tribal governments";
+    else if($interest == "08")
+        $interest = "Public housing authorities/Indian housing authorities";
+    else if($interest == "11")
+        $interest = "Native American tribal organizations";
+    else if($interest == "12")
+        $interest = "Nonprofits having a 501 (c) (3) status with the IRS, other than institutions of higher education";
+    else if($interest == "13")
+        $interest = "Nonprofits that do not have a 501 (c) (3) status with the IRS, other than institutions of higher education";
+    else if($interest == "20")
+        $interest = "Private institutions of higher education";
+    else if($interest == "21")
+        $interest = "Individuals";
+    else if($interest == "22")
+        $interest = "For-profit organizations other than small businesses";
+    else if($interest == "23")
+        $interest = "Small businesses";
+    else if($interest == "25")
+        $interest = "Others";
+    
 	$grant_query = "INSERT INTO ctr_funding_grants
 	(opp_number, 
 	 due_date_explanation, 
