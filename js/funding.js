@@ -50,7 +50,7 @@
 	app.controller('FundingController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
 		
 		var fundingCtrl = this;
-        fundingCtrl.currentFilterType = 'sourceFBO';
+        fundingCtrl.currentFilterType = 'recommended';
         
         //get the filter-funding
 		fundingCtrl.filter = [];

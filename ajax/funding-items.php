@@ -14,8 +14,6 @@ $type = $_GET['type'];
 $agencyPrefix = "agency=";
 $agencyAllPrefix = "agency=All";
 $noticePrefix = "notice=";
-$postDatePrefix = "postDate=";
-$dueDatePrefix = "dueDate=";
 
 if(strncmp($type, $agencyPrefix, strlen($agencyPrefix)) == 0)  {
     if(strncmp($type, $agencyAllPrefix, strlen($agencyAllPrefix)) == 0) {
@@ -31,6 +29,7 @@ if(strncmp($type, $agencyPrefix, strlen($agencyPrefix)) == 0)  {
         $query = "SELECT *, LEFT(description, 300) as description
             FROM ctr_funding_base b, ctr_user_fund_link u
             WHERE b.id = u.fund_id
+            AND due_date >= CURDATE()
             AND u.email = ?
             AND b.agency=\"" . str_replace( $agencyPrefix, "", $type) . "\" 
             ORDER BY b.agency DESC";
@@ -41,25 +40,12 @@ else if(strncmp($type, $noticePrefix, strlen($noticePrefix)) == 0)  {
     $query = "SELECT *
         FROM ctr_funding_base b, ctr_user_fund_link u
         WHERE b.id = u.fund_id
+        AND due_date >= CURDATE()
         AND u.email = ?
         AND b.notice=\"" . str_replace( $noticePrefix, "", $type) . "\" 
         ORDER BY b.post_date DESC";
 }
-else if(strncmp($type, $postDatePrefix, strlen($postDatePrefix)) == 0)  {
-    $query = "SELECT *
-        FROM ctr_funding_base b, ctr_user_fund_link u
-        WHERE b.id = u.fund_id
-        AND u.email = ?
-        AND b.post_date=\"" . str_replace( $postDatePrefix, "", $type) . "\" 
-        ORDER BY b.post_date DESC";
-}
-else if(strncmp($type, $dueDatePrefix, strlen($dueDatePrefix)) == 0)  {
-    $query = "SELECT *
-        FROM ctr_funding_base b, ctr_user_fund_link u
-        WHERE b.id = u.fund_id
-        AND u.email = ?
-        AND b.due_date=\"" . str_replace( $dueDatePrefix, "", $type) . "\" ORDER BY b.due_date DESC";
-}
+
 else{
     switch($type) {
         case "recommended":
@@ -71,12 +57,20 @@ else{
                     ORDER BY post_date DESC
                     LIMIT 0, 10";
             break;
-//        case "shared":
-//            $query = "SELECT *
-//                    FROM ctr_funding_base b, ctr_user_share_fund s, ctr_user u
-//                    WHERE b.id = s.fund_id
-//                    AND s.shared_to = u.email
-//                    AND u.email = ?";
+        case "shared":
+            $query = "SELECT *, LEFT(description, 300) as description 
+                    FROM ctr_funding_base b, ctr_user_share_fund s
+                    WHERE b.id = s.fund_id
+                    AND s.shared_to = ? 
+                    AND due_date >= CURDATE()";
+            break;
+        case "favorited":
+            $query = "SELECT *, LEFT(description, 300) as description 
+                    FROM ctr_funding_base b, ctr_user_fav_fund f
+                    WHERE b.id = f.fund_id
+                    AND f.email = ?
+                    AND due_date >= CURDATE()";
+            break;
         case "sourceFBO":
             $query = "SELECT *, LEFT(description, 300) as description 
                     FROM ctr_funding_base b, ctr_user_fund_link u
