@@ -53,6 +53,12 @@ while ($db->name == 'FundingOppSynopsis')
         }
 
 	$instrument = $node->FundingInstrumentType;
+
+    if($instrument == "G") $instrument = "Grant";
+    else if ($instrument = "CA") $instrument = "Cooperative Agreement";
+    else if ($instrument = "O") $instrument = "Other";
+    else if ($instrument = "PC") $instrument = "Procurement Contract";
+
  	for ($i = 1; $i < count($node->FundingInstrumentType); $i++) {
                 $instrument .= ", ";
                 $instrument .= $node->FundingInstrumentType[$i];

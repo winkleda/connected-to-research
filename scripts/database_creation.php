@@ -153,9 +153,9 @@ $sql_create_funding_grants = "CREATE TABLE ctr_funding_grants (
     award_ceiling           VARCHAR(15),
     award_floor             VARCHAR(15),
     category_explanation    TEXT,
-    instrument_type         VARCHAR(2),
+    instrument_type         VARCHAR(255),
     award_number            VARCHAR(15),
-    elegibility_category    CHAR(2),
+    elegibility_category    VARCHAR(255),
     eligibility_info        TEXT,
     cost_sharing            CHAR(1),
     FOREIGN KEY (opp_number) REFERENCES ctr_funding_base(id)
@@ -164,7 +164,7 @@ $sql_create_funding_grants = "CREATE TABLE ctr_funding_grants (
 // Create a table for FBO.gov funding opportunities:
 $sql_create_funding_fbo = "CREATE TABLE ctr_funding_fbo (
     sol_number      VARCHAR(128) PRIMARY KEY,
-    notice_type     VARCHAR(8),
+    notice_type     VARCHAR(255),
     award_amount    VARCHAR(64),
     award_date      DATE,
     set_aside       VARCHAR(60),
