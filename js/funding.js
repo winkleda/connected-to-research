@@ -75,6 +75,16 @@
 			});
 		};
         
+        //check if funding is already favorited
+        $scope.favoritedCheck = function(toCheck, arrayToCheck){
+			for(var i = 0; i < arrayToCheck.length; i++ ){
+				if( arrayToCheck[i] == toCheck){
+					return true;
+				}
+			}
+			return false;
+		};
+        
         //currentFilterType for the funding controller
 		$scope.fundingItemCall(fundingCtrl.currentFilterType);
         
@@ -82,6 +92,12 @@
         fundingCtrl.fundingDeadlines = [];
         $http.get("ajax/funding-deadlines.php").success(function(data){
            fundingCtrl.fundingDeadlines = data; 
+        });
+        
+        //views the already favorited fundings
+        fundingCtrl.favoritedFunding = [];
+        $http.get("scripts/view_favorite_fundings.php").success(function(data){
+           fundingCtrl.favoritedFunding = data; 
         });
         
         //call to refresh funding filter, funding items, and event deadlines
@@ -98,6 +114,22 @@
                fundingCtrl.fundingDeadlines = data; 
             });
 		};
+        
+        //add favorite opportunity
+        $scope.addFavorite = function(fundID){
+			$http({
+					method:'GET',
+					url:'scripts/favorite_funding.php',
+					params:{
+						id: fundID
+					}
+				}).success(function(data){
+					$scope.refreshCall();
+                    $http.get("scripts/view_favorite_fundings.php").success(function(data){
+                       fundingCtrl.favoritedFunding = data; 
+                    });
+				});
+		}
         
         //setting refreshCall at an interval
 		$interval(function(){$scope.refreshCall();}, 10000);
@@ -173,5 +205,21 @@
 					$scope.refreshCall();		
 				});
 		}
+        
+//        var favoriteCtrl = this;
+//        favoriteCtrl.favoritedFunding = [];
+//        $http.get("scripts/view_favorite_fundings.php").success(function(data){
+//           favoriteCtrl.favoritedFunding = data; 
+//        });
+//        
+//        $scope.favoritedCheck = function(toCheck, arrayToCheck){
+//			for(var i = 0; i < arrayToCheck.length; i++ ){
+//				if( arrayToCheck[i] == toCheck){
+//					return true;
+//				}
+//			}
+//			return false;
+//		};
+//        console.log($scope.favoritedCheck);
 	}]);
 })();

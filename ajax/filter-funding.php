@@ -108,14 +108,14 @@ $due_date = "SELECT due_date, count(*) as count
 
 
 //assigning key => values to an array set to fields
-$fields = array("sourceFBO" => $funding_sourceFBO, 
-				"sourceGrants" => $funding_sourceGrants,
-				"agency" => $funding_agency_total,
-				"noticeFBO" => $funding_noticeFBO,
-				"noticeGrants" => $funding_noticeGrants,
-				"postedDate" => $posted_date,
-                "dueDate" => $due_date
-                );
+//$fields = array("sourceFBO" => $funding_sourceFBO, 
+//				"sourceGrants" => $funding_sourceGrants,
+//				"agency" => $funding_agency_total,
+//				"noticeFBO" => $funding_noticeFBO,
+//				"noticeGrants" => $funding_noticeGrants,
+//				"postedDate" => $posted_date,
+//                "dueDate" => $due_date
+//                );
 
 //empty array to hold count(s) later
 $count_value = array();
