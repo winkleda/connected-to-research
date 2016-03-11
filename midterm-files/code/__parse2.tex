@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{x}{            // Try to find all elements that matter to our database}
-\PY{x}{            if(strncmp(\PYZdl{}line, "}\PY{x}{<}\PY{x}{DATE>", strlen("}\PY{x}{<}\PY{x}{DATE>")) == 0)}
-\PY{x}{                \PYZdl{}date = \PYZdl{}mysqli->escape\PYZus{}string(str\PYZus{}replace("}\PY{x}{<}\PY{x}{DATE>", "", \PYZdl{}line));}
-\PY{x}{            if(strncmp(\PYZdl{}line, "}\PY{x}{<}\PY{x}{YEAR>", strlen("}\PY{x}{<}\PY{x}{YEAR>")) == 0)}
-\PY{x}{                \PYZdl{}year = \PYZdl{}mysqli->escape\PYZus{}string(str\PYZus{}replace("}\PY{x}{<}\PY{x}{YEAR>", "", \PYZdl{}line));}
-\PY{x}{            if(strncmp(\PYZdl{}line, "}\PY{x}{<}\PY{x}{AGENCY>", strlen("}\PY{x}{<}\PY{x}{AGENCY>")) == 0)}
-\PY{x}{                \PYZdl{}agency = \PYZdl{}mysqli->escape\PYZus{}string(str\PYZus{}replace("}\PY{x}{<}\PY{x}{AGENCY>", "", \PYZdl{}line));}
-\end{Verbatim}
