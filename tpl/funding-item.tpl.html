@@ -2,7 +2,7 @@
 <div class="funding-item-v">
     <div class="funding-item">
         <div class="funding-info-wrapper">
-            <h3 class="funding-title">{{fundItem.title}}</h3>
+            <a href="{{fundItem.url}}"><h3 class="funding-title">{{fundItem.title}}</h3></a>
             <div class="funding-agency">
                 <p>Agency: {{fundItem.agency}}</p>
             </div>
@@ -16,7 +16,7 @@
                 <p>{{fundItem.description}}</p>
             </div>
             <div class="funding-source">
-                <p>Source: <a href="{{fundItem.url}}">{{fundItem.source}}</a></p>
+                <p>Source: {{fundItem.source}}</p>
             </div>
         </div>
         

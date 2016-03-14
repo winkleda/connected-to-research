@@ -494,6 +494,10 @@
 	padding-left: 10px;
 }
 
+.funding-info-wrapper a {
+    text-decoration: none;
+}
+
 .funding-title {
 	clear: both;
 }
@@ -596,12 +600,18 @@
 .funding-month-row {
 
 }
-.funding-event-date {
+.funding-opp-date {
 	padding-right: 0px;
 }
-.funding-event-name {
+.funding-opp-name {
 	margin: 10px 0;
 }
 .funding-month-away {
 	margin: 10px 0;
+}
+.funding-opp-delete {
+    visibility: hidden;
+}
+.funding-opp-name:hover > .funding-opp-delete {
+    visibility: visible;
 }
