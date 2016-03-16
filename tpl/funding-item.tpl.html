@@ -2,7 +2,7 @@
 <div class="funding-item-v">
     <div class="funding-item">
         <div class="funding-info-wrapper">
-            <h3 class="funding-title">{{fundItem.title}}</h3>
+            <a href="{{fundItem.url}}"><h3 class="funding-title">{{fundItem.title}}</h3></a>
             <div class="funding-agency">
                 <p>Agency: {{fundItem.agency}}</p>
             </div>
@@ -16,13 +16,13 @@
                 <p>{{fundItem.description}}</p>
             </div>
             <div class="funding-source">
-                <p>Source: <a href="{{fundItem.url}}">{{fundItem.source}}</a></p>
+                <p>Source: {{fundItem.source}}</p>
             </div>
         </div>
         
         <!--favorite, deadline adding and share features below-->
         <div class="funding-share-bar">
-            <div ng-class="{true:'funding-dog-ear-favorited', false:'funding-dog-ear'}[ favoritedCheck(fundItem.id,fundingCtrl.favoritedFundings)]" ng-click="addFavorite()"></div>
+            <div ng-class="{true:'funding-dog-ear-favorited', false:'funding-dog-ear'}[ favoritedCheck(fundItem.id,fundingCtrl.favoritedFunding)]" ng-click="addFavorite(fundItem.id)"></div>
             
             <!--deadline adding-->
             <div class="funding-deadline-link">
@@ -30,7 +30,10 @@
             </div>
 			<!--favorite funding opportunity-->
 			<div class="funding-favorite-link" ng-controller="FavoriteController as favoriteCtrl">
-                <button type="btn btn-primary" class="glyphicon glyphicon-star" ng-click="addFavorite()"></button>
+<!--                <button type="btn btn-primary" class="glyphicon glyphicon-star" ng-click="addFavorite()"></button>-->
+                
+<!--                <button type="btn btn-primary" class="glyphicon" ng-class="{true: 'btn-success', false: 'btn-primary'}[isActive]" ng-click="addFavorite()">Favorite</button>-->
+<!--                <button type="btn btn-primary" class="glyphicon" ng-class="{true: 'btn-success', false: 'btn-default'}[favoritedCheck(fundingCtrl.fundItem.fundID, favoriteCtrl.favoritedFunding)]" ng-click="addFavorite()">Favorite</button>                -->
 			</div>
             <!--sharing funding opportunity-->
             <div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">

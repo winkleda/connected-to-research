@@ -494,6 +494,10 @@
 	padding-left: 10px;
 }
 
+.funding-info-wrapper a {
+    text-decoration: none;
+}
+
 .funding-title {
 	clear: both;
 }
@@ -513,7 +517,7 @@
 /*style for deadline button*/
 .funding-deadline-link {
 	margin: 3% 10px;
-    float: left;
+    float: right;
 }
 
 .funding-deadline-link a:hover {
@@ -529,11 +533,12 @@
 .funding-share-bar {
 	height: 48px;
 	margin-right: 10px;
-/*	visibility: hidden;*/
+    margin-left: -19px;
+	visibility: hidden;
 }
 
 .funding-item:hover > .funding-share-bar {
-/*	visibility: visible;*/
+	visibility: visible;
 }
 
 .funding-share-bar > div {
@@ -595,12 +600,18 @@
 .funding-month-row {
 
 }
-.funding-event-date {
+.funding-opp-date {
 	padding-right: 0px;
 }
-.funding-event-name {
+.funding-opp-name {
 	margin: 10px 0;
 }
 .funding-month-away {
 	margin: 10px 0;
+}
+.funding-opp-delete {
+    visibility: hidden;
+}
+.funding-opp-name:hover > .funding-opp-delete {
+    visibility: visible;
 }

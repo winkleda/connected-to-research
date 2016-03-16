@@ -79,7 +79,7 @@ else{
                     AND source = 'FedBizOpps'
                     AND due_date >= CURDATE()
                     ORDER BY post_date DESC
-                    LIMIT 0, 5";
+                    LIMIT 0, 10";
             break;
         case "sourceGrants":
             $query = "SELECT *, LEFT(description, 300) as description
@@ -89,7 +89,7 @@ else{
                     AND source = 'Grants'
                     AND due_date >= CURDATE()
                     ORDER BY post_date DESC
-                    LIMIT 0, 5";
+                    LIMIT 0, 10";
             break;
         default:
             $query = "SELECT * 
