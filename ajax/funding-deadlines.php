@@ -8,7 +8,7 @@ $email = $_SESSION['email'];
 
 //get funding deadlines for the user
 if (!($stmt = $mysqli->prepare(
-	"SELECT due_date, title
+	"SELECT due_date, title, id
     FROM ctr_funding_base b, ctr_user_fod_link u
 	WHERE b.id = u.fund_id 
     AND u.email = ?
@@ -40,6 +40,7 @@ while($fund = $result->fetch_assoc()){
 	$temp_year = date("Y", strtotime($fund['due_date']));
 
 	$months[$temp_month][] = ["date" => intval(date("d", strtotime($fund['due_date']))), 
+                              "id" => $fund["id"], 
                               "event" => $fund["title"], 
                               "year" => $temp_year];	
 }
@@ -58,9 +59,7 @@ foreach($months_keys as $month_key) {
 	$current_month_array["month"] = $month_name;
     
 	$month_away = $month_digit - intval(date("n"));
-	//this is to fix the negative months away bug
 	$years_away = $months[$month_key][0]["year"]- $current_year;
-		
 	$month_away = $month_away + ($years_away * 12);
 	
 	if($month_away < 0){

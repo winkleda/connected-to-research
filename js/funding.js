@@ -102,9 +102,10 @@
         
         //call to refresh funding filter, funding items, and event deadlines
 		$scope.refreshCall = function(){
-			$http.get("ajax/filter-funding.php").success(function(data){
-				fundingCtrl.filter = data;
-			});
+//          wondering if this causing the highlight to go away
+//			$http.get("ajax/filter-funding.php").success(function(data){
+//				fundingCtrl.filter = data;
+//			});
             
             $http.get("ajax/funding-items.php").success(function(data){
 				fundingCtrl.fundingItems = data;
@@ -145,6 +146,16 @@
 			});
 		};
 		
+        //removing funding deadline
+        $scope.removeFundingDeadline = function(fundID){
+			$http({
+				method:"GET",
+				url:"scripts/delete_funding_deadlines.php",
+				params:{ id: fundID }
+			}).success(function(data){
+				$scope.refreshCall();
+			});
+		};
 	}]);
     
     //Controller for managing the share funding button
@@ -194,32 +205,17 @@
 	
 	app.controller('FavoriteController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
 		console.log("FUNDID: "+$scope.fundItem.id);
-		$scope.addFavorite = function(){
-			$http({
-					method:'GET',
-					url:'scripts/favorite_funding.php',
-					params:{
-						id: $scope.fundItem.id
-					}
-				}).success(function(data){
-					$scope.refreshCall();		
-				});
-		}
+//		$scope.addFavorite = function(){
+//			$http({
+//					method:'GET',
+//					url:'scripts/favorite_funding.php',
+//					params:{
+//						id: $scope.fundItem.id
+//					}
+//				}).success(function(data){
+//					$scope.refreshCall();		
+//				});
+//		}
         
-//        var favoriteCtrl = this;
-//        favoriteCtrl.favoritedFunding = [];
-//        $http.get("scripts/view_favorite_fundings.php").success(function(data){
-//           favoriteCtrl.favoritedFunding = data; 
-//        });
-//        
-//        $scope.favoritedCheck = function(toCheck, arrayToCheck){
-//			for(var i = 0; i < arrayToCheck.length; i++ ){
-//				if( arrayToCheck[i] == toCheck){
-//					return true;
-//				}
-//			}
-//			return false;
-//		};
-//        console.log($scope.favoritedCheck);
 	}]);
 })();
