@@ -36,11 +36,12 @@
 <!--                <button type="btn btn-primary" class="glyphicon" ng-class="{true: 'btn-success', false: 'btn-default'}[favoritedCheck(fundingCtrl.fundItem.fundID, favoriteCtrl.favoritedFunding)]" ng-click="addFavorite()">Favorite</button>                -->
 			</div>
             <!--sharing funding opportunity-->
-            <div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">
-                <a href="" ng-click="shareMenuEx = !shareMenuEx">
-                    <span class="glyphicon glyphicon-share"></span>Share
-                </a>
-                <ul ng-controller="PeopleController as peopleCtrl" class="dropdown-menu share-fund-menu" role="menu">
+            <div ng-controller="PeopleController as peopleCtrl" class="share-fund-menu">
+                <div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">
+                    <a href="" ng-click="shareMenuEx = !shareMenuEx">
+                        <span class="glyphicon glyphicon-share"></span>Share
+                    </a>
+                <ul class="dropdown-menu share-fund-menu" role="menu">
                     <input type="text" ng-model="searchBox">
                     <div class="share-fund-list">
                         <li ng-repeat="fundingShareUser in peopleCtrl.fundingShareUsers | filter: searchBox | limitTo: quantity">
@@ -56,6 +57,8 @@
                     </div>
                 </ul>
             </div>
+            </div>
+            
             
         </div>
     </div>
