@@ -27,6 +27,7 @@ function clean_string($string, $mysqli)
     // Replace newlines with <br>
     $string = str_replace(["\r\n", "\n"], "<br>", $string);
     $string = strip_tags($string);
+    $string = trim($string);
     $string = $mysqli->escape_string($string);
     return $string;
 }
@@ -38,6 +39,11 @@ $types = array(
                 "PRESOL",
                 "SRCSGT",
                 "SNOTE",
+                "AWARD",
+                "JA",
+                "ITB",
+                "FAIROPP",
+                "FSTD",
                );
 $path = "../temp_xml/FBOweekly.xml";
 
@@ -100,12 +106,12 @@ while($xml->read())
     $due_date = "";
     if(!empty($node->RESPDATE))
         $due_date = date_format(date_create_from_format('mdY', $node->RESPDATE), 'Y-m-d');
-
+    
     $post_date = date_format(date_create_from_format('mdY', $node->DATE), 'Y-m-d');
 
     // For some odd reason, some records have no solnbr.
     // Even though te documentation says its required.
-    $solnbr = $mysqli->escape_string($node->SOLNBR);
+    $solnbr = $mysqli->escape_string(trim($node->SOLNBR));
     if($solnbr == "")
         continue;
 
@@ -123,6 +129,17 @@ while($xml->read())
         $notice_type = "Sources Sought";
     else if($notice_type == "SNOTE")
         $notice_type = "Special Notice";
+    else if($notice_type == "AWARD")
+        $notice_type = "Award Notice";
+    else if($notice_type == "JA")
+        $notice_type = "Justification and Approval (J&A)";
+    else if($notice_type == "ITB")
+        $notice_type = "Intent to Bundle Requirements (DoD Funded)";
+    else if($notice_type == "FAIROPP")
+        $notice_type = "Fair Opportunity / Limited Sources Justification";
+    else if($notice_type == "FSTD")
+        $notice_type = "Foreign Government Standard";
+
     $fbo_values[] = "notice_type = '" . $notice_type . "'";
     $base_values[] = "source = 'FedBizOpps'";
     $base_values[] = "post_date = '" . clean_string($post_date, $mysqli) . "'";
