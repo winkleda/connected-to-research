@@ -38,6 +38,11 @@ while(($line = fgets($file)) !== FALSE)
     || (strncmp($line, "<COMBINE>", strlen("<COMBINE>")) == 0)  // Combined Synopsis/Solicitation
     || (strncmp($line, "<AMDCSS>", strlen("<AMDCSS>")) == 0)    // Amendment to a Previous Combined Solicitation
     || (strncmp($line, "<MOD>", strlen("<MOD>")) == 0)          // Modification to a Previous Base Notice
+    || (strncmp($line, "<AWARD>", strlen("<AWARD>")) == 0)      // Award Notice
+    || (strncmp($line, "<JA>", strlen("<JA>")) == 0)            // Justification and Approval (J&A)
+    || (strncmp($line, "<ITB>", strlen("<ITB>")) == 0)          // Intent to Bundle Requirements (DoD Funded)
+    || (strncmp($line, "<FAIROPP>", strlen("<FAIROPP>")) == 0)  // Fair Opportunity / Limited Sources Justification
+    || (strncmp($line, "<FSTD>", strlen("<FSTD>")) == 0)        // Foreign Government Standard
     || (strncmp($line, "<SNOTE>", strlen("<SNOTE>")) == 0))     // Special Notice
     {
         //echo "########## NEW ###########\n";
@@ -78,6 +83,11 @@ top:
             || (strncmp($line, "</COMBINE>", strlen("</COMBINE>")) == 0)
             || (strncmp($line, "</AMDCSS>", strlen("</AMDCSS>")) == 0)
             || (strncmp($line, "</MOD>", strlen("</MOD>")) == 0)
+            || (strncmp($line, "</AWARD>", strlen("</AWARD>")) == 0) 
+            || (strncmp($line, "</JA>", strlen("</JA>")) == 0)       
+            || (strncmp($line, "</ITB>", strlen("</ITB>")) == 0)       
+            || (strncmp($line, "</FAIROPP>", strlen("</FAIROPP>")) == 0)  
+            || (strncmp($line, "</FSTD>", strlen("</FSTD>")) == 0)       
             || (strncmp($line, "</SNOTE>", strlen("</SNOTE>")) == 0))
                 break;
             
@@ -193,7 +203,7 @@ top:
             || ($type == 'MOD'))
         {
             // Initialize empty array of values
-            $base_values = [];
+            $base_values = ["source = 'FedBizOpps'"];
             $fbo_values = [];
             
             // Required fields which will be not null
@@ -230,6 +240,16 @@ top:
                     $ntype = "Combined Synopsis/Solicitation";
                 else if($ntype == "SNOTE")
                     $ntype = "Special Notice";
+                else if($ntype == "AWARD")
+                    $ntype = "Award Notice";
+                else if($ntype == "JA")
+                    $ntype = "Justification and Approval (J&A)";
+                else if($ntype == "ITB")
+                    $ntype = "Intent to Bundle Requirements (DoD Funded)";
+                else if($ntype == "FAIROPP")
+                    $ntype = "Fair Opportunity / Limited Sources Justification";
+                else if($ntype == "FSTD")
+                    $ntype = "Foreign Government Standard";
 
                 $fbo_values[] = "notice_type = '". $ntype . "'";
             }
@@ -249,9 +269,9 @@ top:
         {
             // Construct the query using the fields we pulled out earlier.
             $base_query =    "INSERT INTO ctr_funding_base
-                        (id, title, post_date, due_date, interests, agency, address, contact, office, description, url)
+                        (source, id, title, post_date, due_date, interests, agency, address, contact, office, description, url)
                         VALUES
-                        ('".
+                        ('FedBizOpps', '".
                         $solnbr ."','". 
                         $subject ."','". 
                         $post_date ."','". 
