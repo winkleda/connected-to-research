@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="funding">
+<html lang="en">
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/custom.css" />
@@ -10,39 +10,45 @@
 	</head>
     
 	<body>
-		<header class="container-fluid navbar custom-main-header-bar" ng-controller="NavbarController as navbarCtrl">
-			<user-nav-bar></user-nav-bar>
-		</header>
-        
-		<div id="main-content" class="container-fluid" ng-controller="FundingController as fundingCtrl">
-			<div class="row">
-				<div id="filter-column" class="col-xs-2 panel panel-default text-right">
-					<filter-funding ng-repeat="filter in fundingCtrl.filter" ></filter-funding>
-				</div>
-                
-                <!--using publication-column temporarily, will need one for funding -->
-				<div id="funding-column" class="col-xs-7 panel panel-default ">
-					<h4 class="panel-header">Funding Opportunities</h4>
-					<div class="panel-body">
-						<funding-item ng-repeat="fundItem in fundingCtrl.fundingItems"></funding-item>
-					</div>	
-				</div>
-                
-                <!--events and deadlines-->
-				<div class="col-xs-3">
-					<div class="row">	
-						<div id="events-deadlines-column" class="panel panel-default ">
-							<h4 class="panel-header" style="margin-left: 10px;">Funding Opportunity Deadlines</h4>
-							<div class="panel-body">
-<!--								<research-events-and-deadlines ng-repeat="REDMonth in fundingCtrl.researchEventsDeadlines"></research-events-and-deadlines> -->
-                                <funding-deadlines ng-repeat="FundMonth in fundingCtrl.fundingDeadlines"></funding-deadlines>
-							</div>
-						</div>
-					</div>
-				</div>
-                
-			</div>
-		</div>
+        <div id="App1" ng-app="publication">
+            <header class="container-fluid navbar custom-main-header-bar" ng-controller="NavbarController as navbarCtrl">
+                <user-nav-bar></user-nav-bar>
+            </header>
+        </div>
+		
+        <div id="App2" ng-app="funding">
+            <div ng-app="funding" id="main-content" class="container-fluid" ng-controller="FundingController as fundingCtrl">
+                <div class="row">
+                    <!--filter column-->
+                    <div id="filter-column" class="col-xs-2 panel panel-default text-right">
+                        <filter-funding ng-repeat="filter in fundingCtrl.filter" ></filter-funding>
+                    </div>
+
+                    <!--funding opportunities column -->
+                    <div id="funding-column" class="col-xs-7 panel panel-default ">
+                        <h4 class="panel-header">Funding Opportunities</h4>
+                        <div class="panel-body">
+                            <funding-item ng-repeat="fundItem in fundingCtrl.fundingItems"></funding-item>
+                        </div>	
+                    </div>
+
+                    <!--funding opportunity deadlines column-->
+                    <div class="col-xs-3">
+                        <div class="row">	
+                            <div id="events-deadlines-column" class="panel panel-default ">
+                                <h4 class="panel-header" style="margin-left: 10px;">Funding Opportunity Deadlines</h4>
+                                <div class="panel-body">
+                                    <funding-deadlines ng-repeat="FundMonth in fundingCtrl.fundingDeadlines"></funding-deadlines>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--in order to use two different ng-apps with one nav-bar.tpl.html-->
+		<script>angular.bootstrap(document.getElementById("App2"),['funding']);</script>
         
 	</body>
 </html>

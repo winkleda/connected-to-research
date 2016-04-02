@@ -28,17 +28,12 @@
             <div class="funding-deadline-link">
                 <span class="glyphicon glyphicon-plus-sign" ng-click="addFundingDeadline(fundItem.id)"></span>
             </div>
-			<!--favorite funding opportunity-->
-			<div class="funding-favorite-link" ng-controller="FavoriteController as favoriteCtrl">
-<!--                <button type="btn btn-primary" class="glyphicon glyphicon-star" ng-click="addFavorite()"></button>-->
-                
-<!--                <button type="btn btn-primary" class="glyphicon" ng-class="{true: 'btn-success', false: 'btn-primary'}[isActive]" ng-click="addFavorite()">Favorite</button>-->
-<!--                <button type="btn btn-primary" class="glyphicon" ng-class="{true: 'btn-success', false: 'btn-default'}[favoritedCheck(fundingCtrl.fundItem.fundID, favoriteCtrl.favoritedFunding)]" ng-click="addFavorite()">Favorite</button>                -->
-			</div>
+			
             <!--sharing funding opportunity-->
-            <div ng-controller="PeopleController as peopleCtrl" class="share-fund-menu">
+            <div ng-controller="PeopleController as peopleCtrl" class="share-fund-menu" ng-init="checkmark = false ">
+                <div class="funding-share-link glyphicon glyphicon-ok" ng-show="checkmark "></div>
                 <div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">
-                    <a href="" ng-click="shareMenuEx = !shareMenuEx">
+                    <a href="" ng-click="shareMenuEx = !shareMenuEx; checkmark = false ">
                         <span class="glyphicon glyphicon-share"></span>Share
                     </a>
                 <ul class="dropdown-menu share-fund-menu" role="menu">
@@ -53,7 +48,7 @@
                         </li>
                     </div>
                     <div class="custom-fund-button">
-                        <button class="btn btn-primary" ng-click='shareMenuEx = false; shareWithUsers();'>Share</button>
+                        <button class="btn btn-primary" ng-click="shareMenuEx = false; shareWithUsers(); checkmark = true ">Share</button>
                     </div>
                 </ul>
             </div>

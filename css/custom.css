@@ -437,6 +437,39 @@
 	border-top:1px solid #ddd;
 }
 
+
+/*
+ *********************************************************
+ *
+ *   NAVIGATION BAR FOR FUNDING
+ *
+ *********************************************************
+*/
+
+.funding-dropdown-menu {
+	width: 500px;
+	padding: 0px 10px;
+	border: 5px solid rgba(184, 80, 16, 0.9);
+}
+.funding-dropdown-item {
+	border-top: 0px;
+	border-bottom: 1px;
+	border-left: 0px;
+	border-right: 0px;
+	border-style: dashed;
+	border-color: gray;
+}
+
+.funding-dropdown-item > h4 > a {
+	color: black;
+	font-size: 14px;
+} 
+
+.funding-dropdown-item:last-child {
+	border-bottom: 0px;
+}
+
+
 /*
  *********************************************************
  *
@@ -524,16 +557,22 @@
 	text-decoration: none;
 }
 
+.funding-deadline-link:hover > span {
+    cursor: pointer;
+}
+
+/*
 .funding-favorite-link {
     margin: 3% 10px;
     float: left;
 }
+*/
 
 /*styling for funding share bar*/
 .funding-share-bar {
 	height: 48px;
 	margin-right: 10px;
-    margin-left: -19px;
+/*    margin-left: -19px;*/
 	visibility: hidden;
 }
 
@@ -543,6 +582,10 @@
 
 .funding-share-bar > div {
 	display: inline;
+}
+
+.glyphicon-ok {
+    color: green;
 }
 
 .funding-share-link {
@@ -614,4 +657,7 @@
 }
 .funding-opp-name:hover > .funding-opp-delete {
     visibility: visible;
+}
+.funding-opp-name:hover > span {
+    cursor: pointer;
 }

@@ -43,6 +43,11 @@
 		$http.get("ajax/user-nav-bar-info.php").success(function(data){
 			navbarCtrl.userInfo = data;
 		});
+        
+        navbarCtrl.navBarFundingItems = [];
+        $http.get("ajax/nav-bar-fundings.php").success(function(data){
+           navbarCtrl.navBarFundingItems = data; 
+        });
 
 	}]);
 
@@ -85,6 +90,16 @@
 			return false;
 		};
         
+        //check if funding is already shared
+        $scope.sharedCheck = function(toCheck, arrayToCheck){
+			for(var i = 0; i < arrayToCheck.length; i++ ){
+				if( arrayToCheck[i] == toCheck){
+					return true;
+				}
+			}
+			return false;
+		};
+        
         //currentFilterType for the funding controller
 		$scope.fundingItemCall(fundingCtrl.currentFilterType);
         
@@ -98,6 +113,12 @@
         fundingCtrl.favoritedFunding = [];
         $http.get("scripts/view_favorite_fundings.php").success(function(data){
            fundingCtrl.favoritedFunding = data; 
+        });
+        
+        //views the already shared fundings
+        fundingCtrl.sharedFunding = [];
+        $http.get("scripts/view_share_fundings.php").success(function(data){
+           fundingCtrl.sharedFunding = data; 
         });
         
         //call to refresh funding filter, funding items, and event deadlines
