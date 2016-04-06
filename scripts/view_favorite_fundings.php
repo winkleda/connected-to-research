@@ -20,7 +20,7 @@ $stmt->bind_result($id);
 /* Inserts emails of users into array */
 $ids = array();
 while ($stmt->fetch()) {
-    array_push($ids, $id);
+	array_push($ids, $id);
 }
 
 echo json_encode($ids);

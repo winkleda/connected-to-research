@@ -9,10 +9,10 @@ $email = $_SESSION['email'];
 //get funding deadlines for the user
 if (!($stmt = $mysqli->prepare(
 	"SELECT due_date, title, id
-    FROM ctr_funding_base b, ctr_user_fod_link u
+	FROM ctr_funding_base b, ctr_user_fod_link u
 	WHERE b.id = u.fund_id 
-    AND u.email = ?
-    AND due_date >= CURDATE()
+	AND u.email = ?
+	AND due_date >= CURDATE()
 	ORDER BY b.due_date"))) {
 	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
@@ -32,17 +32,17 @@ $current_date = date("Y-m-d");
 
 //everything from here on needs more testing
 while($fund = $result->fetch_assoc()){
-    //convert due_date from string to time in order of monthYear, set $temp_month as due_date 
+	//convert due_date from string to time in order of monthYear, set $temp_month as due_date 
 	$temp_month = date("mY", strtotime($fund['due_date']));
-    //return integer value of $temp_month
+	//return integer value of $temp_month
 	$temp_month = intval($temp_month);
-    //convert due_date from string to time with only Year and set to $temp_year
+	//convert due_date from string to time with only Year and set to $temp_year
 	$temp_year = date("Y", strtotime($fund['due_date']));
 
 	$months[$temp_month][] = ["date" => intval(date("d", strtotime($fund['due_date']))), 
-                              "id" => $fund["id"], 
-                              "event" => $fund["title"], 
-                              "year" => $temp_year];	
+							  "id" => $fund["id"], 
+							  "event" => $fund["title"], 
+							  "year" => $temp_year];
 }
 
 $current_month_num = intval(date("m"));
@@ -53,11 +53,11 @@ foreach($months_keys as $month_key) {
 	$current_month_array = array();
 
 	$month_digit = intval(floor($month_key / 10000));
-    
+	
 	$month_name = date("F", mktime( 0, 0, 0, $month_digit));
-    
+	
 	$current_month_array["month"] = $month_name;
-    
+	
 	$month_away = $month_digit - intval(date("n"));
 	$years_away = $months[$month_key][0]["year"]- $current_year;
 	$month_away = $month_away + ($years_away * 12);
@@ -66,7 +66,7 @@ foreach($months_keys as $month_key) {
 		$month_away = $month_away + 12;
 	}
 	$current_month_array["monthAway"] = $month_away;
-    
+	
 	$current_month_array["events"] = $months[$month_key];
 
 	$data[] = $current_month_array;

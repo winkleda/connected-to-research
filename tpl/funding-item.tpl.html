@@ -1,61 +1,61 @@
 <!--funding item template-->
 <div class="funding-item-v">
-    <div class="funding-item">
-        <div class="funding-info-wrapper">
-            <a href="{{fundItem.url}}"><h3 class="funding-title">{{fundItem.title}}</h3></a>
-            <div class="funding-agency">
-                <p>Agency: {{fundItem.agency}}</p>
-            </div>
-            <div class="funding-post-date">
-                <p>Post Date: {{fundItem.postDate}}</p>
-            </div>
-            <div class="funding-due-date">
-                <p>Due Date: {{fundItem.dueDate}}</p>
-            </div>
-            <div class="funding-descript">
-                <p>{{fundItem.description}}</p>
-            </div>
-            <div class="funding-source">
-                <p>Source: {{fundItem.source}}</p>
-            </div>
-        </div>
-        
-        <!--favorite, deadline adding and share features below-->
-        <div class="funding-share-bar">
-            <div ng-class="{true:'funding-dog-ear-favorited', false:'funding-dog-ear'}[ favoritedCheck(fundItem.id,fundingCtrl.favoritedFunding)]" ng-click="addFavorite(fundItem.id)"></div>
-            
-            <!--deadline adding-->
-            <div class="funding-deadline-link">
-                <span class="glyphicon glyphicon-plus-sign" ng-click="addFundingDeadline(fundItem.id)"></span>
-            </div>
+	<div class="funding-item">
+		<div class="funding-info-wrapper">
+			<a href="{{fundItem.url}}"><h3 class="funding-title">{{fundItem.title}}</h3></a>
+			<div class="funding-agency">
+				<p>Agency: {{fundItem.agency}}</p>
+			</div>
+			<div class="funding-post-date">
+				<p>Post Date: {{fundItem.postDate}}</p>
+			</div>
+			<div class="funding-due-date">
+				<p>Due Date: {{fundItem.dueDate}}</p>
+			</div>
+			<div class="funding-descript">
+				<p>{{fundItem.description}}</p>
+			</div>
+			<div class="funding-source">
+				<p>Source: {{fundItem.source}}</p>
+			</div>
+		</div>
+		
+		<!--favorite, deadline adding and share features below-->
+		<div class="funding-share-bar">
+			<div ng-class="{true:'funding-dog-ear-favorited', false:'funding-dog-ear'}[ favoritedCheck(fundItem.id,fundingCtrl.favoritedFunding)]" ng-click="addFavorite(fundItem.id)"></div>
 			
-            <!--sharing funding opportunity-->
-            <div ng-controller="PeopleController as peopleCtrl" class="share-fund-menu" ng-init="checkmark = false ">
-                <div class="funding-share-link glyphicon glyphicon-ok" ng-show="checkmark "></div>
-                <div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">
-                    <a href="" ng-click="shareMenuEx = !shareMenuEx; checkmark = false ">
-                        <span class="glyphicon glyphicon-share"></span>Share
-                    </a>
-                <ul class="dropdown-menu share-fund-menu" role="menu">
-                    <input type="text" ng-model="searchBox">
-                    <div class="share-fund-list">
-                        <li ng-repeat="fundingShareUser in peopleCtrl.fundingShareUsers | filter: searchBox | limitTo: quantity">
-                            <input type="checkbox" 
-                                   class="share-fund-input" 
-                                   value="{{fundingShareUser.email}}" 
-                                   ng-model="fundingShareUser.selected"
-                                   > {{fundingShareUser.email}}
-                        </li>
-                    </div>
-                    <div class="custom-fund-button">
-                        <button class="btn btn-primary" ng-click="shareMenuEx = false; shareWithUsers(); checkmark = true ">Share</button>
-                    </div>
-                </ul>
-            </div>
-            </div>
-            
-            
-        </div>
-    </div>
+			<!--deadline adding-->
+			<div class="funding-deadline-link">
+				<span class="glyphicon glyphicon-plus-sign" ng-click="addFundingDeadline(fundItem.id)"></span>
+			</div>
+			
+			<!--sharing funding opportunity-->
+			<div ng-controller="PeopleController as peopleCtrl" class="share-fund-menu" ng-init="checkmark = false ">
+				<div class="funding-share-link glyphicon glyphicon-ok" ng-show="checkmark "></div>
+				<div class="funding-share-link dropdown" ng-class="{open : shareMenuEx}">
+					<a href="" ng-click="shareMenuEx = !shareMenuEx; checkmark = false ">
+						<span class="glyphicon glyphicon-share"></span>Share
+					</a>
+				<ul class="dropdown-menu share-fund-menu" role="menu">
+					<input type="text" ng-model="searchBox">
+					<div class="share-fund-list">
+						<li ng-repeat="fundingShareUser in peopleCtrl.fundingShareUsers | filter: searchBox | limitTo: quantity">
+							<input type="checkbox" 
+								   class="share-fund-input" 
+								   value="{{fundingShareUser.email}}" 
+								   ng-model="fundingShareUser.selected"
+								   > {{fundingShareUser.email}}
+						</li>
+					</div>
+					<div class="custom-fund-button">
+						<button class="btn btn-primary" ng-click="shareMenuEx = false; shareWithUsers(); checkmark = true ">Share</button>
+					</div>
+				</ul>
+			</div>
+			</div>
+			
+			
+		</div>
+	</div>
 </div>
 <div class="funding-separation-bar"></div>

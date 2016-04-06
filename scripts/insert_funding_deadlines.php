@@ -19,7 +19,8 @@ if (!$stmt->bind_param("ss", $id, $email)) {
 
 if (!$stmt->execute()) {
 	echo "Failed to insert funding deadline " . $id . ": " . $stmt->error . "<br>";
-} else {
+}
+else {
 	echo "funding deadline " . $id . " successfully inserted into database.<br>";
 }
 

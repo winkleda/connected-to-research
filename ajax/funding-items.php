@@ -16,88 +16,88 @@ $agencyAllPrefix = "agency=All";
 $noticePrefix = "notice=";
 
 if(strncmp($type, $agencyPrefix, strlen($agencyPrefix)) == 0)  {
-    if(strncmp($type, $agencyAllPrefix, strlen($agencyAllPrefix)) == 0) {
-        $query = "SELECT *, LEFT(description, 300) as description
-            FROM ctr_funding_base b, ctr_user_fund_link u
-            WHERE b.id = u.fund_id
-            AND u.email = ?
-            AND due_date >= CURDATE()
-            GROUP BY agency
-            ORDER BY b.post_date DESC";
-    }
-    else {
-        $query = "SELECT *, LEFT(description, 300) as description
-            FROM ctr_funding_base b, ctr_user_fund_link u
-            WHERE b.id = u.fund_id
-            AND due_date >= CURDATE()
-            AND u.email = ?
-            AND b.agency=\"" . str_replace( $agencyPrefix, "", $type) . "\" 
-            ORDER BY b.agency DESC";
+	if(strncmp($type, $agencyAllPrefix, strlen($agencyAllPrefix)) == 0) {
+		$query = "SELECT *, LEFT(description, 300) as description
+			FROM ctr_funding_base b, ctr_user_fund_link u
+			WHERE b.id = u.fund_id
+			AND u.email = ?
+			AND due_date >= CURDATE()
+			GROUP BY agency
+			ORDER BY b.post_date DESC";
+	}
+	else {
+		$query = "SELECT *, LEFT(description, 300) as description
+			FROM ctr_funding_base b, ctr_user_fund_link u
+			WHERE b.id = u.fund_id
+			AND due_date >= CURDATE()
+			AND u.email = ?
+			AND b.agency=\"" . str_replace( $agencyPrefix, "", $type) . "\" 
+			ORDER BY b.agency DESC";
 //    echo $query; //for testing
-    }
+	}
 }
 else if(strncmp($type, $noticePrefix, strlen($noticePrefix)) == 0)  {
-    $query = "SELECT *
-        FROM ctr_funding_base b, ctr_user_fund_link u
-        WHERE b.id = u.fund_id
-        AND due_date >= CURDATE()
-        AND u.email = ?
-        AND b.notice=\"" . str_replace( $noticePrefix, "", $type) . "\" 
-        ORDER BY b.post_date DESC";
+	$query = "SELECT *
+		FROM ctr_funding_base b, ctr_user_fund_link u
+		WHERE b.id = u.fund_id
+		AND due_date >= CURDATE()
+		AND u.email = ?
+		AND b.notice=\"" . str_replace( $noticePrefix, "", $type) . "\" 
+		ORDER BY b.post_date DESC";
 }
 
 else{
-    switch($type) {
-        case "recommended":
-            $query = "SELECT *, LEFT(description, 300) as description 
-                    FROM ctr_funding_base b, ctr_user_fund_link u
-                    WHERE b.id = u.fund_id
-                    AND email = ?
-                    AND due_date >= CURDATE()
-                    ORDER BY post_date DESC
-                    LIMIT 0, 10";
-            break;
-        case "shared":
-            $query = "SELECT *, LEFT(description, 300) as description 
-                    FROM ctr_funding_base b, ctr_user_share_fund s
-                    WHERE b.id = s.fund_id
-                    AND s.shared_to = ? 
-                    AND due_date >= CURDATE()";
-            break;
-        case "favorited":
-            $query = "SELECT *, LEFT(description, 300) as description 
-                    FROM ctr_funding_base b, ctr_user_fav_fund f
-                    WHERE b.id = f.fund_id
-                    AND f.email = ?
-                    AND due_date >= CURDATE()";
-            break;
-        case "sourceFBO":
-            $query = "SELECT *, LEFT(description, 300) as description 
-                    FROM ctr_funding_base b, ctr_user_fund_link u
-                    WHERE b.id = u.fund_id
-                    AND u.email = ?
-                    AND source = 'FedBizOpps'
-                    AND due_date >= CURDATE()
-                    ORDER BY post_date DESC
-                    LIMIT 0, 10";
-            break;
-        case "sourceGrants":
-            $query = "SELECT *, LEFT(description, 300) as description
-                    FROM ctr_funding_base b, ctr_user_fund_link u
-                    WHERE b.id = u.fund_id
-                    AND u.email = ?
-                    AND source = 'Grants'
-                    AND due_date >= CURDATE()
-                    ORDER BY post_date DESC
-                    LIMIT 0, 10";
-            break;
-        default:
-            $query = "SELECT * 
-                    FROM ctr_funding_base
-                    ORDER BY post_date DESC";
-    }
+	switch($type) {
+		case "recommended":
+			$query = "SELECT *, LEFT(description, 300) as description 
+					FROM ctr_funding_base b, ctr_user_fund_link u
+					WHERE b.id = u.fund_id
+					AND email = ?
+					AND due_date >= CURDATE()
+					ORDER BY post_date DESC
+					LIMIT 0, 10";
+			break;
+		case "shared":
+			$query = "SELECT *, LEFT(description, 300) as description 
+					FROM ctr_funding_base b, ctr_user_share_fund s
+					WHERE b.id = s.fund_id
+					AND s.shared_to = ? 
+					AND due_date >= CURDATE()";
+			break;
+		case "favorited":
+			$query = "SELECT *, LEFT(description, 300) as description 
+					FROM ctr_funding_base b, ctr_user_fav_fund f
+					WHERE b.id = f.fund_id
+					AND f.email = ?
+					AND due_date >= CURDATE()";
+			break;
+		case "sourceFBO":
+			$query = "SELECT *, LEFT(description, 300) as description 
+					FROM ctr_funding_base b, ctr_user_fund_link u
+					WHERE b.id = u.fund_id
+					AND u.email = ?
+					AND source = 'FedBizOpps'
+					AND due_date >= CURDATE()
+					ORDER BY post_date DESC
+					LIMIT 0, 10";
+			break;
+		case "sourceGrants":
+			$query = "SELECT *, LEFT(description, 300) as description
+					FROM ctr_funding_base b, ctr_user_fund_link u
+					WHERE b.id = u.fund_id
+					AND u.email = ?
+					AND source = 'Grants'
+					AND due_date >= CURDATE()
+					ORDER BY post_date DESC
+					LIMIT 0, 10";
+			break;
+		default:
+			$query = "SELECT * 
+					FROM ctr_funding_base
+					ORDER BY post_date DESC";
+	}
 }
-    
+	
 $stmt = $mysqli->stmt_init();
 if(!$stmt->prepare($query)) {
 	echo "Prepared failed: " . $stmt->error;
@@ -111,16 +111,16 @@ $fundings = $stmt->get_result();
 
 $data = array();
 while($funding = $fundings->fetch_assoc()) {
-    $data[] = array(
-        "title" => $funding['title'],
-        "url" => $funding['url'],
-        "agency" => $funding['agency'],
-        "postDate" => $funding['post_date'],
-        "dueDate" => $funding['due_date'],
-        "description" => $funding['description'],
-        "source" => $funding['source'],
-        "id" => $funding['id']
-    );
+	$data[] = array(
+		"title" => $funding['title'],
+		"url" => $funding['url'],
+		"agency" => $funding['agency'],
+		"postDate" => $funding['post_date'],
+		"dueDate" => $funding['due_date'],
+		"description" => $funding['description'],
+		"source" => $funding['source'],
+		"id" => $funding['id']
+	);
 }
 
 

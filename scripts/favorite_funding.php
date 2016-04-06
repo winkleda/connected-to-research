@@ -19,5 +19,5 @@ if (!$stmt->execute()) {
 } else {
 	echo $_SESSION['email'] . " favorited funding_id " . $id . "<br>";
 }
-    
+
 ?>
