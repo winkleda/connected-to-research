@@ -81,6 +81,10 @@
 			});
 		};
 		
+		$scope.toggle = function(item) {
+			item.selected = !item.selected;
+		}
+		
 		//check if funding is already favorited
 		$scope.favoritedCheck = function(toCheck, arrayToCheck){
 			for(var i = 0; i < arrayToCheck.length; i++ ){
@@ -231,19 +235,4 @@
 		
 	}]);
 	
-	app.controller('FavoriteController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
-		console.log("FUNDID: "+$scope.fundItem.id);
-//		$scope.addFavorite = function(){
-//			$http({
-//					method:'GET',
-//					url:'scripts/favorite_funding.php',
-//					params:{
-//						id: $scope.fundItem.id
-//					}
-//				}).success(function(data){
-//					$scope.refreshCall();
-//				});
-//		}
-		
-	}]);
 })();
