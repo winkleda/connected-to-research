@@ -66,9 +66,10 @@
 		fundingCtrl.fundingItems = [];
 		
 		//get the main funding items with the get method in $http service
-		$scope.fundingItemCall = function(type){
+		$scope.fundingItemCall = function(item){
+            type = item.filterName;
+            item.selected = !item.selected;
 			fundingCtrl.currentFilterType = type;
-
 			$http({
 				method:'GET',
 				url:'ajax/funding-items.php',
@@ -177,6 +178,12 @@
 				$scope.refreshCall();
 			});
 		};
+        
+        // Toggle the selected filters
+        $scope.toggle = function(item){
+            item.selected = !item.selected;
+        }
+        
 	}]);
 	
 	//Controller for managing the share funding button
