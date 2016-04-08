@@ -70,20 +70,45 @@
             type = item.filterName;
             item.selected = !item.selected;
 			fundingCtrl.currentFilterType = type;
+			console.log(fundingCtrl.filter)
+			var str_source = "";
+			var str_agency = "";
+			var str_notice = "";
+			
+			for (i of fundingCtrl.filter) {
+				for (j of i.items) {
+					console.log(j);
+					if (j.hasOwnProperty("selected")) {
+						if (j.selected) {
+							if (i.header == "Source") {
+								str_source = str_source + j.filterName + "&&"
+							}
+							else if(i.header == "Agency") {
+								str_agency = str_agency + j.filterName + "&&"
+							}
+							else if(i.header == "Notice Type") {
+								str_notice = str_notice + j.filterName + "&&"
+							}
+						}
+					}
+				}
+			}
+			str_source = str_source.substring(0, str_source.length - 2);
+			str_agency = str_agency.substring(0, str_agency.length - 2);
+			str_notice = str_notice.substring(0, str+notice.length - 2);
+			
 			$http({
 				method:'GET',
 				url:'ajax/funding-items.php',
 				params:{
-					type:fundingCtrl.currentFilterType
+					source: str_source,
+					agency: str_agency,
+					notice: str_notice
 				}
 			}).success(function(data){
 				fundingCtrl.fundingItems = data;
 			});
 		};
-		
-		$scope.toggle = function(item) {
-			item.selected = !item.selected;
-		}
 		
 		//check if funding is already favorited
 		$scope.favoritedCheck = function(toCheck, arrayToCheck){
@@ -235,4 +260,19 @@
 		
 	}]);
 	
+	app.controller('FavoriteController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
+		console.log("FUNDID: "+$scope.fundItem.id);
+//		$scope.addFavorite = function(){
+//			$http({
+//					method:'GET',
+//					url:'scripts/favorite_funding.php',
+//					params:{
+//						id: $scope.fundItem.id
+//					}
+//				}).success(function(data){
+//					$scope.refreshCall();
+//				});
+//		}
+		
+	}]);
 })();
