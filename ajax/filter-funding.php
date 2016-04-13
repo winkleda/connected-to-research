@@ -171,7 +171,6 @@ if($stmt->prepare($funding_sourceGrants)){
 }
 
 $agencyArray = array();
-$agencyPrefix = "agency=";
 
 //filter for All Agencies
 if($stmt->prepare($funding_agency_total)){
@@ -187,7 +186,7 @@ if($stmt->prepare($funding_agency_total)){
 			$agency = array(
 				"groupItem" => "All",
 				"amount" => $columns['count'],
-				"filterName" => $agencyPrefix . 'All'
+				"filterName" => 'All',
 			   );
 			array_push($agencyArray, $agency);
 		}
@@ -205,7 +204,7 @@ if($stmt->prepare($agency_name)){
 			$agency = array(
 				"groupItem" => $columns["agency"],
 				"amount" => $columns["count"],
-				"filterName" => $agencyPrefix . $columns["agency"]
+				"filterName" => $columns["agency"]
 			);
 			array_push($agencyArray, $agency);
 		}
@@ -213,7 +212,6 @@ if($stmt->prepare($agency_name)){
 }
 
 $noticeArray = array();
-$noticePrefix = "notice=";
 
 //filter for notice types in FBO
 if($stmt->prepare($funding_noticeFBO)){
@@ -227,7 +225,7 @@ if($stmt->prepare($funding_noticeFBO)){
 			$notice = array(
 				"groupItem" => $columns["notice_type"],
 				"amount" => $columns["count"],
-				"filterName" => $noticePrefix . $columns["notice_type"]
+				"filterName" => $columns["notice_type"]
 			);
 			array_push($noticeArray, $notice);
 		}
@@ -245,7 +243,7 @@ if($stmt->prepare($funding_noticeGrants)){
 			$notice = array(
 				"groupItem" => $columns["instrument_type"],
 				"amount" => $columns["count"],
-				"filterName" => $noticePrefix . $columns["instrument_type"]
+				"filterName" => $columns["instrument_type"]
 			);
 			array_push($noticeArray, $notice);
 		}
@@ -266,7 +264,8 @@ $data = array(
 			array(
 				"groupItem" => "Recommended",
 				"amount" => $count_value['recommended'],
-				"filterName" => "recommended"
+				"filterName" => "recommended",
+                "selected" => "true"
 			),
 			array(
 				"groupItem" => "Shared To Me",

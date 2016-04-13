@@ -190,6 +190,26 @@ top:
         
         if($ntype == "")
             $ntype = $type;
+        // convert notice type from something like PRESOL to Presolicitation
+        if($ntype !== "") {
+            if($ntype == "PRESOL")
+                $ntype = "Presolicitation";
+            else if($ntype == "SRCSGT")
+                $ntype = "Sources Sought";
+            else if($ntype == "COMBINE")
+                $ntype = "Combined Synopsis/Solicitation";
+            else if($ntype == "SNOTE")
+                $ntype = "Special Notice";
+            else if($ntype == "AWARD")
+                $ntype = "Award Notice";
+            else if($ntype == "JA")
+                $ntype = "Justification and Approval (J&A)";
+            else if($ntype == "ITB")
+                $ntype = "Intent to Bundle Requirements (DoD Funded)";
+            else if($ntype == "FAIROPP")
+                $ntype = "Fair Opportunity / Limited Sources Justification";
+            else if($ntype == "FSTD")
+                $ntype = "Foreign Government Standard";
         
         // SQL conversion allows YYMMDD -> date type. DATE is MMDD, YEAR is YY. RESPDATE is MMDDYY, so rearrange the string in a stupid way because I dont know php
         $post_date = $year.$date;

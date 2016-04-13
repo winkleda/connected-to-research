@@ -55,7 +55,6 @@
 	app.controller('FundingController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
 		
 		var fundingCtrl = this;
-		fundingCtrl.currentFilterType = 'recommended';
 		
 		//get the filter-funding
 		fundingCtrl.filter = [];
@@ -64,47 +63,51 @@
 		});
 		
 		fundingCtrl.fundingItems = [];
+		fundingCtrl.filterParams = {
+				'source': 'recommended'
+			};
 		
 		//get the main funding items with the get method in $http service
 		$scope.fundingItemCall = function(item){
-            type = item.filterName;
-            item.selected = !item.selected;
-			fundingCtrl.currentFilterType = type;
-			console.log(fundingCtrl.filter)
+			if (item){
+				item.selected = !item.selected;
+			}
 			var str_source = "";
 			var str_agency = "";
 			var str_notice = "";
 			
 			for (i of fundingCtrl.filter) {
 				for (j of i.items) {
-					console.log(j);
 					if (j.hasOwnProperty("selected")) {
 						if (j.selected) {
 							if (i.header == "Source") {
-								str_source = str_source + j.filterName + "&&"
+								str_source = str_source + j.filterName + " ANDALSO "
 							}
 							else if(i.header == "Agency") {
-								str_agency = str_agency + j.filterName + "&&"
+								str_agency = str_agency + j.filterName + " ANDALSO "
 							}
 							else if(i.header == "Notice Type") {
-								str_notice = str_notice + j.filterName + "&&"
+								str_notice = str_notice + j.filterName + " ANDALSO "
 							}
 						}
 					}
 				}
 			}
-			str_source = str_source.substring(0, str_source.length - 2);
-			str_agency = str_agency.substring(0, str_agency.length - 2);
-			str_notice = str_notice.substring(0, str+notice.length - 2);
+			str_source = str_source.substring(0, str_source.length - 9);
+			str_agency = str_agency.substring(0, str_agency.length - 9);
+			str_notice = str_notice.substring(0, str_notice.length - 9);
 			
+			var http_data = {
+				'source': str_source,
+				'agency': str_agency,
+				'notice': str_notice
+			};
+			fundingCtrl.filterParams = http_data;
+
 			$http({
 				method:'GET',
 				url:'ajax/funding-items.php',
-				params:{
-					source: str_source,
-					agency: str_agency,
-					notice: str_notice
-				}
+				params: http_data
 			}).success(function(data){
 				fundingCtrl.fundingItems = data;
 			});
@@ -130,9 +133,6 @@
 			return false;
 		};
 		
-		//currentFilterType for the funding controller
-		$scope.fundingItemCall(fundingCtrl.currentFilterType);
-		
 		//getting funding deadlines
 		fundingCtrl.fundingDeadlines = [];
 		$http.get("ajax/funding-deadlines.php").success(function(data){
@@ -153,12 +153,16 @@
 		
 		//call to refresh funding filter, funding items, and event deadlines
 		$scope.refreshCall = function(){
-//          wondering if this causing the highlight to go away
-//			$http.get("ajax/filter-funding.php").success(function(data){
-//				fundingCtrl.filter = data;
-//			});
+			// Update the counts in the filter bar
+			$http.get("ajax/filter-funding.php").success(function(data){
+				fundingCtrl.filter = data;
+			});
 			
-			$http.get("ajax/funding-items.php").success(function(data){
+			$http({
+				method:'GET',
+				url:'ajax/funding-items.php',
+				params: fundingCtrl.filterParams
+			}).success(function(data){
 				fundingCtrl.fundingItems = data;
 			});
 			
@@ -186,6 +190,10 @@
 		//setting refreshCall at an interval
 		$interval(function(){$scope.refreshCall();}, 10000);
 		
+		// Load funding data when page loads
+		$scope.refreshCall();
+
+		
 		//add funding deadline 
 		$scope.addFundingDeadline = function(fundID){
 			$http({
@@ -207,12 +215,7 @@
 				$scope.refreshCall();
 			});
 		};
-        
-        // Toggle the selected filters
-        $scope.toggle = function(item){
-            item.selected = !item.selected;
-        }
-        
+		
 	}]);
 	
 	//Controller for managing the share funding button
@@ -220,7 +223,7 @@
 		
 		var peopleCtrl = this;
 		peopleCtrl.fundingShareUsers = [];
-//        peopleCtrl.selectedUsers = [];
+//		peopleCtrl.selectedUsers = [];
 		
 		//get users with a defined quantity of names to display
 		$http.get("scripts/get_users_funding.php").success(function(data){
@@ -239,8 +242,8 @@
 				if(!!fundingShareUsers.selected) userString = userString + fundingShareUsers.email + ',';
 			})
 			
-			console.log(userString);
-			console.log($scope.fundItem.id);
+			// console.log(userString);
+			// console.log($scope.fundItem.id);
 			
 			if(userString.length != 0){
 				userString = userString.substring(0, userString.length - 1);
@@ -261,7 +264,7 @@
 	}]);
 	
 	app.controller('FavoriteController',['$http', '$scope', '$log', '$interval', function($http, $scope, $log, $interval){
-		console.log("FUNDID: "+$scope.fundItem.id);
+		 console.log("FUNDID: "+$scope.fundItem.id);
 //		$scope.addFavorite = function(){
 //			$http({
 //					method:'GET',
