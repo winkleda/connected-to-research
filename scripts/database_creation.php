@@ -197,6 +197,13 @@ $sql_create_user_fav_fund = "CREATE TABLE ctr_user_fav_fund (
 	UNIQUE unique_index(email, fund_id)
 )";
 
+// Images for funding agencies
+$sql_create_agency_images = "CREATE TABLE ctr_agency_images (
+	agency  VARCHAR(255) PRIMARY KEY,
+	image   VARCHAR(255) NOT NULL
+)";
+
+
 $sql_table_creation_array = array(
 	$sql_create_user,
 	$sql_create_user_article_link,
@@ -215,7 +222,8 @@ $sql_table_creation_array = array(
 	$sql_create_interests,
     $sql_create_user_fund_link,
     $sql_create_user_fod_link,
-	$sql_create_user_fav_fund
+	$sql_create_user_fav_fund,
+    $sql_create_agency_images
 );
 
 $i = 1;

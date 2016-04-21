@@ -112,16 +112,40 @@ $stmt->execute();
 $fundings = $stmt->get_result();
 $data = array();
 while($funding = $fundings->fetch_assoc()) {
-	$data[] = array(
-		"title" => $funding['title'],
-		"url" => $funding['url'],
-		"agency" => $funding['agency'],
-		"postDate" => $funding['post_date'],
-		"dueDate" => $funding['due_date'],
-		"description" => $funding['description'],
-		"source" => $funding['source'],
-		"id" => $funding['id']
-	);
+    $image_stmt = $mysqli->stmt_init();
+    $image_query = "SELECT image FROM ctr_agency_images WHERE agency = '" . $funding['agency'] . "'";
+    if(!$image_stmt->prepare($image_query))
+        echo "Prepared failed: " . $image_stmt->error;
+    $image_stmt->execute();
+    $image = $image_stmt->get_result();
+    $image = $image->fetch_assoc();
+    $image = $image['image'];
+    
+    if($image) {
+        $data[] = array(
+            "title" => $funding['title'],
+            "url" => $funding['url'],
+            "agency" => $funding['agency'],
+            "postDate" => $funding['post_date'],
+            "dueDate" => $funding['due_date'],
+            "description" => $funding['description'],
+            "source" => $funding['source'],
+            "id" => $funding['id'],
+            "image" => $image
+        );
+    }
+    else {
+        $data[] = array(
+            "title" => $funding['title'],
+            "url" => $funding['url'],
+            "agency" => $funding['agency'],
+            "postDate" => $funding['post_date'],
+            "dueDate" => $funding['due_date'],
+            "description" => $funding['description'],
+            "source" => $funding['source'],
+            "id" => $funding['id']
+        );
+    }
 }
 $stmt->close();
 $mysqli->close();
