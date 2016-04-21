@@ -1,7 +1,7 @@
 <h4 class="panel-header">{{filter.header}}</h4>
 <div class="panel-body filter-column-groups">
 	<ul class="list-group"  ng-repeat="item in filter.items">
-		<a href="" class="list-group-item col-xs-10" ng-click="fundingItemCall(item)" ng-class="{ 'filter-column-item-active' : item.selected }">
+		<a href="" class="hover-highlight col-xs-10" ng-click="fundingItemCall(item)" ng-class="{ 'filter-column-item-active' : item.selected }">
 			{{item.groupItem}}
 		</a>
 		<a href="" class="list-group-item-count col-xs-2" ng-click="fundingItemCall(item)" ng-class="{ 'filter-column-item-active' : item.selected }">

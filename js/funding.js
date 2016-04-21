@@ -154,9 +154,9 @@
 		//call to refresh funding filter, funding items, and event deadlines
 		$scope.refreshCall = function(){
 			// Update the counts in the filter bar
-			$http.get("ajax/filter-funding.php").success(function(data){
-				fundingCtrl.filter = data;
-			});
+//			$http.get("ajax/filter-funding.php").success(function(data){
+//				fundingCtrl.filter = data;
+//			});
 			
 			$http({
 				method:'GET',

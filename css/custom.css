@@ -141,12 +141,13 @@
 	background-color:transparent;
 	border:none;
 	padding: 5px 2px;
+	text-decoration: none;
 }
 
 .filter-column-item-active{
 	color: #555;
 	text-decoration: none;
-	background-color: #f5f5f5 !important;
+	background-color: #c0c0c0 !important;
 /*	text-decoration: none;*/
 /*	background-color: #f5f5f5;*/
 	background-color: blue;
@@ -488,7 +489,10 @@
 .list-group-item-count:hover {
     text-decoration: none;
 }
-
+.hover-highlight:hover {
+	background: rgba(158, 158, 158, 0.1);
+	text-decoration: none;
+}
 /*
  *********************************************************
  *
