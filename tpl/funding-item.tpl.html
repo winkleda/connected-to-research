@@ -2,7 +2,14 @@
 <div class="funding-item-v">
 	<div class="funding-item">
 		<div class="funding-info-wrapper">
-			<a href="{{fundItem.url}}"><h3 class="funding-title">{{fundItem.title}}</h3></a>
+			<div class="row">
+				<div class="col-xs-10">
+					<a href="{{fundItem.url}}"><h3 class="funding-title">{{fundItem.title}}</h3></a>	
+				</div>
+				<div class="col-xs-2" >
+					<img class="agency-image" ng-show="fundItem.image" ng-src="{{'img_agency/'+fundItem.image}}">
+				</div>
+			</div>
 			<div class="funding-agency">
 				<p>Agency: {{fundItem.agency}}</p>
 			</div>

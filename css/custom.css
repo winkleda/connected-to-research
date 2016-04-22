@@ -539,7 +539,14 @@
 }
 
 .funding-title {
-	clear: both;
+/*	clear: both;*/
+}
+
+.agency-image {
+	height: 80px;
+	width: 80px;
+	overflow: hidden;
+	margin-top: 10px;
 }
 
 /*dog ear styling*/
