@@ -143,7 +143,7 @@ We continued meeting with our clients to get their feedback on how our project w
 
 They also had other requests, like moving the location of hyperlinks from the `Source' text to the `Title' text, and improving the `Share' button.
 
-%TODO - add meetings since then.
+After we finished the beta release, our clients started asking us to improve the site design. Their first request was to allow users to select multiple filter categories from the filter panel on the left side of the webpage. Their next request was to embed images in the funding item titles, showing the agency offering the opportunity. Another request was to implement a peeking feature, where users could see some of the publications from the publications page without actually navigating to that page, and vice-versa for the funding page from publications.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% OUR WORK
@@ -269,6 +269,7 @@ We also implemented a bookmarking system. This is currently shown with a button 
 %%%%% WORK DONE DURING SPRING
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview of Work Done During Spring}
+Because we mostly finished our project last quarter, we spent most of our development time making improvements to the site's interface. These were done at the request of the clients and were brought up during our meetings.
 
 \subsection{TODO - add description of the link peeking. How we can see the top three items when we mmouse over a link in the navbar.}
 
@@ -276,9 +277,8 @@ We also implemented a bookmarking system. This is currently shown with a button 
 \subsection{TODO - add description of the multi-toggling.}
 
 
-\subsection{TODO - add description of the icons.}
-
-
+\subsection{Agency Icons}
+Our client wanted users to be able to see agency icons near the titles in the funding component. To do this, we needed to create a new table, which we named '\textit{ctr\_agency\_images}'. This tables contains a \texttt{VARCHAR} to store the agency name, and another \texttt{VARCHAR} to store the file name of the image on our server. We stored the images in a directory named \textit{img\_agency}, because the directory named \textit{img} was already being used for profile pictures. To add images to the site, we created a script named \textit{agency\_add\_image.php}, which takes an agency name and URL for an image found on the internet as GET variables. When the JavaScript requests funding items, the image associated with relevant agencies are also returned. And in the JavaScript, we embed the images in a new \texttt{div} added to the funding item template. 
 
 \section{Problems We've Encountered}
 One of the conflicts that we came by was the creation of the filter column in funding.html. We tried to create a Javascript file that would create directives and controllers to bind to the funding.html webpage. The issue we tackled was trying to get the filter column to display based on what filter-funding.php queried, but there was a binding parameter error. So we took out the parameter binding, but the funding.html still didn't grab the necessary information, when the filter-funding.php script was already working. 
