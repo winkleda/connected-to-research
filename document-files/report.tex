@@ -271,7 +271,14 @@ We also implemented a bookmarking system. This is currently shown with a button 
 \section{Overview of Work Done During Spring}
 Because we mostly finished our project last quarter, we spent most of our development time making improvements to the site's interface. These were done at the request of the clients and were brought up during our meetings.
 
-\subsection{TODO - add description of the link peeking. How we can see the top three items when we mmouse over a link in the navbar.}
+\subsection{Peeking Feature}
+Initially our client desired for a multiple page peeking feature in the top navigation. But after some discussions and some limitations considered, our team decided to implement the peeking feature once on each webpage. Plus, it is redundant for the user to see the top three funding opportunities while on the funding page. Similar redundancy with the publications page. 
+
+The feature we have in place operates where the user can view the top 3 information of another page by hovering over it. In order to implement two different ng-apps in one html file, we did this by splitting ng-app in \textit{index.html} and \textit{funding.html} with the use of the ID attribute. By identifying the ID and ng-app of the \textit{div} tag we can use a simple script to bootstrap two different ng-apps into the same html file. 
+
+For structure wise, both \textit{funding.js} and \textit{app.js} have their own controllers that get dropdown menus from different template html files (\textit{funding.js} gets from \textit{nav-bar-funding.tpl.html} and \textit{app.js} gets from \textit{nav-bar.tpl.html}). The \textit{NavbarController} in \textit{funding.js} also gets from a different php file with a specific SQL statement that returns 3 funding opportunities. 
+
+Lastly, there are some CSS combined with Angular directives that allow the user to hover over the other webpage link to view the top 3 results.
 
 
 \subsection{TODO - add description of the multi-toggling.}
