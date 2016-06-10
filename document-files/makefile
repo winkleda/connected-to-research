@@ -2,7 +2,7 @@
 LATEX	= pdflatex -shell-escape -file-line-error
 #LATEX	= pdflatex -shell-escape -interaction=nonstopmode -file-line-error
 
-all: report.pdf
+all: documentation.pdf
 midterm.pdf: winter.tex
 	pygmentize -l php -f latex -o code/__parse1.tex code/parse1.php
 	pygmentize -l php -f latex -o code/__parse2.tex code/parse2.php
@@ -18,6 +18,12 @@ report.pdf: report.tex
 	pygmentize -l php -f latex -o code/__parse2.tex code/parse2.php
 	$(LATEX) report.tex
 	$(LATEX) report.tex
+
+documentation.pdf: documentation.tex
+	pygmentize -l php -f latex -o code/__parse1.tex code/parse1.php
+	pygmentize -l php -f latex -o code/__parse2.tex code/parse2.php
+	$(LATEX) documentation.tex
+	$(LATEX) documentation.tex
 
 clean:
 	rm -f *.pdf *.ps *.dvi *.out *.log *.aux *.bbl *.blg *.pyg *.toc code/__*.tex

@@ -129,10 +129,26 @@ Third, we need a workable user interface. This may be the most important part be
 
 During one of our meetings with the client, they informed us that they did not want us to create a system to match users with funding opportunities based on their interests. Instead, they will use their own tools. We will not need to process the user interests, but we will still keep functionality for users to record their interests.
 
+\section{Client Meetings}
+
+At the start of Winter term, our client decided that they would like to have bi-weekly meetings with our group. The first meeting we had was on January 11\textsuperscript{th},  where our client wanted to discuss the deliverables that our group is required to complete for this quarter and any questions we may have pertaining to the project. During the meeting, we discussed about the upcoming deliverable deadlines and how to best plan for them.
+
+During the second meeting that happened on January 25th, we discussed our current progress on the project, questions to clarify the design of the interface, and goals that still need to be reached. In the meeting, we explained how our parser works to our client and what we have so far on planning the interface design. The client informed us that they wanted a funding webpage that is able to sort the funding opportunities based on certain filter criteria. They also gave us general criteria of what filters we should create for the UI based on what our parser inputs into our database. What the client would like on the display of the website has definitely changed due to some constraints of what information we can grab from either Grants.gov or FedBizOpps. 
+
+Our client wanted us to create a filter for the funding opportunities which will split the view into three parts. One part is the left side where all of the filter buttons will be located, the center where it will display the funding opportunities based on the filter, and the right side where all of the funding opportunities' deadlines will be located. 
+
+In order to implement the filter, we had to create a similar design to the previous team in order to keep the design consistent. At first there was a challenge in making the filter display itself. But as we went through the code, we found there to be typos and one of the typos was the bug to why we could not see our filter. Once we got the filter column to show up. We had to implement the SQL queries step-by-step because if a SQL query didn't work properly, we would not be able to see our output. After we got a framework of the filter column, we needed to make it more tailored to what the user would want to see. Therefore we used nested arrays within our filter in order to be as detail as possible so that the user does not have to spend much time scrolling through the funding opportunities.
+
+We continued meeting with our clients to get their feedback on how our project was progressing. They gave us multiple suggestions to improve the site. Most of their suggestions were cosmetic, related to how the data is displayed. One recommendation is to add a picture of the agency offering the opportunity to be shown in the corner of the opportunity data. They also want to be able to select one filter criteria from each section of the filter column. So for example, they could click `FedBizOpps' to filter all FedBizOpps opportunities, then click on `Department of Veterans Affairs' to filter all FedBizOpps opportunities that are offered by the Department of Veterans Affairs.
+
+They also had other requests, like moving the location of hyperlinks from the `Source' text to the `Title' text, and improving the `Share' button.
+
+%TODO - add meetings since then.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% OUR WORK
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Our Work So Far}
+\section{Work Done During Winter}
 Because the previous team laid the foundation for our contributions to build on, much of our work involves understanding their codebase and adapting it to our changes. The main thrust of our efforts has been to develop a database for funding opportunities, and the scripts that fill them. Eventually, we contacted a member of the previous team, Anton Dovzhik, to help us configure the website properly. Afterwards, we focused on building our app starting with the database and parsers.
 
 We needed to investigate the metadata from our funding sources and determine the best way to take their data and put it into our database. We searched through the documentation for FedBizOpps and found that they published two types of files through an FTP portal on their website. They published a weekly XML file, which contained a well-formed XML document that lists all of the funding opportunities listed in their database. They also publish nightly files which they call XML, but which aren't actually XML. These nightly files contain the opportunities that have been added or updated since the last nightly file. They do not conform to any XML rules, and are more like formatted text documents. For Grants.gov, we found that they publish daily dumps of their entire grant database. These files are much more straightforward to parse. Their documentation is also accurate, unlike FedBizOpps. We parse these XML files using PHP and insert each valid record into our database. Our clients defined which types of records such be inserted into our database. 
@@ -239,33 +255,36 @@ We also need to modify their templates. Our templates are mostly the same, but n
     \label{fig:mockup}
 \end{figure}
 
-\subsection{Client Meetings}
-
-At the start of this term, our client decided that they would like to have bi-weekly meetings with our group. The first meeting we had was on January 11\textsuperscript{th},  where our client wanted to discuss the deliverables that our group is required to complete for this quarter and any questions we may have pertaining to the project. During the meeting, we discussed about the upcoming deliverable deadlines and how to best plan for them.
-
-During the second meeting that happened on January 25th, we discussed our current progress on the project, questions to clarify the design of the interface, and goals that still need to be reached. In the meeting, we explained how our parser works to our client and what we have so far on planning the interface design. The client informed us that they wanted a funding webpage that is able to sort the funding opportunities based on certain filter criteria. They also gave us general criteria of what filters we should create for the UI based on what our parser inputs into our database. What the client would like on the display of the website has definitely changed due to some constraints of what information we can grab from either Grants.gov or FedBizOpps. 
-
-Our client wanted us to create a filter for the funding opportunities which will split the view into three parts. One part is the left side where all of the filter buttons will be located, the center where it will display the funding opportunities based on the filter, and the right side where all of the funding opportunities' deadlines will be located. 
-
-In order to implement the filter, we had to create a similar design to the previous team in order to keep the design consistent. At first there was a challenge in making the filter display itself. But as we went through the code, we found there to be typos and one of the typos was the bug to why we could not see our filter. Once we got the filter column to show up. We had to implement the SQL queries step-by-step because if a SQL query didn't work properly, we would not be able to see our output. After we got a framework of the filter column, we needed to make it more tailored to what the user would want to see. Therefore we used nested arrays within our filter in order to be as detail as possible so that the user does not have to spend much time scrolling through the funding opportunities.
-
-We continued meeting with our clients to get their feedback on how our project was progressing. They gave us multiple suggestions to improve the site. Most of their suggestions were cosmetic, related to how the data is displayed. One recommendation is to add a picture of the agency offering the opportunity to be shown in the corner of the opportunity data. They also want to be able to select one filter criteria from each section of the filter column. So for example, they could click `FedBizOpps' to filter all FedBizOpps opportunities, then click on `Department of Veterans Affairs' to filter all FedBizOpps opportunities that are offered by the Department of Veterans Affairs.
-
-They also had other requests, like moving the location of hyperlinks from the `Source' text to the `Title' text, and improving the `Share' button.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% WORK TO BE DONE
+%%%%% WORK DONE DURING WINTER, AFTER MIDTERM
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Overview of Work Done Since the Midterm}
+%\section{Overview of Work Done During Winter}
 Currently, our page does not connect users with funding opportunities based on their interests. Instead, we have a script named `recommend\_to\_user.php', which will connect them through a web interface. Our client will implement their own pattern matching software to make the connections, and use our script to enter them into the database. The clients do not want us to write the matching system ourselves.
 
 The sharing feature was implemented by duplicating the functionality from the publications component. We updated the share button so that users could search all of the current users. Before, it would just list all registered users in the share button, and users would need to find someone in that list. This obviously would not work well for a large website with many users, so we implemented JavaScript functionality to limit the number of users displayed, and to allow searching through them. 
 
 We also implemented a bookmarking system. This is currently shown with a button with a plus on it in the website. Clicking the `plus' button on an opportunity description will add it to the funding opportunity deadlines column on the right of the page. The opportunities are sorted in chronological order, and disappear from the list after their due date passes. Our client has asked us to add a way to remove opportunities from this list, which we plan to implement as a button on the right of the title.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% WORK DONE DURING SPRING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview of Work Done During Spring}
+
+\subsection{TODO - add description of the link peeking. How we can see the top three items when we mmouse over a link in the navbar.}
+
+
+\subsection{TODO - add description of the multi-toggling.}
+
+
+\subsection{TODO - add description of the icons.}
+
+
+
 \section{Problems We've Encountered}
 One of the conflicts that we came by was the creation of the filter column in funding.html. We tried to create a Javascript file that would create directives and controllers to bind to the funding.html webpage. The issue we tackled was trying to get the filter column to display based on what filter-funding.php queried, but there was a binding parameter error. So we took out the parameter binding, but the funding.html still didn't grab the necessary information, when the filter-funding.php script was already working. 
 
 In the past implementation of Grants XML parser has a memory usage limit conflict. When working on Oregon State University's server, the memory usage limit for PHP is 68 megabytes. This is a conflict because the XML files that needs to be parse for the project is 128 megabytes or more. The problem lies within the program when a buffer gets the XML file. Whenever the buffer holds over 68 megabytes the program would return an error then the program would terminate. A potential solution is to grab each grant structure in the XML file individually then free the memory after inserting the opportunity into the database. By going grabbing each grant structure individually, the buffer would hold small amounts of data at every given time of the program's execution. Another problem with the Grants XML parser is that some of the elements in the Grants structure could either be a single string or an array of multiple strings. This was a problem because the database table accepts only a string. If an array was inserted then it would show up in the database as "Array" rather than its values. The solution to this was simple. Simply check if the element is an array and if it is then concatenate all of its members into a single string variable separated by commas.  Then insert the string into the database to its respective column.  
+
+
 
 \end{document}
